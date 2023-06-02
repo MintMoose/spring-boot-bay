@@ -21,6 +21,7 @@ target/
 
 ## setup files ##
 *.yml
+*.yaml
 
 ### NetBeans ###
 /nbproject/private/
