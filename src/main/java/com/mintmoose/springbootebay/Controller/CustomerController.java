@@ -30,6 +30,7 @@ public class CustomerController {
         customerService.deleteCustomer(customerId);
     }
 
+    @PutMapping("customer/{customerId}")
     public void updateCustomer(@PathVariable Long customerId, @RequestBody NewCustomerRequest request) {
         customerService.updateCustomer(customerId, request);
     }
