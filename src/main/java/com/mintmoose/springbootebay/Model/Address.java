@@ -20,16 +20,14 @@ public class Address {
     private Long customerId;
     private String street;
     private String city;
-    private String postalCode;
     private String country;
 
 
-    public Address(Long customerId, String street, String city, String postalCode, String country) {
+    public Address(Long customerId, String street, String city, String country) {
+        this.customerId = customerId;
         this.street = street;
         this.city = city;
-        this.postalCode = postalCode;
         this.country = country;
-        this.customerId = customerId;
     }
 
     @Override

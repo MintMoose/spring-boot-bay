@@ -1,3 +1,3 @@
 package com.mintmoose.springbootebay.Model;
 
-public record NewCustomerRequest(String firstName, String lastName, String email, String password) {}
+public record NewCustomerRequest(String username, String name, String email, String password) {}

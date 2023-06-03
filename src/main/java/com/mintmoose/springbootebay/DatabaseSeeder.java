@@ -19,9 +19,9 @@ public class DatabaseSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        Customer entity1 = new Customer("Hasan", "Iqbal", "HQball@gmail.com", "use-hashing");
+        Customer entity1 = new Customer("justshasans55", "Hasan Iqbal", "HQball@gmail.com", "use-hashing");
 
-        Customer entity2 = new Customer("James", "Patterson", "JP@gmail.com", "secure?");
+        Customer entity2 = new Customer("jamesspyder93", "James Patterson", "JP@gmail.com", "secure?");
 
         customerRepository.save(entity1);
         customerRepository.save(entity2);

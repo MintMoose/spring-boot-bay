@@ -27,8 +27,8 @@ public class CustomerService {
 
     public void createCustomer(NewCustomerRequest request) {
         Customer customer = new Customer();
-        customer.setFirstName(request.firstName());
-        customer.setLastName(request.lastName());
+        customer.setUsername(request.username());
+        customer.setName(request.name());
         customer.setEmail(request.email());
         customer.setPassword(request.password());
         customerRepository.save(customer);
@@ -43,11 +43,11 @@ public class CustomerService {
                 .orElseThrow(() -> new IllegalArgumentException("No such customer exists"));
 
 
-        if (!request.firstName().isEmpty()) {
-            oldCustomer.setFirstName(request.firstName());
+        if (!request.username().isEmpty()) {
+            oldCustomer.setUsername(request.username());
         }
-        if (!request.lastName().isEmpty()) {
-            oldCustomer.setLastName(request.lastName());
+        if (!request.name().isEmpty()) {
+            oldCustomer.setName(request.name());
         }
         if (!request.email().isEmpty()) {
             oldCustomer.setEmail(request.email());
