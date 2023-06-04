@@ -3,6 +3,7 @@ package com.mintmoose.springbootebay.Service;
 import com.mintmoose.springbootebay.Model.Customer;
 import com.mintmoose.springbootebay.Model.NewCustomerRequest;
 import com.mintmoose.springbootebay.Repos.CustomerRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Optional;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+//    private final PasswordEncoder passwordEncoder;
 
     public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
