@@ -25,6 +25,10 @@ public class CustomerService {
         return customerRepository.findById(customerId);
     }
 
+    public Optional<Customer> getCustomerByUsername(String username) {
+        return customerRepository.findByUsername(username);
+    }
+
     public void createCustomer(NewCustomerRequest request) {
         Customer customer = new Customer();
         customer.setUsername(request.username());
