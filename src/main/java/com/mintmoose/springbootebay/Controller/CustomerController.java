@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CustomerController {
 
-    private CustomerService customerService;
+    private final CustomerService customerService;
 
     @GetMapping("customer")
     public List<Customer> getAllCustomer() {
