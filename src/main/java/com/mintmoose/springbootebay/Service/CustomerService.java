@@ -63,4 +63,8 @@ public class CustomerService {
         }
         customerRepository.save(oldCustomer);
     }
+
+    public Optional<Customer> getCustomerById(Long customerId) {
+        return customerRepository.findById(customerId);
+    }
 }

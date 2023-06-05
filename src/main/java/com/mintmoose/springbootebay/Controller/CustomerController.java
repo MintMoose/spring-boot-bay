@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/admin/customer")
@@ -18,6 +19,12 @@ public class CustomerController {
     @GetMapping("")
     public List<Customer> getAllCustomer() {
         return customerService.getAllCustomers();
+    }
+
+    @GetMapping("/{customerId}")
+    public Customer getCustomer(@PathVariable Long customerId) {
+        return customerService.getCustomerById(customerId)
+                .orElseThrow(() -> new IllegalArgumentException("No such customer"));
     }
 
     @PostMapping("")
