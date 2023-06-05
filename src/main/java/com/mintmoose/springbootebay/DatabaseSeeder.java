@@ -51,9 +51,9 @@ public class DatabaseSeeder implements CommandLineRunner {
                 Categories.ELECTRONICS, false, "https://unsplash.com/photos/b-bnM85Z35o", entity2);
 
         Product product5 = new Product("Space Rock (rarely used)", "(Disclaimer: Not actually from space) French metallurgists discovered that molybdenum," +
-                " when alloyed with steel in small quantities, creates a substance that is remarkably tougher than steel alone and is highly resistant to heat." +
-                " Ideal for making tools and armor plate. Happy Crafting", 12_899.99,
-                Categories.ELECTRONICS, false, "https://unsplash.com/photos/9kRjMMLSPqw", entity2);
+                " when alloyed, creates a substance that is remarkably tougher than steel alone and is highly resistant to heat." +
+                " Ideal for making tools and armor plate. Happy Crafting!", 17899.99,
+                Categories.HEALTH_BEAUTY, false, "https://unsplash.com/photos/9kRjMMLSPqw", entity2);
 
         productRepository.save(product1);
         productRepository.save(product2);
