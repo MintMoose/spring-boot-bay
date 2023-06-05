@@ -34,6 +34,8 @@ public class Customer implements UserDetails {
     private Role role;
     @OneToMany
     private List<Product> products;
+    @OneToOne
+    private Address address;
 
     public Customer(String username, String name, String email, String password) {
         this.username = username;
