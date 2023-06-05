@@ -23,6 +23,7 @@ target/
 *.yml
 *.yaml
 *.properties
+.env
 
 ### NetBeans ###
 /nbproject/private/
