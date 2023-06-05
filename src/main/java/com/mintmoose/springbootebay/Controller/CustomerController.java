@@ -9,28 +9,28 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/admin/customer")
 @AllArgsConstructor
 public class CustomerController {
 
-    private CustomerService customerService;
+    private final CustomerService customerService;
 
-    @GetMapping("customer")
+    @GetMapping("")
     public List<Customer> getAllCustomer() {
         return customerService.getAllCustomers();
     }
 
-    @PostMapping("sign-up")
+    @PostMapping("")
     public void addCustomer(@RequestBody NewCustomerRequest request) {
         customerService.createCustomer(request);
     }
 
-    @DeleteMapping("customer/{customerId}")
+    @DeleteMapping("/{customerId}")
     public void deleteCustomer(@PathVariable Long customerId) {
         customerService.deleteCustomer(customerId);
     }
 
-    @PutMapping("customer/{customerId}")
+    @PutMapping("/{customerId}")
     public void updateCustomer(@PathVariable Long customerId, @RequestBody NewCustomerRequest request) {
         customerService.updateCustomer(customerId, request);
     }

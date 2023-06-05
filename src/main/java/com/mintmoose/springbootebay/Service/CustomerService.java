@@ -3,6 +3,7 @@ package com.mintmoose.springbootebay.Service;
 import com.mintmoose.springbootebay.Model.Customer;
 import com.mintmoose.springbootebay.Model.NewCustomerRequest;
 import com.mintmoose.springbootebay.Repos.CustomerRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Optional;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+//    private final PasswordEncoder passwordEncoder;
 
     public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
@@ -25,10 +27,14 @@ public class CustomerService {
         return customerRepository.findById(customerId);
     }
 
+    public Optional<Customer> getCustomerByUsername(String username) {
+        return customerRepository.findByUsername(username);
+    }
+
     public void createCustomer(NewCustomerRequest request) {
         Customer customer = new Customer();
-        customer.setFirstName(request.firstName());
-        customer.setLastName(request.lastName());
+        customer.setUsername(request.username());
+        customer.setName(request.name());
         customer.setEmail(request.email());
         customer.setPassword(request.password());
         customerRepository.save(customer);
@@ -43,11 +49,11 @@ public class CustomerService {
                 .orElseThrow(() -> new IllegalArgumentException("No such customer exists"));
 
 
-        if (!request.firstName().isEmpty()) {
-            oldCustomer.setFirstName(request.firstName());
+        if (!request.username().isEmpty()) {
+            oldCustomer.setUsername(request.username());
         }
-        if (!request.lastName().isEmpty()) {
-            oldCustomer.setLastName(request.lastName());
+        if (!request.name().isEmpty()) {
+            oldCustomer.setName(request.name());
         }
         if (!request.email().isEmpty()) {
             oldCustomer.setEmail(request.email());
