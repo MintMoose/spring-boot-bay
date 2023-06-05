@@ -20,16 +20,22 @@ public class Product {
     private String name;
     private String description;
     private double price;
-    private int quantity;
-    private String category;
+    @Enumerated(EnumType.STRING)
+    private Categories category;
     private boolean sold;
+    private String imageUrl;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer seller;
 
-    public Product(String name, String description, double price, int quantity, String category, boolean sold) {
+
+    public Product(String name, String description, double price, Categories category, boolean sold, String imageUrl, Customer seller) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.quantity = quantity;
         this.category = category;
         this.sold = sold;
+        this.imageUrl = imageUrl;
+        this.seller = seller;
     }
 }
