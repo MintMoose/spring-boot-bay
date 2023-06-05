@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -31,6 +32,8 @@ public class Customer implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToMany
+    private List<Product> products;
 
     public Customer(String username, String name, String email, String password) {
         this.username = username;
@@ -38,7 +41,9 @@ public class Customer implements UserDetails {
         this.email = email;
         this.password = password;
         this.role = Role.USER;
+        this.products = new ArrayList<>(); // Initialize the products list
     }
+
 
     @Override
     public boolean equals(Object o) {

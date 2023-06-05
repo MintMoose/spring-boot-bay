@@ -24,7 +24,7 @@ public class Order {
     @OneToMany(cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Product> products;
-    private double totalAmount;
+    private double totalPrice;
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
 
@@ -32,7 +32,7 @@ public class Order {
         this.customerId = customerId;
         this.orderDate = orderDate;
         this.products = products;
-        this.totalAmount = totalAmount;
+        this.totalPrice = totalAmount;
         this.paymentStatus = paymentStatus;
     }
 
