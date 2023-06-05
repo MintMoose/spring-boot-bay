@@ -44,7 +44,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 199.99, Categories.HOUSEHOLD, false, "https://unsplash.com/photos/lX-9IaYCals", entity1);
 
         Product product3 = new Product("Left Hand Taylormade Stealth 2 Driver", "Selling since i thought i was left handed golfer " +
-                "( mini golf lefty... ). 10.5 Degree / Stiff Flex Hzrdus Black Gen 4 (camera broke, image not accurate)",
+                "( mini golf lefty... ). 10.5 Degree / Stiff Flex Hzrdus Black Gen 4 (camera broke, stock image)",
                 215, Categories.HOBBY_DIY, true, "https://unsplash.com/photos/NczT3PIpZBw", entity1);
 
         Product product4 = new Product("Playstation 1", "Playstation 1 (Unopened), never found the time to use it.", 119.99,
