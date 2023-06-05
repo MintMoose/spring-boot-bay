@@ -37,23 +37,23 @@ public class DatabaseSeeder implements CommandLineRunner {
         customerRepository.save(entity2);
 
         Product product1 = new Product("Xbox", "For sale: Xbox, never used", 429.99,
-                Categories.ELECTRONICS, false, "https://unsplash.com/photos/WMMh6BtmTMo", entity1);
+                Categories.ELECTRONICS, false, "https://unsplash.com/photos/WMMh6BtmTMo", "justshasans55");
 
         Product product2 = new Product("Java Teak Garden Bench", "120cm 4ft 2 Seat Chunky Garden Furniture," +
                 " They are manufactured form FLEGT certified teak sourced from sustainable sources. Dog not included. stop asking!!!",
-                199.99, Categories.HOUSEHOLD, false, "https://unsplash.com/photos/lX-9IaYCals", entity1);
+                199.99, Categories.HOUSEHOLD, false, "https://unsplash.com/photos/lX-9IaYCals", "justshasans55");
 
         Product product3 = new Product("Left Hand Taylormade Stealth 2 Driver", "Selling since i thought i was left handed golfer " +
                 "( mini golf lefty... ). 10.5 Degree / Stiff Flex Hzrdus Black Gen 4 (camera broke, stock image)",
-                215, Categories.HOBBY_DIY, true, "https://unsplash.com/photos/NczT3PIpZBw", entity1);
+                215, Categories.HOBBY_DIY, true, "https://unsplash.com/photos/NczT3PIpZBw", "justshasans55");
 
         Product product4 = new Product("Playstation 1", "Playstation 1 (Unopened), never found the time to use it.", 119.99,
-                Categories.ELECTRONICS, false, "https://unsplash.com/photos/b-bnM85Z35o", entity2);
+                Categories.ELECTRONICS, false, "https://unsplash.com/photos/b-bnM85Z35o", "jamesspyder93");
 
         Product product5 = new Product("Space Rock (rarely used)", "(Disclaimer: Not actually from space) French metallurgists discovered that molybdenum," +
                 " when alloyed, creates a substance that is remarkably tougher than steel alone and is highly resistant to heat." +
                 " Ideal for making tools and armor plate. Happy Crafting!", 17899.99,
-                Categories.HEALTH_BEAUTY, false, "https://unsplash.com/photos/9kRjMMLSPqw", entity2);
+                Categories.HEALTH_BEAUTY, false, "https://unsplash.com/photos/9kRjMMLSPqw", "jamesspyder93");
 
         productRepository.save(product1);
         productRepository.save(product2);

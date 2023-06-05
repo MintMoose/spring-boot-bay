@@ -24,18 +24,15 @@ public class Product {
     private Categories category;
     private boolean sold;
     private String imageUrl;
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer seller;
+    private String customerUsername; // Changed from Customer object
 
-
-    public Product(String name, String description, double price, Categories category, boolean sold, String imageUrl, Customer seller) {
+    public Product(String name, String description, double price, Categories category, boolean sold, String imageUrl, String customerUsername) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
         this.sold = sold;
         this.imageUrl = imageUrl;
-        this.seller = seller;
+        this.customerUsername = customerUsername;
     }
 }
