@@ -1,0 +1,36 @@
+.center-cropped {
+  object-fit: cover;
+  width: 250px;
+  height: 200px;
+}
+
+.product-card {
+  width: 250px;
+}
+
+.product-carousel-container {
+  width: 35vw;
+}
+
+.product-title > h4 {
+  font-size: 1.25rem;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.product-card:hover h4 {
+  cursor: pointer;
+  display: block;
+  overflow: visible;
+  position: relative;
+}
+
+.product-card:hover img {
+  cursor: pointer;
+}
+
+.caro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
