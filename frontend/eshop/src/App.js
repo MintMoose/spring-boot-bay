@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import Layout from "./components/Layout";
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/home/Home";
+import RegisterForm from "./components/submitForm/registerForm";
+import NotFoundPage from "./components/notFoundPage";
 
 function App() {
   const [products, setProducts] = useState();
@@ -29,6 +31,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home products={products} />}></Route>
+          <Route path="/login" element={<RegisterForm />} />
+          <Route path="/register" element={<RegisterForm />} />
+          <Route path="/products" element={<RegisterForm />} />
+          <Route path="/*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </div>

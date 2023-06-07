@@ -5,15 +5,21 @@
   font-family: "Quicksand", Arial, Helvetica, sans-serif;
 }
 
-body {
-  padding: 0;
-  margin: 0;
-}
-
 .App {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   color: white;
   margin-top: 1rem;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  overflow-x: hidden;
+}
+
+main {
+  min-height: 100vh;
 }

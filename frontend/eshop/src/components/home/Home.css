@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: 0rem;
   align-items: center;
+  background-color: #f9f9f9;
 }
 
 .slick-slider {
