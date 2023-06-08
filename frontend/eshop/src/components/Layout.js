@@ -3,7 +3,7 @@ import "./Navbar.css";
 
 import React from "react";
 
-const Layout = () => {
+const Layout = ({ isLoggedIn }) => {
   return (
     <div class="final">
       <main>
@@ -27,22 +27,31 @@ const Layout = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/login">
-                  Login
-                </Link>
-              </li>
-              <li className="nav-item">
                 <Link className="nav-link" to="/products">
                   Products
                 </Link>
               </li>
+              {isLoggedIn && (
+                <li className="nav-item">
+                  <Link className="nav-link" to="/profile">
+                    Profile
+                  </Link>
+                </li>
+              )}
+              {!isLoggedIn && (
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">
+                    Login
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </nav>
         <Outlet />
       </main>
       <footer>
-        <p>© 2022-2023, Springbay.com, Inc. or its affiliates </p>
+        <p>© 2022-2023, Springbay, Inc. or its affiliates </p>
       </footer>
     </div>
   );

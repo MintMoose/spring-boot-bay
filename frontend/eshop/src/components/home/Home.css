@@ -12,10 +12,11 @@
 
 #sign-in {
   width: 30vw;
+  max-width: 25rem;
   padding-block: 1rem;
   border-radius: 15px;
   border: none;
-  background-color: rgb(47, 47, 232);
+  background-color: rgb(53, 121, 217);
   color: white;
   font-size: 2rem;
   font-weight: bolder;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import "./registerForm.css";
 
 const LoginForm = () => {
@@ -48,7 +49,8 @@ const LoginForm = () => {
 
   return (
     <div>
-      <form className="login-form" onSubmit={handleSubmit}>
+      <form className="register-form" onSubmit={handleSubmit}>
+        <h2>Create Account</h2>
         <div>
           <label htmlFor="username">Username:</label>
           <input
@@ -91,6 +93,9 @@ const LoginForm = () => {
         By signing-in you agree to the terms and Conditions of Use & Sale.
         Please see our Privacy Notice, our Cookies Notice and our Interest-Based
         Ads Notice.
+      </p>
+      <p className="login-link">
+        Already have an account? <Link to="/login">Sign in</Link>
       </p>
     </div>
   );
