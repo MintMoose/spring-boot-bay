@@ -5,6 +5,8 @@ import com.mintmoose.springbootebay.Config.JwtService;
 import com.mintmoose.springbootebay.Model.Customer;
 import com.mintmoose.springbootebay.Service.CustomerService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -22,17 +24,19 @@ public class CustomerProfileController {
         return "Authorisation?";
     }
 
+    //Todo: Make sure the client includes the token correctly in the header.
+    //Todo: returning specific error responses with appropriate HTTP status codes instead of generic exceptions.
     @GetMapping("/{customerUsername}")
-    public Customer getCustomerProfile(@PathVariable String customerUsername, @RequestHeader("Authorization") String authorizationHeader) {
+    public ResponseEntity<?> getCustomerProfile(@PathVariable String customerUsername, @RequestHeader("Authorization") String authorizationHeader) {
         String token = authorizationHeader.substring(7);
         Customer requestCustomer = customerService.getCustomerByUsername(customerUsername)
                 .orElseThrow(() -> new IllegalArgumentException("Username does not match."));
         System.out.println(requestCustomer);
         System.out.println(token);
         if (jwtService.isTokenValid(token, requestCustomer)) {
-            return requestCustomer;
+            return ResponseEntity.ok(requestCustomer);
         }
-        throw new IllegalStateException("Not Valid");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
     }
 }
 
