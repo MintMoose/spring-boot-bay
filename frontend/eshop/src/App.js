@@ -28,16 +28,22 @@ function App() {
 
   return (
     <div>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/" element={<Home products={products} />}></Route>
-          <Route path="/login" element={<RegisterForm />} />
-          <Route path="/register" element={<RegisterForm />} />
-          <Route path="/products" element={<RegisterForm />} />
-          <Route path="/*" element={<NotFoundPage />} />
-        </Route>
-      </Routes>
-    </div>
+          <Routes>
+            <Route path="/" element={<Layout isLoggedIn={isLoggedIn} />}>
+              <Route
+                path="/"
+                element={<Home products={products} isLoggedIn={isLoggedIn} />}
+              ></Route>
+              <Route
+                path="/login"
+                element={<LoginForm isLoggedIn={isLoggedIn} />}
+              />
+              <Route path="/register" element={<RegisterForm />} />
+              <Route path="/products" element={<RegisterForm />} />
+              <Route path="/*" element={<NotFoundPage />} />
+            </Route>
+          </Routes>
+        </div>
   );
 }
 
