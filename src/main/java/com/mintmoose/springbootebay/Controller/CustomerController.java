@@ -19,38 +19,46 @@ public class CustomerController {
 
     @GetMapping("/{customerUsername}")
     public ResponseEntity<?> getCustomerProfile(@PathVariable String customerUsername, @RequestHeader("Authorization") String authorizationHeader) {
-        String token = authorizationHeader.substring(7);
-        Customer requestCustomer = customerService.getCustomerByUsername(customerUsername)
-                .orElseThrow(() -> new IllegalArgumentException("Customer not found."));
-        if (jwtService.isTokenValid(token, requestCustomer)) {
+        return processCustomerRequest(customerUsername, authorizationHeader, (token, requestCustomer) -> {
             return ResponseEntity.ok(requestCustomer);
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Invalid authorisation.");
+        });
     }
 
     @DeleteMapping("/{customerUsername}")
     public ResponseEntity<?> deleteCustomer(@PathVariable String customerUsername, @RequestHeader("Authorization") String authorizationHeader) {
-        String token = authorizationHeader.substring(7);
-        Customer requestCustomer = customerService.getCustomerByUsername(customerUsername)
-                .orElseThrow(() -> new IllegalArgumentException("Customer not found."));
-        if (jwtService.isTokenValid(token, requestCustomer)) {
+        return processCustomerRequest(customerUsername, authorizationHeader, (token, requestCustomer) -> {
             customerService.deleteCustomer(requestCustomer.getCustomerId());
             return ResponseEntity.status(HttpStatus.OK).body("Customer deleted successfully.");
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Invalid authorisation.");
+        });
     }
 
     @PutMapping("/{customerUsername}")
-    public ResponseEntity<String> updateCustomer(@PathVariable String customerUsername, @RequestBody NewCustomerRequest request, @RequestHeader("Authorization") String authorizationHeader) {
+    public ResponseEntity<?> updateCustomer(@PathVariable String customerUsername, @RequestBody NewCustomerRequest request, @RequestHeader("Authorization") String authorizationHeader) {
+        return processCustomerRequest(customerUsername, authorizationHeader, (token, requestCustomer) -> {
+            Customer updatedCustomer = customerService.updateCustomer(requestCustomer.getCustomerId(), request);
+            if (updatedCustomer != null) {
+                return ResponseEntity.ok(updatedCustomer);
+//                return ResponseEntity.status(HttpStatus.OK).body("Customer updated successfully.");
+            }
+            return ResponseEntity.notFound().build();
+
+        });
+    }
+
+    private ResponseEntity<?> processCustomerRequest(String customerUsername, String authorizationHeader, CustomerRequestProcessor processor) {
         String token = authorizationHeader.substring(7);
         Customer requestCustomer = customerService.getCustomerByUsername(customerUsername)
-                .orElseThrow(() -> new IllegalArgumentException("No such customer exists."));
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found."));
 
         if (jwtService.isTokenValid(token, requestCustomer)) {
-            customerService.updateCustomer(requestCustomer.getCustomerId(), request);
-            return ResponseEntity.status(HttpStatus.OK).body("Customer updated successfully.");
+            return processor.process(token, requestCustomer);
         }
 
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Invalid authorisation.");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Invalid authorization.");
+    }
+
+    private interface CustomerRequestProcessor {
+        ResponseEntity<?> process(String token, Customer requestCustomer);
     }
 }
+

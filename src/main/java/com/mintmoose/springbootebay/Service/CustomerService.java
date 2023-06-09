@@ -47,7 +47,7 @@ public class CustomerService {
         customerRepository.deleteById(customerId);
     }
 
-    public void updateCustomer(Long customerId, NewCustomerRequest request) {
+    public Customer updateCustomer(Long customerId, NewCustomerRequest request) {
         Customer oldCustomer = getCustomer(customerId)
                 .orElseThrow(() -> new IllegalArgumentException("No such customer exists"));
 
@@ -64,7 +64,8 @@ public class CustomerService {
         if (!request.password().isEmpty()) {
             oldCustomer.setPassword(request.password());
         }
-        customerRepository.save(oldCustomer);
+        return customerRepository.save(oldCustomer);
+
     }
 
     public Optional<Customer> getCustomerById(Long customerId) {

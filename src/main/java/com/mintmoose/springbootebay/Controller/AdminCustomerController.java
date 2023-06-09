@@ -2,6 +2,7 @@ package com.mintmoose.springbootebay.Controller;
 
 import com.mintmoose.springbootebay.Model.Customer;
 import com.mintmoose.springbootebay.Model.NewCustomerRequest;
+import com.mintmoose.springbootebay.Model.Product;
 import com.mintmoose.springbootebay.Service.CustomerService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,17 +33,28 @@ public class AdminCustomerController {
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     public void addCustomer(@RequestBody NewCustomerRequest request) {
+        // Todo: since you cant have same username or email in repo this needs to be return the correct response.
         customerService.createCustomer(request);
     }
 
     @DeleteMapping("/{customerId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCustomer(@PathVariable Long customerId) {
-        customerService.deleteCustomer(customerId);
+        Customer customer = customerService.getCustomerById(customerId)
+                .orElseThrow(() -> new IllegalArgumentException("No such customer"));
+        customerService.deleteCustomer(customer.getCustomerId());
+        ResponseEntity.ok("Customer deleted successfully.");
     }
 
     @PutMapping("/{customerId}")
-    public void updateCustomer(@PathVariable Long customerId, @RequestBody NewCustomerRequest request) {
-        customerService.updateCustomer(customerId, request);
+    public ResponseEntity<?> updateCustomer(@PathVariable Long customerId, @RequestBody NewCustomerRequest request) {
+        Customer customer = customerService.getCustomerById(customerId)
+                .orElseThrow(() -> new IllegalArgumentException("No such customer"));
+        Customer updatedCustomer =  customerService.updateCustomer(customerId, request);
+        if (updatedCustomer != null) {
+            return ResponseEntity.ok(updatedCustomer);
+        }
+        return ResponseEntity.notFound().build();
+
     }
 }

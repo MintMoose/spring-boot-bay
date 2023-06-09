@@ -8,12 +8,11 @@ import com.mintmoose.springbootebay.Model.Product;
 import com.mintmoose.springbootebay.Service.CustomerService;
 import com.mintmoose.springbootebay.Service.ProductService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/products")
@@ -24,21 +23,15 @@ public class ProductController {
     private final JwtService jwtService;
     private final CustomerService customerService;
 
-    @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody CreateProductRequest request, @RequestHeader("Authorization") String authorizationHeader) {
-        String token = authorizationHeader.substring(7);
-        String username = jwtService.extractUsername(token);
-        Product createdProduct = productService.createProduct(request, username);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
+    @GetMapping()
+    public ResponseEntity<?> getAllProducts() {
+        return ResponseEntity.ok(productService.getAllProducts());
     }
 
-
-    @GetMapping
-    public ResponseEntity<?> getAllProducts(@RequestHeader("Authorization") String authorizationHeader) {
-        String token = authorizationHeader.substring(7);
-        String username = jwtService.extractUsername(token);
+    @GetMapping("/{username}")
+    public ResponseEntity<?> getUserProducts(@PathVariable("username") String username) {
         Customer requestCustomer = customerService.getCustomerByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found."));
         return ResponseEntity.ok(productService.getUserProducts(requestCustomer.getCustomerId()));
     }
 
@@ -47,13 +40,49 @@ public class ProductController {
         return productService.getProductById(id);
     }
 
+    @PostMapping
+    public ResponseEntity<?> createProduct(@RequestBody CreateProductRequest request, @RequestHeader("Authorization") String authorizationHeader) {
+        String token = authorizationHeader.substring(7);
+        String username = jwtService.extractUsername(token);
+        Customer requestCustomer = customerService.getCustomerByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
+        if (jwtService.isTokenValid(token, requestCustomer)) {
+            Product createdProduct = productService.createProduct(request, username);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Invalid authorization.");
+    }
+
     @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable("id") Long id, @RequestBody NewProductRequest request) {
-        return productService.updateProduct(id, request);
+    public ResponseEntity<?> updateProduct(@PathVariable("id") Long id, @RequestBody NewProductRequest request, @RequestHeader("Authorization") String authorizationHeader) {
+        String token = authorizationHeader.substring(7);
+        String username = jwtService.extractUsername(token);
+        Customer requestCustomer = customerService.getCustomerByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
+        if (jwtService.isTokenValid(token, requestCustomer)) {
+            if (Objects.equals(productService.getProductById(id).getCustomerUsername(), requestCustomer.getUsername())) {
+                Product updatedProduct = productService.updateProduct(id, request);
+                if (updatedProduct != null) {
+                    return ResponseEntity.ok(updatedProduct);
+                }
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Invalid authorization.");
+
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable("id") Long id) {
-        productService.deleteProduct(id);
+    public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id, @RequestHeader("Authorization") String authorizationHeader) {
+        String token = authorizationHeader.substring(7);
+        String username = jwtService.extractUsername(token);
+        Customer requestCustomer = customerService.getCustomerByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
+        if (jwtService.isTokenValid(token, requestCustomer)) {
+            if (Objects.equals(productService.getProductById(id).getCustomerUsername(), requestCustomer.getUsername())) {
+                productService.deleteProduct(id);
+                return ResponseEntity.status(HttpStatus.OK).body("Customer deleted successfully.");
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Invalid authorization.");
     }
 }

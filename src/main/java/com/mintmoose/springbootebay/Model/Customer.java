@@ -21,6 +21,10 @@ import java.util.Objects;
 @Entity
 @Builder
 @AllArgsConstructor
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = "username"),
+        @UniqueConstraint(columnNames = "email")
+})
 public class Customer implements UserDetails {
 
     @Id
