@@ -38,7 +38,12 @@ function App() {
           ></Route>
           <Route
             path="/login"
-            element={<LoginForm isLoggedIn={isLoggedIn} />}
+            element={
+              <LoginForm
+                setIsLoggedIn={setIsLoggedIn}
+                isLoggedIn={isLoggedIn}
+              />
+            }
           />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/products" element={<RegisterForm />} />

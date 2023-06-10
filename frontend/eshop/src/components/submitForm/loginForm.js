@@ -3,13 +3,11 @@ import axios from "axios";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./loginForm.css";
 
-const LoginForm = () => {
+const LoginForm = ({ isLoggedIn, setIsLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -28,11 +26,11 @@ const LoginForm = () => {
     };
 
     axios
-      .post("http://localhost:8080/login", data)
+      .post("http://localhost:8080/login/authenticate", data)
       .then((response) => {
         console.log("Login successful:", response.data);
-        const { from } = location.state || { from: { pathname: "/" } };
-        navigate.replace(from);
+        setIsLoggedIn(true);
+        navigate("/dashboard");
       })
       .catch((error) => {
         console.error("Login failed:", error);
