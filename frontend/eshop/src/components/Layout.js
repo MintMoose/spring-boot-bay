@@ -50,7 +50,7 @@ const Layout = ({ isLoggedIn }) => {
         </nav>
         <Outlet />
       </main>
-      <footer>
+      <footer className="footer">
         <p>© 2022-2023, Springbay, Inc. or its affiliates </p>
       </footer>
     </div>

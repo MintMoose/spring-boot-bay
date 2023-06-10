@@ -6,6 +6,9 @@ import com.mintmoose.springbootebay.Model.NewProductRequest;
 import com.mintmoose.springbootebay.Model.Product;
 import com.mintmoose.springbootebay.Repos.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +19,11 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
+    int pageNumber = 0; // Page number (0-indexed)
+    int pageSize = 10; // Number of products per page
+
+    Pageable pageable = PageRequest.of(pageNumber, pageSize);
+
     @Autowired
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -25,8 +33,10 @@ public class ProductService {
         return productRepository.findById(id).orElse(null);
     }
 
+
     public List<Product> getUserProducts(String customerUsername) {
-        return productRepository.findAllByCustomerUsername(customerUsername);
+        Page<Product> productsPage = productRepository.findAllByCustomerUsername(customerUsername, pageable);
+        return productsPage.getContent();
     }
 
     public Product updateProduct(Long id, NewProductRequest request) {
@@ -58,8 +68,8 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public Page<Product> getAllProducts(Pageable pageable) {
+        return productRepository.findAllCustomers(pageable);
     }
 
     public Product createProduct(CreateProductRequest params, String username) {
