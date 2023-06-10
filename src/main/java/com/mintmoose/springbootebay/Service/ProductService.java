@@ -1,5 +1,7 @@
 package com.mintmoose.springbootebay.Service;
 
+import com.mintmoose.springbootebay.Config.JwtService;
+import com.mintmoose.springbootebay.Model.CreateProductRequest;
 import com.mintmoose.springbootebay.Model.NewProductRequest;
 import com.mintmoose.springbootebay.Model.Product;
 import com.mintmoose.springbootebay.Repos.ProductRepository;
@@ -21,6 +23,10 @@ public class ProductService {
 
     public Product getProductById(Long id) {
         return productRepository.findById(id).orElse(null);
+    }
+
+    public List<Product> getUserProducts(String customerUsername) {
+        return productRepository.findAllByCustomerUsername(customerUsername);
     }
 
     public Product updateProduct(Long id, NewProductRequest request) {
@@ -56,7 +62,27 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product createProduct(Product product) {
+    public Product createProduct(CreateProductRequest params, String username) {
+
+        if (params.name() == null ||
+                params.description() == null ||
+                params.price() == null ||
+                params.category() == null ||
+                params.imageUrl() == null) {
+            throw new IllegalArgumentException("Missing required parameters for creating a product.");
+        }
+
+        Product product = new Product();
+        product.setName(params.name());
+        product.setDescription(params.description());
+        product.setPrice(params.price());
+        product.setCategory(params.category());
+        product.setImageUrl(params.imageUrl());
+        product.setCustomerUsername(username);
+
         return productRepository.save(product);
     }
+
+
+
 }

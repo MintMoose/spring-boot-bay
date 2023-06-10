@@ -3,6 +3,7 @@ package com.mintmoose.springbootebay;
 import com.mintmoose.springbootebay.Model.Categories;
 import com.mintmoose.springbootebay.Model.Customer;
 import com.mintmoose.springbootebay.Model.Product;
+import com.mintmoose.springbootebay.Model.Role;
 import com.mintmoose.springbootebay.Repos.CustomerRepository;
 import com.mintmoose.springbootebay.Repos.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +32,14 @@ public class DatabaseSeeder implements CommandLineRunner {
                 "HQball@gmail.com", passwordEncoder.encode("use-hashing"));
 
         Customer entity2 = new Customer("jamesspyder93", "James Patterson",
-                "JP@gmail.com", passwordEncoder.encode("secure?"));
+                "JP@gmail.com", passwordEncoder.encode("dRea%nTie6Holve"));
+
+        Customer admin1 = new Customer("admin", "Ashok Kumar", "admin@hotmail.co.uk", passwordEncoder.encode("secure?"));
+        admin1.setRole(Role.ADMIN);
 
         customerRepository.save(entity1);
         customerRepository.save(entity2);
+        customerRepository.save(admin1);
 
         Product product1 = new Product("Xbox (New)", "For sale: Xbox, never used", 429.99,
                 Categories.ELECTRONICS, false, "https://source.unsplash.com/WMMh6BtmTMo", "justshasans55");

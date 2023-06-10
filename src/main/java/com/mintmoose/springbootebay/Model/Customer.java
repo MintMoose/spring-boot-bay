@@ -21,6 +21,10 @@ import java.util.Objects;
 @Entity
 @Builder
 @AllArgsConstructor
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = "username"),
+        @UniqueConstraint(columnNames = "email")
+})
 public class Customer implements UserDetails {
 
     @Id
@@ -33,6 +37,7 @@ public class Customer implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
     @OneToMany
+    @ToString.Exclude
     private List<Product> products;
     @OneToOne
     private Address address;
@@ -46,6 +51,9 @@ public class Customer implements UserDetails {
         this.products = new ArrayList<>(); // Initialize the products list
     }
 
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     @Override
     public boolean equals(Object o) {

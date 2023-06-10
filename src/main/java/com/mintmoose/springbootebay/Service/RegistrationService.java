@@ -17,10 +17,16 @@ public class RegistrationService {
 
     private final CustomerRepository customerRepository;
     private final JwtService jwtService;
-    private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
 
     public AuthenticationResponse register(RegisterRequest request) {
+
+        if (request.getUsername() == null || request.getUsername().isEmpty()
+                || request.getName() == null || request.getName().isEmpty()
+                || request.getEmail() == null || request.getEmail().isEmpty()) {
+            throw new IllegalArgumentException("All request parameters are required.");
+        }
+
         var customer = Customer.builder()
                 .username(request.getUsername())
                 .name(request.getName())

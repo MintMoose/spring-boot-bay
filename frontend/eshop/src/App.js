@@ -7,9 +7,11 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./components/home/Home";
 import RegisterForm from "./components/submitForm/registerForm";
 import NotFoundPage from "./components/notFoundPage";
+import LoginForm from "./components/submitForm/loginForm";
 
 function App() {
   const [products, setProducts] = useState();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const getProducts = async () => {
     try {
@@ -28,22 +30,27 @@ function App() {
 
   return (
     <div>
-          <Routes>
-            <Route path="/" element={<Layout isLoggedIn={isLoggedIn} />}>
-              <Route
-                path="/"
-                element={<Home products={products} isLoggedIn={isLoggedIn} />}
-              ></Route>
-              <Route
-                path="/login"
-                element={<LoginForm isLoggedIn={isLoggedIn} />}
+      <Routes>
+        <Route path="/" element={<Layout isLoggedIn={isLoggedIn} />}>
+          <Route
+            path="/"
+            element={<Home products={products} isLoggedIn={isLoggedIn} />}
+          ></Route>
+          <Route
+            path="/login"
+            element={
+              <LoginForm
+                setIsLoggedIn={setIsLoggedIn}
+                isLoggedIn={isLoggedIn}
               />
-              <Route path="/register" element={<RegisterForm />} />
-              <Route path="/products" element={<RegisterForm />} />
-              <Route path="/*" element={<NotFoundPage />} />
-            </Route>
-          </Routes>
-        </div>
+            }
+          />
+          <Route path="/register" element={<RegisterForm />} />
+          <Route path="/products" element={<RegisterForm />} />
+          <Route path="/*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </div>
   );
 }
 
