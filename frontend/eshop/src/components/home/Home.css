@@ -1,0 +1,27 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
+  align-items: center;
+  background-color: #f9f9f9;
+}
+
+.slick-slider {
+  margin-bottom: 4rem;
+}
+
+#sign-in {
+  width: 30vw;
+  max-width: 25rem;
+  padding-block: 1rem;
+  border-radius: 15px;
+  border: none;
+  background-color: rgb(53, 121, 217);
+  color: white;
+  font-size: 2rem;
+  font-weight: bolder;
+}
+
+#sign-in:hover {
+  background-color: rgb(30, 30, 174);
+}
