@@ -19,10 +19,6 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    int pageNumber = 0; // Page number (0-indexed)
-    int pageSize = 10; // Number of products per page
-
-    Pageable pageable = PageRequest.of(pageNumber, pageSize);
 
     @Autowired
     public ProductService(ProductRepository productRepository) {
@@ -34,7 +30,7 @@ public class ProductService {
     }
 
 
-    public List<Product> getUserProducts(String customerUsername) {
+    public List<Product> getUserProducts(String customerUsername, Pageable pageable) {
         Page<Product> productsPage = productRepository.findAllByCustomerUsername(customerUsername, pageable);
         return productsPage.getContent();
     }

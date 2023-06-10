@@ -1,8 +1,10 @@
 package com.mintmoose.springbootebay.Controller;
 
 import com.mintmoose.springbootebay.Model.CreateProductRequest;
+import com.mintmoose.springbootebay.Model.Customer;
 import com.mintmoose.springbootebay.Model.NewProductRequest;
 import com.mintmoose.springbootebay.Model.Product;
+import com.mintmoose.springbootebay.Service.CustomerService;
 import com.mintmoose.springbootebay.Service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,6 +23,7 @@ import java.util.List;
 public class AdminProductController {
 
     private final ProductService productService;
+    private final CustomerService customerService;
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getProductById(@PathVariable Long id) {
@@ -62,5 +65,14 @@ public class AdminProductController {
             return ResponseEntity.ok(productsPage.getContent());
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No products found.");
+    }
+
+    @GetMapping("/{username}")
+    public ResponseEntity<?> getUserProducts(@PathVariable("username") String username, @RequestParam(defaultValue = "0") int pageNumber) {
+        int pageSize = 100; // Number of products per page
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Customer requestCustomer = customerService.getCustomerByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found."));
+        return ResponseEntity.ok(productService.getUserProducts(requestCustomer.getUsername(), pageable));
     }
 }
