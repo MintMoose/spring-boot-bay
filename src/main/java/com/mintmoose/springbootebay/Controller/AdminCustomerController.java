@@ -38,7 +38,6 @@ public class AdminCustomerController {
     }
 
     @DeleteMapping("/{customerId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCustomer(@PathVariable Long customerId) {
         Customer customer = customerService.getCustomerById(customerId)
                 .orElseThrow(() -> new IllegalArgumentException("No such customer"));

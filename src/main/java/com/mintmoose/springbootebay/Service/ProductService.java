@@ -15,20 +15,18 @@ import java.util.Optional;
 public class ProductService {
 
     private final ProductRepository productRepository;
-    private final JwtService jwtService;
 
     @Autowired
-    public ProductService(ProductRepository productRepository, JwtService jwtService) {
+    public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.jwtService = jwtService;
     }
 
     public Product getProductById(Long id) {
         return productRepository.findById(id).orElse(null);
     }
 
-    public List<Product> getUserProducts(Long customerId) {
-        return productRepository.findAllByCustomerId(customerId);
+    public List<Product> getUserProducts(String customerUsername) {
+        return productRepository.findAllByCustomerUsername(customerUsername);
     }
 
     public Product updateProduct(Long id, NewProductRequest request) {
@@ -65,6 +63,15 @@ public class ProductService {
     }
 
     public Product createProduct(CreateProductRequest params, String username) {
+
+        if (params.name() == null ||
+                params.description() == null ||
+                params.price() == null ||
+                params.category() == null ||
+                params.imageUrl() == null) {
+            throw new IllegalArgumentException("Missing required parameters for creating a product.");
+        }
+
         Product product = new Product();
         product.setName(params.name());
         product.setDescription(params.description());

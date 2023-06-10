@@ -32,12 +32,16 @@ public class ProductController {
     public ResponseEntity<?> getUserProducts(@PathVariable("username") String username) {
         Customer requestCustomer = customerService.getCustomerByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found."));
-        return ResponseEntity.ok(productService.getUserProducts(requestCustomer.getCustomerId()));
+        return ResponseEntity.ok(productService.getUserProducts(requestCustomer.getUsername()));
     }
 
-    @GetMapping("/{id}")
-    public Product getProductById(@PathVariable("id") Long id) {
-        return productService.getProductById(id);
+    @GetMapping("/details/{id}")
+    public ResponseEntity<?> getProductById(@PathVariable("id") Long id) {
+        Product requestProduct = productService.getProductById(id);
+        if (requestProduct != null) {
+            return ResponseEntity.ok(requestProduct);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product does not exist.");
     }
 
     @PostMapping
@@ -47,8 +51,12 @@ public class ProductController {
         Customer requestCustomer = customerService.getCustomerByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
         if (jwtService.isTokenValid(token, requestCustomer)) {
-            Product createdProduct = productService.createProduct(request, username);
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
+            try {
+                Product createdProduct = productService.createProduct(request, username);
+                return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
+            } catch (IllegalArgumentException e) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            }
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Invalid authorization.");
     }

@@ -49,7 +49,7 @@ public class AdminProductController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping
+    @GetMapping("")
     public ResponseEntity<?> getAllProducts() {
         List<Product> products = productService.getAllProducts();
         return ResponseEntity.ok(products);
