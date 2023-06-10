@@ -28,5 +28,8 @@
 
 .user-products {
   text-align: center;
-  margin-bottom: 10rem;
+}
+
+.sign-in-container {
+  text-align: center;
 }

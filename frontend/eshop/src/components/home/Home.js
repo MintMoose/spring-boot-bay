@@ -15,7 +15,7 @@ const Home = ({ products, isLoggedIn }) => {
           {/* Render additional content for authenticated users */}
         </div>
       ) : (
-        <div>
+        <div className="sign-in-container">
           <p>Please sign in to access more features.</p>
           {/* Render content for non-authenticated users */}
           <button id="sign-in">Sign in</button>

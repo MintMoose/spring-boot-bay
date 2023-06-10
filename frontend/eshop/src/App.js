@@ -8,6 +8,7 @@ import Home from "./components/home/Home";
 import RegisterForm from "./components/submitForm/registerForm";
 import NotFoundPage from "./components/notFoundPage";
 import LoginForm from "./components/submitForm/loginForm";
+import Products from "./components/product/Products";
 
 function App() {
   const [products, setProducts] = useState();
@@ -46,7 +47,7 @@ function App() {
             }
           />
           <Route path="/register" element={<RegisterForm />} />
-          <Route path="/products" element={<RegisterForm />} />
+          <Route path="/products" element={<Products />} />
           <Route path="/*" element={<NotFoundPage />} />
         </Route>
       </Routes>
