@@ -61,7 +61,6 @@ public class ProductController {
     }
 
     @PostMapping
-    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> createProduct(@RequestBody CreateProductRequest request, Authentication authentication) {
         if (authentication.isAuthenticated()) {
             String username = authentication.getName();

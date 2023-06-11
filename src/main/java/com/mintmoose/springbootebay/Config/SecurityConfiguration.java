@@ -26,6 +26,8 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
+                // csrf not necessary for apis
+                .csrf(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/login/**").permitAll()
