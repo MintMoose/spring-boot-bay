@@ -13,6 +13,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
@@ -59,14 +61,14 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createProduct(@RequestBody CreateProductRequest request, @RequestHeader("Authorization") String authorizationHeader) {
-        String token = authorizationHeader.substring(7);
-        String username = jwtService.extractUsername(token);
-        Customer requestCustomer = customerService.getCustomerByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
-        if (jwtService.isTokenValid(token, requestCustomer)) {
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> createProduct(@RequestBody CreateProductRequest request, Authentication authentication) {
+        if (authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            Customer requestCustomer = customerService.getCustomerByUsername(username)
+                    .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
             try {
-                Product createdProduct = productService.createProduct(request, username);
+                Product createdProduct = productService.createProduct(request, requestCustomer.getUsername());
                 return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
             } catch (IllegalArgumentException e) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -76,12 +78,12 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateProduct(@PathVariable("id") Long id, @RequestBody NewProductRequest request, @RequestHeader("Authorization") String authorizationHeader) {
-        String token = authorizationHeader.substring(7);
-        String username = jwtService.extractUsername(token);
-        Customer requestCustomer = customerService.getCustomerByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
-        if (jwtService.isTokenValid(token, requestCustomer)) {
+    public ResponseEntity<?> updateProduct(@PathVariable("id") Long id, @RequestBody NewProductRequest request, Authentication authentication) {
+
+        if (authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            Customer requestCustomer = customerService.getCustomerByUsername(username)
+                    .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
             if (Objects.equals(productService.getProductById(id).getCustomerUsername(), requestCustomer.getUsername())) {
                 Product updatedProduct = productService.updateProduct(id, request);
                 if (updatedProduct != null) {
@@ -94,15 +96,14 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id, @RequestHeader("Authorization") String authorizationHeader) {
-        String token = authorizationHeader.substring(7);
-        String username = jwtService.extractUsername(token);
-        Customer requestCustomer = customerService.getCustomerByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
-        if (jwtService.isTokenValid(token, requestCustomer)) {
+    public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id, Authentication authentication) {
+        if (authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            Customer requestCustomer = customerService.getCustomerByUsername(username)
+                    .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
             if (Objects.equals(productService.getProductById(id).getCustomerUsername(), requestCustomer.getUsername())) {
                 productService.deleteProduct(id);
-                return ResponseEntity.status(HttpStatus.OK).body("Customer deleted successfully.");
+                return ResponseEntity.status(HttpStatus.OK).body("Product deleted successfully.");
             }
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Invalid authorization.");
