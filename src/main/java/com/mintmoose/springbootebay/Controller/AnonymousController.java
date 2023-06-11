@@ -22,7 +22,7 @@ public class AnonymousController {
 
     @GetMapping("/products")
     public ResponseEntity<?> getAllProducts(@RequestParam(defaultValue = "0") int pageNumber) {
-        int pageSize = 10; // Number of products per page
+        int pageSize = 20; // Number of products per page
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         Page<Product> productsPage = productService.getAllProducts(pageable);
         if (productsPage.hasContent()) {

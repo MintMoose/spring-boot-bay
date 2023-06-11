@@ -3,6 +3,7 @@ package com.mintmoose.springbootebay.Config;
 import io.micrometer.common.lang.NonNull;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -24,22 +28,30 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
 
     @Override
-    protected void doFilterInternal(
-            @NonNull HttpServletRequest request,
-            @NonNull HttpServletResponse response,
-            @NonNull FilterChain filterChain
-    ) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
+            throws ServletException, IOException {
 
-        final String authHeader = request.getHeader("Authorization");
         final String jwtToken;
         final String username;
 
-        if (authHeader == null || !authHeader.startsWith("Bearer")) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null) {
             filterChain.doFilter(request, response);
             return;
         }
-        jwtToken = authHeader.substring(7);
+
+        Optional<Cookie> jwtCookie = Arrays.stream(cookies)
+                .filter(cookie -> cookie.getName().equals("jwt"))
+                .findFirst();
+
+        if (jwtCookie.isEmpty()) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        jwtToken = jwtCookie.get().getValue();
         username = jwtService.extractUsername(jwtToken);
+
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
