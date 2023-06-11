@@ -5,6 +5,9 @@ import com.mintmoose.springbootebay.Model.NewCustomerRequest;
 import com.mintmoose.springbootebay.Model.Product;
 import com.mintmoose.springbootebay.Service.CustomerService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +23,15 @@ public class AdminCustomerController {
     private final CustomerService customerService;
 
     @GetMapping("")
-    public List<Customer> getAllCustomers() {
-        return customerService.getAllCustomers();
+    public ResponseEntity<?> getAllCustomers(@RequestParam(defaultValue = "0") int pageNumber) {
+        int pageSize = 100; // Number of customers per page
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Page<Product> productsPage = customerService.getAllCustomers(pageable);
+        if (productsPage.hasContent()) {
+            return ResponseEntity.ok(productsPage.getContent());
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No customers found. How?");
     }
 
     @GetMapping("/{customerId}")
