@@ -16,6 +16,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Page<Product> findAllByCustomerUsername(String customerUsername, Pageable pageable);
 
     @Query("SELECT p FROM Product p")
-    Page<Product> findAllCustomers(Pageable pageable);
+    Page<Product> findAllProducts(Pageable pageable);
 
 }

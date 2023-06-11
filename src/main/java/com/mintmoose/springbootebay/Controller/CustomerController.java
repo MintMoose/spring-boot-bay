@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/customers")
 @AllArgsConstructor
@@ -19,10 +21,12 @@ public class CustomerController {
     private final JwtService jwtService;
 
     @GetMapping("/{customerUsername}")
-    public ResponseEntity<?> getCustomerProfile(@PathVariable String customerUsername, @RequestHeader("Authorization") String authorizationHeader) {
-        return processCustomerRequest(customerUsername, authorizationHeader, (token, requestCustomer) -> {
-            return ResponseEntity.ok(requestCustomer);
-        });
+    public ResponseEntity<?> getCustomerProfile(@PathVariable String customerUsername) {
+        Optional<Customer> theCustomer = customerService.getCustomerByUsername(customerUsername);
+        if (theCustomer.isPresent()) {
+                return ResponseEntity.ok(theCustomer);
+            }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer does not exist.");
     }
 
     @DeleteMapping("/{customerUsername}")

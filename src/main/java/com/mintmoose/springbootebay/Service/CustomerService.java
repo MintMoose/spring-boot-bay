@@ -2,8 +2,11 @@ package com.mintmoose.springbootebay.Service;
 
 import com.mintmoose.springbootebay.Model.Customer;
 import com.mintmoose.springbootebay.Model.NewCustomerRequest;
+import com.mintmoose.springbootebay.Model.Product;
 import com.mintmoose.springbootebay.Repos.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +25,8 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public List<Customer> getAllCustomers() {
-        return customerRepository.findAll();
+    public Page<Product> getAllCustomers(Pageable pageable) {
+        return customerRepository.findAllCustomers(pageable);
     }
 
     public Optional<Customer> getCustomer(Long customerId) {

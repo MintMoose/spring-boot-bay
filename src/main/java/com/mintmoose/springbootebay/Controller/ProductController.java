@@ -41,10 +41,12 @@ public class ProductController {
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity<?> getUserProducts(@PathVariable("username") String username) {
+    public ResponseEntity<?> getUserProducts(@PathVariable("username") String username, @RequestParam(defaultValue = "0") int pageNumber) {
+        int pageSize = 20; // Number of products per page
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
         Customer requestCustomer = customerService.getCustomerByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found."));
-        return ResponseEntity.ok(productService.getUserProducts(requestCustomer.getUsername()));
+        return ResponseEntity.ok(productService.getUserProducts(requestCustomer.getUsername(), pageable));
     }
 
     @GetMapping("/details/{id}")
