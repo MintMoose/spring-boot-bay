@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./loginForm.css";
+import Cookies from "js-cookie";
 
-const LoginForm = ({ isLoggedIn, setIsLoggedIn }) => {
+const LoginForm = ({ authData, setAuthData }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -20,6 +22,11 @@ const LoginForm = ({ isLoggedIn, setIsLoggedIn }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    if (!username || !password) {
+      setError("Please enter your username and password");
+      return;
+    }
+
     const data = {
       username,
       password,
@@ -29,20 +36,24 @@ const LoginForm = ({ isLoggedIn, setIsLoggedIn }) => {
       .post("http://localhost:8080/login/authenticate", data)
       .then((response) => {
         console.log("Login successful:", response.data);
-        setIsLoggedIn(true);
-        navigate("/dashboard");
+        setAuthData(() => ({
+          username: username,
+          isLoggedIn: true,
+        }));
+        Cookies.set("jwt", response.data, { secure: true, sameSite: "strict" });
+        Cookies.set("username", username);
       })
       .catch((error) => {
         console.error("Login failed:", error);
-        // Handle error, e.g., display an error message
+        setError("Invalid username or password");
       });
   };
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (authData.isLoggedIn) {
       navigate("/"); // Redirect to the home page
     }
-  }, [isLoggedIn, navigate]);
+  }, [authData.isLoggedIn, navigate]);
 
   return (
     <div>
@@ -51,7 +62,6 @@ const LoginForm = ({ isLoggedIn, setIsLoggedIn }) => {
         <div>
           <label htmlFor="username">Username:</label>
           <input
-            type="text"
             id="username"
             value={username}
             onChange={handleUsernameChange}
@@ -66,13 +76,9 @@ const LoginForm = ({ isLoggedIn, setIsLoggedIn }) => {
             onChange={handlePasswordChange}
           />
         </div>
+        {error && <p className="error-message">{error}</p>}
         <button type="submit">Login</button>
       </form>
-      <p className="copyright-warning">
-        By signing in, you agree to the terms and Conditions of Use & Sale.
-        Please see our Privacy Notice, our Cookies Notice, and our
-        Interest-Based Ads Notice.
-      </p>
       <p className="register-link">
         Don't have an account? <Link to="/register">Register here</Link>
       </p>

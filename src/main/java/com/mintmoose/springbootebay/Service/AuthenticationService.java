@@ -31,11 +31,18 @@ public class AuthenticationService {
         // Set the JWT token as a cookie
 
         Cookie cookie = new Cookie("jwt", jwtToken);
-        cookie.setMaxAge(86400);
+        cookie.setMaxAge(24 * 60 * 60);
 //        cookie.setSecure(true); // Make sure to use HTTPS // for development htttp.
         cookie.setHttpOnly(true); // Prevent JavaScript access to the cookie
         cookie.setPath("/"); // Set the cookie path
         response.addCookie(cookie);
+
+        String username = customer.getUsername();
+        Cookie usernameCookie = new Cookie("username", username);
+        usernameCookie.setMaxAge(24 * 60 * 60);
+        usernameCookie.setHttpOnly(true); // Prevent JavaScript access to the cookie
+        usernameCookie.setPath("/"); // Set the cookie path
+        response.addCookie(usernameCookie);
 
         return AuthenticationResponse.builder()
                 .token(jwtToken)
