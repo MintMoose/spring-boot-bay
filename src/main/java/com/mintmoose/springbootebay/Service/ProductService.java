@@ -82,6 +82,7 @@ public class ProductService {
         product.setName(params.name());
         product.setDescription(params.description());
         product.setPrice(params.price());
+        product.setSold(false);
         product.setCategory(params.category());
         product.setImageUrl(params.imageUrl());
         product.setCustomerUsername(username);
