@@ -36,12 +36,16 @@ const LoginForm = ({ authData, setAuthData }) => {
       .post("http://localhost:8080/login/authenticate", data)
       .then((response) => {
         console.log("Login successful:", response.data);
+        console.log(response.data.token);
         setAuthData(() => ({
           username: username,
           isLoggedIn: true,
         }));
-        Cookies.set("jwt", response.data, { secure: true, sameSite: "strict" });
-        Cookies.set("username", username);
+        Cookies.set("jwt", response.data.token, {
+          secure: true,
+          sameSite: "strict",
+        });
+        Cookies.set("username", username, { secure: true, sameSite: "strict" });
       })
       .catch((error) => {
         console.error("Login failed:", error);

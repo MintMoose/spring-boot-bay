@@ -1,6 +1,12 @@
 import axios from "axios";
 
-export default axios.create({
+const instance = axios.create({
   baseURL: "http://localhost:8080/",
-  headers: { "ngrok-skip-browser-warning": "true" },
+  headers: {
+    withCredentials: true,
+    "ngrok-skip-browser-warning": "true",
+  },
+  withCredentials: true,
 });
+
+export default instance;
