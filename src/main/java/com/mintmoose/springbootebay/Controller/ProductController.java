@@ -26,7 +26,6 @@ import java.util.Objects;
 public class ProductController {
 
     private final ProductService productService;
-    private final JwtService jwtService;
     private final CustomerService customerService;
 
     @GetMapping()
