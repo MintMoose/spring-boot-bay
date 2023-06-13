@@ -1,18 +1,19 @@
 import React from "react";
 import Hero from "../hero/Hero";
 import "./Home.css";
+import api from "../../api/axiosConfig";
 
 const Home = ({ authData, products }) => {
   const { isLoggedIn, username } = authData;
-  // const getUser = async () => {
-  //   try {
-  //     // todo: check http status code
-  //     const response = await api.get("/customers");
-  //     console.log(response.data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const getUser = async () => {
+    try {
+      // todo: check http status code
+      const response = await api.get("/customers");
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="home-container">
