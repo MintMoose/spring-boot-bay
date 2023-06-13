@@ -1,15 +1,27 @@
 import React from "react";
 import Hero from "../hero/Hero";
 import "./Home.css";
+import api from "../../api/axiosConfig";
 
-const Home = ({ products, isLoggedIn }) => {
+const Home = ({ authData, products }) => {
+  const { isLoggedIn, username } = authData;
+  const getUser = async () => {
+    try {
+      // todo: check http status code
+      const response = await api.get("/customers");
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="home-container">
       <h2>Products</h2>
       <Hero products={products} />
       {isLoggedIn ? (
         <div className="user-products">
-          <p>Welcome, user!</p>
+          <p>Welcome, {username}</p>
           <h2>My Products</h2>
           <div></div>
           {/* Render additional content for authenticated users */}

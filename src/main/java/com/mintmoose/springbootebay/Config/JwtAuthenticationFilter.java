@@ -13,10 +13,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -33,6 +35,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         final String jwtToken;
         final String username;
+
+        // Check if the request matches any of the URLs that are allowed without authentication
+        if (isUrlAllowedWithoutAuthentication(request)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         Cookie[] cookies = request.getCookies();
         if (cookies == null) {
@@ -66,5 +74,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
         filterChain.doFilter(request, response);
+    }
+
+    private boolean isUrlAllowedWithoutAuthentication(HttpServletRequest request) {
+        AntPathMatcher pathMatcher = new AntPathMatcher();
+        String requestURI = request.getRequestURI();
+
+        // Define the URLs that are allowed without authentication
+        List<String> allowedUrls = Arrays.asList("/login/**", "/open/**");
+
+        // Check if the request URI matches any of the allowed URLs
+        return allowedUrls.stream()
+                .anyMatch(url -> pathMatcher.match(url, requestURI));
     }
 }

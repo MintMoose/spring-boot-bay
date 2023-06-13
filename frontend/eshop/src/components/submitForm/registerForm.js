@@ -3,11 +3,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "./registerForm.css";
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -27,6 +28,11 @@ const LoginForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (!username || !name || !email || !password) {
+      setErrorMessage("Please fill in all fields.");
+      return;
+    }
 
     const data = {
       username,
@@ -51,6 +57,7 @@ const LoginForm = () => {
     <div>
       <form className="register-form" onSubmit={handleSubmit}>
         <h2>Create Account</h2>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
         <div>
           <label htmlFor="username">Username:</label>
           <input
@@ -89,10 +96,10 @@ const LoginForm = () => {
         </div>
         <button type="submit">Register</button>
       </form>
-      <p className="copyright-warning">
-        By signing-in you agree to the terms and Conditions of Use & Sale.
-        Please see our Privacy Notice, our Cookies Notice and our Interest-Based
-        Ads Notice.
+      <p className="terms-notice">
+        By signing in, you agree to the terms and Conditions of Use & Sale.
+        Please see our Privacy Notice, our Cookies Notice, and our
+        Interest-Based Ads Notice.
       </p>
       <p className="login-link">
         Already have an account? <Link to="/login">Sign in</Link>
@@ -101,4 +108,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
