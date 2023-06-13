@@ -27,10 +27,11 @@ public class CustomerController {
     public ResponseEntity<?> getCustomerProfile(@PathVariable String customerUsername) {
         Optional<Customer> theCustomer = customerService.getCustomerByUsername(customerUsername);
         if (theCustomer.isPresent()) {
-                return ResponseEntity.ok(theCustomer);
+                return ResponseEntity.ok(theCustomer.get().toDTO());
             }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer does not exist.");
     }
+
 
     @DeleteMapping("/{customerUsername}")
     public ResponseEntity<?> deleteCustomer(@PathVariable String customerUsername, Authentication authentication) {
