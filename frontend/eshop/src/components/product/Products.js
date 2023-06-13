@@ -1,23 +1,25 @@
 import React from "react";
 import api from "../../api/axiosConfig";
 import { useState, useEffect } from "react";
+import ProductCard from "../ProductCard";
 
 function Products() {
   const [products, setProducts] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
 
-  useEffect(() => {
-    fetchProducts();
-  }, [pageNumber]);
-
   const fetchProducts = async () => {
     try {
-      const response = await api.get(`/products?page=${pageNumber}`);
+      const response = await api.get(`/products`);
+      console.log("Something.");
       setProducts(response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
     }
   };
+
+  useEffect(() => {
+    fetchProducts();
+  }, [pageNumber]);
 
   const goToPreviousPage = () => {
     setPageNumber(pageNumber - 1);
@@ -30,9 +32,10 @@ function Products() {
   return (
     <div>
       {/* Render the products list */}
-      {products.map((product) => (
-        <div key={product.id}>{product.name}</div>
-      ))}
+      {products &&
+        products.map((product) => {
+          return <ProductCard key={product.id} product={product} />;
+        })}
 
       {/* Render pagination controls */}
       <button onClick={goToPreviousPage} disabled={pageNumber === 0}>

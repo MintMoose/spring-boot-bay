@@ -41,7 +41,7 @@ const Hero = ({ products }) => {
       <Slider {...settings}>
         {products &&
           products.map((product) => {
-            return <ProductCard product={product} />;
+            return <ProductCard key={product.id} product={product} />;
           })}
       </Slider>
     </div>
