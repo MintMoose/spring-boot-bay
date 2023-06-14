@@ -26,6 +26,7 @@
   margin: 0;
   padding: 0;
   padding-block: 1rem;
+  margin: 0 -27px;
 }
 .slick-list:focus {
   outline: none;
@@ -48,7 +49,6 @@
   position: relative;
   top: 0;
   left: 0;
-
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -69,7 +69,7 @@
 .slick-slide {
   display: none;
   float: left;
-
+  padding-inline: 3rem;
   height: 100%;
   min-height: 1px;
 }
