@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 
 import React from "react";
 
-const Layout = ({ authData }) => {
+const Layout = ({ authData, setAuthData }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -32,7 +32,10 @@ const Layout = ({ authData }) => {
             </div>
           ) : (
             <div>
-              <Navbar isLoggedIn={authData.isLoggedIn} />
+              <Navbar
+                isLoggedIn={authData.isLoggedIn}
+                setAuthData={setAuthData}
+              />
               <Outlet />
             </div>
           )}
