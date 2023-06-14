@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
+import Logout from "../submitForm/logoutButton";
 
-function Navbar({ isLoggedIn }) {
+function Navbar({ isLoggedIn, setAuthData }) {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark ">
       <button
@@ -29,11 +30,16 @@ function Navbar({ isLoggedIn }) {
             </Link>
           </li>
           {isLoggedIn && (
-            <li className="nav-item">
-              <Link className="nav-link" to="/profile">
-                Profile
-              </Link>
-            </li>
+            <>
+              <li className="nav-item">
+                <Link className="nav-link" to="/profile">
+                  Profile
+                </Link>
+              </li>
+              <div className="logout-container">
+                <Logout setAuthData={setAuthData} />
+              </div>
+            </>
           )}
           {!isLoggedIn && (
             <li className="nav-item">

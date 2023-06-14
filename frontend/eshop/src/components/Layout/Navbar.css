@@ -21,3 +21,9 @@
   font-size: 1.5rem;
   color: #f9f9f9;
 }
+
+.logout-container {
+  position: fixed;
+  right: 1%;
+  top: 17px;
+}
