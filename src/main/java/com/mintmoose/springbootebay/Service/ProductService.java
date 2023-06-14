@@ -30,9 +30,8 @@ public class ProductService {
     }
 
 
-    public List<Product> getUserProducts(String customerUsername, Pageable pageable) {
-        Page<Product> productsPage = productRepository.findAllByCustomerUsername(customerUsername, pageable);
-        return productsPage.getContent();
+    public Page<Product> getUserProducts(String customerUsername, Pageable pageable) {
+        return productRepository.findAllByCustomerUsername(customerUsername, pageable);
     }
 
     public Product updateProduct(Long id, NewProductRequest request) {
