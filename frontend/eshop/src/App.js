@@ -1,7 +1,6 @@
-import logo from "./logo.svg";
 import "./App.css";
 import api from "./api/axiosConfig";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Layout from "./components/Layout/Layout";
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/home/Home";
@@ -15,13 +14,17 @@ import Profile from "./components/Profile";
 function App() {
   const [products, setProducts] = useState();
   const [authData, setAuthData] = useState({ isLoggedIn: false, username: "" });
+  const [userProducts, setUserProducts] = useState();
 
   const getProducts = async () => {
     try {
-      // todo: check http status code
-      const response = await api.get("/products");
-      console.log(response.data);
-      setProducts(response.data);
+      const response = await api.get("/open/products/sale");
+      if (response.status === 200) {
+        console.log(response.data.content);
+        setProducts(response.data.content);
+      } else {
+        console.log("Request failed with status code:", response.status);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -47,13 +50,39 @@ function App() {
     }
   }, []);
 
+  const getUserProducts = useCallback(async () => {
+    try {
+      const response = await api.get(`/products/${authData.username}`);
+      if (response.status === 200) {
+        setUserProducts(response.data.content);
+      } else {
+        // Handle other status codes here
+        console.log("Request failed with status code:", response.status);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }, [authData.username]);
+
+  useEffect(() => {
+    if (authData.username) {
+      getUserProducts();
+    }
+  }, [authData.username, getUserProducts]);
+
   return (
     <div>
       <Routes>
         <Route path="/" element={<Layout authData={authData} />}>
           <Route
             path="/"
-            element={<Home products={products} authData={authData} />}
+            element={
+              <Home
+                products={products}
+                userProducts={userProducts}
+                authData={authData}
+              />
+            }
           ></Route>
           <Route
             path="/login"
@@ -62,8 +91,16 @@ function App() {
             }
           />
           <Route path="/register" element={<RegisterForm />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/profile" element={<Profile authData={authData} />} />
+          <Route
+            path="/products"
+            element={<Products username={authData.username} />}
+          />
+          <Route
+            path="/profile"
+            element={
+              <Profile userProducts={userProducts} authData={authData} />
+            }
+          />
           <Route path="/*" element={<NotFoundPage />} />
         </Route>
       </Routes>

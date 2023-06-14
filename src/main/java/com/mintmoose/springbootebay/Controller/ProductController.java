@@ -17,6 +17,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @RestController
@@ -29,25 +32,48 @@ public class ProductController {
     private final CustomerService customerService;
 
     @GetMapping()
-    public ResponseEntity<?> getAllProducts(@RequestParam(defaultValue = "0") int pageNumber) {
+    public ResponseEntity<?> getAllProducts(@RequestParam(defaultValue = "0") int page) {
         int pageSize = 10; // Number of products per page
-        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Pageable pageable = PageRequest.of(page, pageSize);
         Page<Product> productsPage = productService.getAllProducts(pageable);
 
         if (productsPage.hasContent()) {
-            return ResponseEntity.ok(productsPage.getContent());
+            List<Product> products = productsPage.getContent();
+            long totalProducts = productsPage.getTotalElements();
+            int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("content", products);
+            response.put("totalPages", totalPages);
+
+            return ResponseEntity.ok(response);
         }
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No products found.");
     }
 
+
     @GetMapping("/{username}")
     public ResponseEntity<?> getUserProducts(@PathVariable("username") String username, @RequestParam(defaultValue = "0") int pageNumber) {
-        int pageSize = 20; // Number of products per page
+        int pageSize = 10; // Number of products per page
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         Customer requestCustomer = customerService.getCustomerByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found."));
-        return ResponseEntity.ok(productService.getUserProducts(requestCustomer.getUsername(), pageable));
+
+        Page<Product> productsPage = productService.getUserProducts(requestCustomer.getUsername(), pageable);
+        if (productsPage.hasContent()) {
+            List<Product> products = productsPage.getContent();
+            long totalProducts = productsPage.getTotalElements();
+            int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("content", products);
+            response.put("totalPages", totalPages);
+
+            return ResponseEntity.ok(response);
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No products found.");
     }
 
     @GetMapping("/details/{id}")

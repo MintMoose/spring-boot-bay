@@ -33,3 +33,15 @@
 .sign-in-container {
   text-align: center;
 }
+
+.product-list2 {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(200px, 1fr));
+  grid-gap: 40px;
+}
+
+.user-products > h2 {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
