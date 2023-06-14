@@ -5,8 +5,8 @@ import { Paper } from "@mui/material";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "../ProductCard";
-import ProductCard from "../ProductCard";
+import "../product/ProductCard";
+import ProductCard from "../product/ProductCard";
 import "./slick.css";
 import "./slick-theme.css";
 
@@ -35,13 +35,20 @@ const settings = {
   ],
 };
 
-const Hero = ({ products }) => {
+const Hero = ({ products, username }) => {
   return (
     <div className="product-carousel-container">
       <Slider {...settings}>
         {products &&
           products.map((product) => {
-            return <ProductCard key={product.id} product={product} />;
+            return (
+              <ProductCard
+                key={product.id}
+                product={product}
+                username={username}
+                size="large"
+              />
+            );
           })}
       </Slider>
     </div>
