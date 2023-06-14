@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,10 +47,14 @@ public class JwtService {
     }
 
     public String createToken(Map<String, Object>extractClaims, UserDetails customer) {
+
+        Instant issuedAt = Instant.now();
+        Instant expiration = issuedAt.plus(2, ChronoUnit.DAYS); // Set expiration to 2 days from the issued time
+
         return Jwts.builder().setClaims(extractClaims)
                 .setSubject(customer.getUsername())
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 48))
+                .setIssuedAt(Date.from(issuedAt))
+                .setExpiration(Date.from(expiration))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
