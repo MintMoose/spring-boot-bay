@@ -1,19 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import api from "../../api/axiosConfig";
-import { useState, useEffect } from "react";
-import ProductCard from "../ProductCard";
+import ProductCard from "./ProductCard";
+import "./Product.css";
 
-function Products() {
-  const [products, setProducts] = useState([]);
+function Products({ username }) {
+  const [products, setProducts] = useState();
   const [pageNumber, setPageNumber] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [error, setError] = useState(null);
 
   const fetchProducts = async () => {
     try {
-      const response = await api.get(`/products`);
-      console.log("Something.");
-      setProducts(response.data);
+      const response = await api.get(`open/products/sale?page=${pageNumber}`);
+      setProducts(response.data.content);
+      setTotalPages(response.data.totalPages);
+      setError(null); // Clear any previous errors
     } catch (error) {
       console.error("Error fetching products:", error);
+      setError(error.message); // Set the error message
     }
   };
 
@@ -27,21 +31,46 @@ function Products() {
 
   const goToNextPage = () => {
     setPageNumber(pageNumber + 1);
+    window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to the top of the page
   };
 
   return (
-    <div>
-      {/* Render the products list */}
-      {products &&
-        products.map((product) => {
-          return <ProductCard key={product.id} product={product} />;
-        })}
+    <div className="product-main">
+      <div className="product-list">
+        {products && products.length > 0 ? (
+          products.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              username={username}
+              size="large"
+            />
+          ))
+        ) : (
+          <p>No products found.</p>
+        )}
+      </div>
 
-      {/* Render pagination controls */}
-      <button onClick={goToPreviousPage} disabled={pageNumber === 0}>
-        Previous Page
-      </button>
-      <button onClick={goToNextPage}>Next Page</button>
+      {error && <p>{error}</p>}
+
+      <div className="button-container">
+        <button
+          className={`previous-button ${pageNumber === 0 ? "disabled" : ""}`}
+          onClick={goToPreviousPage}
+          disabled={pageNumber === 0}
+        >
+          Previous Page
+        </button>
+        <button
+          className={`next-button ${
+            pageNumber === totalPages - 1 ? "disabled" : ""
+          }`}
+          onClick={goToNextPage}
+          disabled={pageNumber === totalPages - 1}
+        >
+          Next Page
+        </button>
+      </div>
     </div>
   );
 }

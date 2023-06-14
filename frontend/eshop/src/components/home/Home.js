@@ -1,36 +1,54 @@
 import React from "react";
 import Hero from "../hero/Hero";
 import "./Home.css";
-import api from "../../api/axiosConfig";
+import { useEffect } from "react";
+import ProductCard from "../product/ProductCard";
+import { useNavigate } from "react-router-dom";
 
-const Home = ({ authData, products }) => {
+const Home = ({ authData, products, userProducts }) => {
   const { isLoggedIn, username } = authData;
-  const getUser = async () => {
-    try {
-      // todo: check http status code
-      const response = await api.get("/customers");
-      console.log(response.data);
-    } catch (err) {
-      console.log(err);
-    }
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/login");
   };
+
+  useEffect(() => {}, [userProducts]);
+
+  console.log(userProducts);
 
   return (
     <div className="home-container">
+      <p>Welcome, {username}</p>
       <h2>Products</h2>
-      <Hero products={products} />
+      <Hero products={products} username={username} />
       {isLoggedIn ? (
         <div className="user-products">
-          <p>Welcome, {username}</p>
           <h2>My Products</h2>
-          <div></div>
+          <div className="product-list2">
+            {userProducts && userProducts.length > 0 ? (
+              userProducts.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  username={username}
+                  size="small"
+                />
+              ))
+            ) : (
+              <p>No products found.</p>
+            )}
+          </div>
           {/* Render additional content for authenticated users */}
         </div>
       ) : (
         <div className="sign-in-container">
           <p>Please sign in to access more features.</p>
           {/* Render content for non-authenticated users */}
-          <button id="sign-in">Sign in</button>
+          <button id="sign-in" onClick={handleClick}>
+            Sign in
+          </button>
         </div>
       )}
     </div>
