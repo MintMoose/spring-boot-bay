@@ -1,54 +1,199 @@
-import React from "react";
 import ProductCard from "./product/ProductCard";
 import "./Profile.css";
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUser,
+  faShoppingCart,
+  faShop,
+} from "@fortawesome/free-solid-svg-icons";
+
 function Profile({ authData, userProducts }) {
+  const [name, setName] = useState("");
+  const [buildingNumber, setBuildingNumber] = useState("");
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
+  const [zipcode, setZipcode] = useState("");
+  const [selectedTab, setSelectedTab] = useState("my-products");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Perform an API request to update the user's profile with the new data
+    // You can use axios or any other HTTP library for this
+    // Example: axios.put('/api/profile', { name, address })
+    // Upon successful update, you can show a success message or redirect the user to another page
+  };
+
+  const handleTabClick = (tab) => {
+    setSelectedTab(tab);
+  };
+
+  const renderContent = () => {
+    if (selectedTab === "update-profile") {
+      return (
+        <Container>
+          <Row>
+            <Col>
+              <h1>Update Profile</h1>
+              <Form onSubmit={handleSubmit}>
+                <div className="container">
+                  <Form onSubmit={handleSubmit}>
+                    <Form.Group controlId="name">
+                      <Form.Label>Name</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Enter your name"
+                      />
+                    </Form.Group>
+
+                    <Form.Group controlId="buildingNumber">
+                      <Form.Label>Building Number</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={buildingNumber}
+                        onChange={(e) => setBuildingNumber(e.target.value)}
+                        placeholder="Enter your building number"
+                      />
+                    </Form.Group>
+
+                    <Form.Group controlId="street">
+                      <Form.Label>Street</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={street}
+                        onChange={(e) => setStreet(e.target.value)}
+                        placeholder="Enter your street"
+                      />
+                    </Form.Group>
+
+                    <Form.Group controlId="city">
+                      <Form.Label>City</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                        placeholder="Enter your city"
+                      />
+                    </Form.Group>
+
+                    <Form.Group controlId="country">
+                      <Form.Label>Country</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                        placeholder="Enter your country"
+                      />
+                    </Form.Group>
+
+                    <Form.Group controlId="zipcode">
+                      <Form.Label>ZIP Code</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={zipcode}
+                        onChange={(e) => setZipcode(e.target.value)}
+                        placeholder="Enter your ZIP code"
+                      />
+                    </Form.Group>
+
+                    <Button variant="primary" type="submit">
+                      Update Profile
+                    </Button>
+                  </Form>
+                </div>
+              </Form>
+            </Col>
+          </Row>
+        </Container>
+      );
+    } else if (selectedTab === "my-products") {
+      return (
+        <Container>
+          <Row>
+            <Col>
+              <h1>My Products</h1>
+
+              <div className="product-list">
+                {userProducts && userProducts.length > 0 ? (
+                  userProducts.map((product) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      username={authData.username}
+                      size="small"
+                    />
+                  ))
+                ) : (
+                  <p>No products found.</p>
+                )}
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      );
+    } else if (selectedTab === "my-orders") {
+      return (
+        <Container>
+          <Row>
+            <Col>
+              <h1>My Orders</h1>
+
+              <div className="order-list"></div>
+            </Col>
+          </Row>
+        </Container>
+      );
+    }
+  };
+
   return (
     <div className="profile-container">
-      <ul class="nav flex-column">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">
-            Active
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            Link
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            Link
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">
-            Disabled
-          </a>
-        </li>
-      </ul>
-      <div className="profile-inner">
-        <h1> {authData.username}</h1>
-        <div>
-          <h3>Information:</h3>
-        </div>
+      <div className="second-nav">
+        <ul className="nav-ul">
+          <li className="nav-li">
+            <NavLink
+              className={`nav-button  ${
+                selectedTab === "my-products" ? "active" : ""
+              }`}
+              to="#"
+              onClick={() => handleTabClick("my-products")}
+            >
+              <FontAwesomeIcon icon={faShop} /> My Products
+            </NavLink>
+          </li>
+          <li className="nav-li">
+            <NavLink
+              className={`nav-button  ${
+                selectedTab === "my-orders" ? "active" : ""
+              }`}
+              to="#"
+              onClick={() => handleTabClick("my-orders")}
+            >
+              <FontAwesomeIcon icon={faShoppingCart} /> My Orders
+            </NavLink>
+          </li>
+          <li className="nav-li">
+            <NavLink
+              className={`nav-button  ${
+                selectedTab === "update-profile" ? "active" : ""
+              }`}
+              to="#"
+              onClick={() => handleTabClick("update-profile")}
+            >
+              <FontAwesomeIcon icon={faUser} /> Update Profile
+            </NavLink>
+          </li>
+        </ul>
+      </div>
 
-        <div>
-          <h3>My Products:</h3>
-          <div className="product-list2">
-            {userProducts && userProducts.length > 0 ? (
-              userProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  username={authData.username}
-                  size="small"
-                />
-              ))
-            ) : (
-              <p>No products found.</p>
-            )}
-          </div>
-        </div>
+      <div className="profile-inner">
+        <h1>{authData.username}</h1>
+        {renderContent()}
       </div>
     </div>
   );
