@@ -42,69 +42,67 @@ function Profile({ authData, userProducts }) {
   const renderContent = () => {
     if (selectedTab === "update-profile") {
       return (
-        <Container>
+        <Container className="second-back">
           <Row>
             <Col>
               <h1>Change Address</h1>
-              <Form onSubmit={handleSubmit}>
-                <div className="container">
-                  <Form onSubmit={handleSubmit}>
-                    <Form.Group controlId="buildingNumber">
-                      <Form.Label>Building Number</Form.Label>
-                      <Form.Control
-                        type="text"
-                        value={buildingNumber}
-                        onChange={(e) => setBuildingNumber(e.target.value)}
-                        placeholder="Enter your building number"
-                      />
-                    </Form.Group>
+              <div className="container">
+                <Form onSubmit={handleSubmit}>
+                  <Form.Group controlId="buildingNumber" className="mb-3 mt-3">
+                    <Form.Label>Building Number</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={buildingNumber}
+                      onChange={(e) => setBuildingNumber(e.target.value)}
+                      placeholder="Enter your building number"
+                    />
+                  </Form.Group>
 
-                    <Form.Group controlId="street">
-                      <Form.Label>Street</Form.Label>
-                      <Form.Control
-                        type="text"
-                        value={street}
-                        onChange={(e) => setStreet(e.target.value)}
-                        placeholder="Enter your street"
-                      />
-                    </Form.Group>
+                  <Form.Group controlId="street" className="mb-3">
+                    <Form.Label>Street</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={street}
+                      onChange={(e) => setStreet(e.target.value)}
+                      placeholder="Enter your street"
+                    />
+                  </Form.Group>
 
-                    <Form.Group controlId="city">
-                      <Form.Label>City</Form.Label>
-                      <Form.Control
-                        type="text"
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}
-                        placeholder="Enter your city"
-                      />
-                    </Form.Group>
+                  <Form.Group controlId="city" className="mb-3">
+                    <Form.Label>City</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                      placeholder="Enter your city"
+                    />
+                  </Form.Group>
 
-                    <Form.Group controlId="country">
-                      <Form.Label>Country</Form.Label>
-                      <Form.Control
-                        type="text"
-                        value={country}
-                        onChange={(e) => setCountry(e.target.value)}
-                        placeholder="Enter your country"
-                      />
-                    </Form.Group>
+                  <Form.Group controlId="country" className="mb-3">
+                    <Form.Label>Country</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={country}
+                      onChange={(e) => setCountry(e.target.value)}
+                      placeholder="Enter your country"
+                    />
+                  </Form.Group>
 
-                    <Form.Group controlId="zipcode">
-                      <Form.Label>ZIP Code</Form.Label>
-                      <Form.Control
-                        type="text"
-                        value={zipcode}
-                        onChange={(e) => setZipcode(e.target.value)}
-                        placeholder="Enter your ZIP code"
-                      />
-                    </Form.Group>
+                  <Form.Group controlId="zipcode" className="mb-3">
+                    <Form.Label>ZIP Code</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={zipcode}
+                      onChange={(e) => setZipcode(e.target.value)}
+                      placeholder="Enter your ZIP code"
+                    />
+                  </Form.Group>
 
-                    <Button variant="primary" type="submit">
-                      Update Profile
-                    </Button>
-                  </Form>
-                </div>
-              </Form>
+                  <Button variant="primary" type="submit" className="mt-2">
+                    Update Profile
+                  </Button>
+                </Form>
+              </div>
             </Col>
           </Row>
         </Container>
@@ -148,14 +146,14 @@ function Profile({ authData, userProducts }) {
       );
     } else if (selectedTab === "change-name") {
       return (
-        <Container>
+        <Container className="second-back">
           <Row>
             <Col>
               <h1>Change Name</h1>
 
-              <div className="change-name">
+              <div className="container">
                 <Form onSubmit={handleChangeNameSubmit}>
-                  <Form.Group controlId="name">
+                  <Form.Group controlId="name" className="mb-3 mt-3">
                     <Form.Label>Name</Form.Label>
                     <Form.Control
                       type="text"
@@ -164,7 +162,7 @@ function Profile({ authData, userProducts }) {
                       placeholder="Enter your name"
                     />
                   </Form.Group>
-                  <Button variant="primary" type="submit">
+                  <Button variant="primary" type="submit" className="mt-1">
                     Change Name
                   </Button>
                 </Form>
@@ -228,8 +226,8 @@ function Profile({ authData, userProducts }) {
       </div>
 
       <div className="profile-inner">
-        <h1>{authData.username}</h1>
-        {renderContent()}
+        <h2>{authData.username}</h2>
+        <div className="content">{renderContent()}</div>
       </div>
     </div>
   );
