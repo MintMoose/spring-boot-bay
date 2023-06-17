@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import Logout from "../submitForm/logoutButton";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 function Navbar({ isLoggedIn, setAuthData }) {
   return (
