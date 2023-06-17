@@ -27,6 +27,14 @@ function Profile({ authData, userProducts }) {
     // Upon successful update, you can show a success message or redirect the user to another page
   };
 
+  const handleChangeNameSubmit = (e) => {
+    e.preventDefault();
+    // Perform an API request to update the user's name with the new data
+    // You can use axios or any other HTTP library for this
+    // Example: axios.put('/api/profile/name', { name })
+    // Upon successful update, you can show a success message or redirect the user to another page
+  };
+
   const handleTabClick = (tab) => {
     setSelectedTab(tab);
   };
@@ -37,20 +45,10 @@ function Profile({ authData, userProducts }) {
         <Container>
           <Row>
             <Col>
-              <h1>Update Profile</h1>
+              <h1>Change Address</h1>
               <Form onSubmit={handleSubmit}>
                 <div className="container">
                   <Form onSubmit={handleSubmit}>
-                    <Form.Group controlId="name">
-                      <Form.Label>Name</Form.Label>
-                      <Form.Control
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Enter your name"
-                      />
-                    </Form.Group>
-
                     <Form.Group controlId="buildingNumber">
                       <Form.Label>Building Number</Form.Label>
                       <Form.Control
@@ -148,6 +146,33 @@ function Profile({ authData, userProducts }) {
           </Row>
         </Container>
       );
+    } else if (selectedTab === "change-name") {
+      return (
+        <Container>
+          <Row>
+            <Col>
+              <h1>Change Name</h1>
+
+              <div className="change-name">
+                <Form onSubmit={handleChangeNameSubmit}>
+                  <Form.Group controlId="name">
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Enter your name"
+                    />
+                  </Form.Group>
+                  <Button variant="primary" type="submit">
+                    Change Name
+                  </Button>
+                </Form>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      );
     }
   };
 
@@ -185,7 +210,18 @@ function Profile({ authData, userProducts }) {
               to="#"
               onClick={() => handleTabClick("update-profile")}
             >
-              <FontAwesomeIcon icon={faUser} /> Update Profile
+              <FontAwesomeIcon icon={faUser} /> Update Address
+            </NavLink>
+          </li>
+          <li className="nav-li">
+            <NavLink
+              className={`nav-button  ${
+                selectedTab === "change-name" ? "active" : ""
+              }`}
+              to="#"
+              onClick={() => handleTabClick("change-name")}
+            >
+              <FontAwesomeIcon icon={faShoppingCart} /> Change Name
             </NavLink>
           </li>
         </ul>
