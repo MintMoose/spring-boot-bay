@@ -61,3 +61,29 @@
     flex-direction: row;
   }
 }
+
+.profile-inner h2 {
+  text-align: end;
+  font-size: 1.25rem;
+}
+
+.profile-inner h1 {
+  margin-left: 0.5rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.content {
+  margin-block: 2rem;
+  padding-block: 1.5rem;
+  border-radius: 20px;
+  background-color: #fffefe;
+}
+
+.product-list {
+  margin-top: 2rem;
+}
+
+.order-list {
+  margin-top: 2rem;
+}
