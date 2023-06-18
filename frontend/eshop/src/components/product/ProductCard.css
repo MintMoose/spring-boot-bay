@@ -27,7 +27,7 @@
 
 .product-title {
   margin-top: 1rem;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   overflow: hidden;
   white-space: nowrap;
 }
@@ -36,7 +36,7 @@
 } */
 
 .product-title.small {
-  font-size: 0.75rem;
+  font-size: 0.9rem;
 }
 
 .product-info {
@@ -52,11 +52,11 @@
 }
 
 .product-info.small > p {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
 }
 
 .product-info.large > button {
-  font-size: 1.25rem;
+  font-size: 1rem;
 }
 
 .product-info.small > button {
