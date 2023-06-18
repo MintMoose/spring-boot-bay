@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./registerForm.css";
+import Cookies from "js-cookie";
 
-const RegisterForm = () => {
+const RegisterForm = ({ setAuthData }) => {
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -45,11 +47,39 @@ const RegisterForm = () => {
       .post("http://localhost:8080/login/register", data)
       .then((response) => {
         console.log("Registration successful:", response.data);
-        // Handle successful response, e.g., display a success message
+        loginUser(); // Automatically log in the user
+        navigate("/");
       })
       .catch((error) => {
         console.error("Registration failed:", error);
         // Handle error, e.g., display an error message
+      });
+  };
+
+  const loginUser = () => {
+    const data = {
+      username,
+      password,
+    };
+
+    axios
+      .post("http://localhost:8080/login/authenticate", data)
+      .then((response) => {
+        console.log("Login successful:", response.data);
+        console.log(response.data.token);
+        setAuthData(() => ({
+          username: username,
+          isLoggedIn: true,
+        }));
+        Cookies.set("jwt", response.data.token, {
+          secure: true,
+          sameSite: "strict",
+        });
+        Cookies.set("username", username, { secure: true, sameSite: "strict" });
+      })
+      .catch((error) => {
+        console.error("Login failed:", error);
+        setErrorMessage("Invalid username or password");
       });
   };
 

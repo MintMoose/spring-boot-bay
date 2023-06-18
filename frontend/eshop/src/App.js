@@ -73,7 +73,10 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Layout authData={authData} />}>
+        <Route
+          path="/"
+          element={<Layout authData={authData} setAuthData={setAuthData} />}
+        >
           <Route
             path="/"
             element={
@@ -90,7 +93,10 @@ function App() {
               <LoginForm setAuthData={setAuthData} authData={authData} />
             }
           />
-          <Route path="/register" element={<RegisterForm />} />
+          <Route
+            path="/register"
+            element={<RegisterForm setAuthData={setAuthData} />}
+          />
           <Route
             path="/products"
             element={<Products username={authData.username} />}

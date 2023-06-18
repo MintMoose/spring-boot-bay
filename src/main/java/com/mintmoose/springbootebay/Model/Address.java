@@ -18,9 +18,11 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
     private Long customerId;
+    private String buildingNumber;
     private String street;
     private String city;
     private String country;
+    private String zipcode;
 
 
     public Address(Long customerId, String street, String city, String country) {
