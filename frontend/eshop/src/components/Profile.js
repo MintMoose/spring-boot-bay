@@ -5,10 +5,12 @@ import { NavLink } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faSignature,
   faUser,
   faShoppingCart,
   faShop,
 } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 function Profile({ authData, userProducts }) {
   const [name, setName] = useState("");
@@ -21,18 +23,47 @@ function Profile({ authData, userProducts }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Perform an API request to update the user's profile with the new data
-    // You can use axios or any other HTTP library for this
-    // Example: axios.put('/api/profile', { name, address })
-    // Upon successful update, you can show a success message or redirect the user to another page
+
+    const data = {
+      address: {
+        buildingNumber,
+        street,
+        city,
+        country,
+        zipcode,
+      },
+    };
+
+    axios
+      .put("/api/profile", data)
+      .then((response) => {
+        console.log("Address update successful:", response.data);
+        // Show success message or redirect the user
+      })
+      .catch((error) => {
+        console.error("Profile update failed:", error);
+      });
   };
 
   const handleChangeNameSubmit = (e) => {
     e.preventDefault();
-    // Perform an API request to update the user's name with the new data
-    // You can use axios or any other HTTP library for this
-    // Example: axios.put('/api/profile/name', { name })
-    // Upon successful update, you can show a success message or redirect the user to another page
+
+    const data = {
+      name,
+    };
+
+    axios
+      .put("/api/profile/name", data)
+      .then((response) => {
+        // Handle success
+        console.log("Name change successful:", response.data);
+        // Show success message or redirect the user
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Name change failed:", error);
+        // Show error message or handle the error
+      });
   };
 
   const handleTabClick = (tab) => {
@@ -186,7 +217,8 @@ function Profile({ authData, userProducts }) {
               to="#"
               onClick={() => handleTabClick("my-products")}
             >
-              <FontAwesomeIcon icon={faShop} /> My Products
+              <FontAwesomeIcon icon={faShop} className="my-product-icon" />{" "}
+              <span>My Products</span>
             </NavLink>
           </li>
           <li className="nav-li">
@@ -197,7 +229,11 @@ function Profile({ authData, userProducts }) {
               to="#"
               onClick={() => handleTabClick("my-orders")}
             >
-              <FontAwesomeIcon icon={faShoppingCart} /> My Orders
+              <FontAwesomeIcon
+                icon={faShoppingCart}
+                className="my-orders-icon"
+              />{" "}
+              <span>My Orders</span>
             </NavLink>
           </li>
           <li className="nav-li">
@@ -208,7 +244,8 @@ function Profile({ authData, userProducts }) {
               to="#"
               onClick={() => handleTabClick("update-profile")}
             >
-              <FontAwesomeIcon icon={faUser} /> Update Address
+              <FontAwesomeIcon icon={faUser} className="update-address-icon" />{" "}
+              <span>Update Address</span>
             </NavLink>
           </li>
           <li className="nav-li">
@@ -219,7 +256,11 @@ function Profile({ authData, userProducts }) {
               to="#"
               onClick={() => handleTabClick("change-name")}
             >
-              <FontAwesomeIcon icon={faShoppingCart} /> Change Name
+              <FontAwesomeIcon
+                icon={faSignature}
+                className="change-name-icon"
+              />
+              <span>Change Name</span>
             </NavLink>
           </li>
         </ul>
