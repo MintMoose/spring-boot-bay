@@ -81,7 +81,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String requestURI = request.getRequestURI();
 
         // Define the URLs that are allowed without authentication
-        List<String> allowedUrls = Arrays.asList("/login/**", "/open/**");
+        List<String> allowedUrls = Arrays.asList("/login/**", "/open/**", "/address/**");
 
         // Check if the request URI matches any of the allowed URLs
         return allowedUrls.stream()
