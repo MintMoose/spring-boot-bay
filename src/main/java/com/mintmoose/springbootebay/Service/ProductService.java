@@ -1,17 +1,13 @@
 package com.mintmoose.springbootebay.Service;
 
-import com.mintmoose.springbootebay.Config.JwtService;
-import com.mintmoose.springbootebay.Model.CreateProductRequest;
 import com.mintmoose.springbootebay.Model.NewProductRequest;
 import com.mintmoose.springbootebay.Model.Product;
 import com.mintmoose.springbootebay.Repos.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -53,7 +49,6 @@ public class ProductService {
             if (request.imageUrl() != null && !request.imageUrl().isEmpty()) {
                 product.setImageUrl(request.imageUrl());
             }
-            product.setSold(request.sold());
             return productRepository.save(product);
         }
         throw new IllegalArgumentException("No such product exists");
@@ -67,7 +62,7 @@ public class ProductService {
         return productRepository.findAllProducts(pageable);
     }
 
-    public Product createProduct(CreateProductRequest params, String username) {
+    public Product createProduct(NewProductRequest params, String username) {
 
         if (params.name() == null ||
                 params.description() == null ||

@@ -1,7 +1,5 @@
 package com.mintmoose.springbootebay.Controller;
 
-import com.mintmoose.springbootebay.Config.JwtService;
-import com.mintmoose.springbootebay.Model.CreateProductRequest;
 import com.mintmoose.springbootebay.Model.Customer;
 import com.mintmoose.springbootebay.Model.NewProductRequest;
 import com.mintmoose.springbootebay.Model.Product;
@@ -13,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -86,7 +83,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createProduct(@RequestBody CreateProductRequest request, Authentication authentication) {
+    public ResponseEntity<?> createProduct(@RequestBody NewProductRequest request, Authentication authentication) {
         if (authentication.isAuthenticated()) {
             String username = authentication.getName();
             Customer requestCustomer = customerService.getCustomerByUsername(username)
