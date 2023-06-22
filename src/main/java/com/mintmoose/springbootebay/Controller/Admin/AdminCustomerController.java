@@ -1,4 +1,4 @@
-package com.mintmoose.springbootebay.Controller;
+package com.mintmoose.springbootebay.Controller.Admin;
 
 import com.mintmoose.springbootebay.Model.Customer;
 import com.mintmoose.springbootebay.Model.NewCustomerRequest;
