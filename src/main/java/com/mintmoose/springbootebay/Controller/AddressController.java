@@ -74,6 +74,52 @@ public class AddressController {
             }
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Invalid authorization.");
-
     }
+
+    @PutMapping("/{customerId}")
+    public ResponseEntity<?> updateAddress(@PathVariable("customerId") Long customerId, @RequestBody NewAddressRequest request, Authentication authentication) {
+        if (authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            Address address = addressService.getAddressByCustomerId(customerId);
+            if (address != null) {
+                Customer requestCustomer = customerService.getCustomerByUsername(username)
+                        .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
+                try {
+                    if (Objects.equals(requestCustomer.getUsername(), username)) {
+                        Address updatedAddress = addressService.updateAddress(customerId, request);
+                        return ResponseEntity.ok(updatedAddress);
+                    }
+                } catch (IllegalArgumentException e) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+                }
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Address not found.");
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Invalid authorization.");
+    }
+
+    @DeleteMapping("/{customerId}")
+    public ResponseEntity<?> deleteAddress(@PathVariable("customerId") Long customerId, Authentication authentication) {
+        if (authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            Address address = addressService.getAddressByCustomerId(customerId);
+            if (address != null) {
+                Customer requestCustomer = customerService.getCustomerByUsername(username)
+                        .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
+                try {
+                    if (Objects.equals(requestCustomer.getUsername(), username)) {
+                        addressService.deleteAddress(customerId);
+                        return ResponseEntity.ok().build();
+                    }
+                } catch (IllegalArgumentException e) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+                }
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Address not found.");
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Invalid authorization.");
+    }
+
+
+
 }

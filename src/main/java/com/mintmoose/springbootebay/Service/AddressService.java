@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AddressService {
@@ -53,5 +54,25 @@ public class AddressService {
             return addressRepository.save(address);
         }
 
+    }
+
+    public void deleteAddress(Long CustomerId) {
+        addressRepository.deleteByCustomerId(CustomerId);
+    }
+
+    public Address updateAddress(Long CustomerId, NewAddressRequest request) {
+        Optional<Address> optionalAddress = addressRepository.findByCustomerId(CustomerId);
+        if (optionalAddress.isPresent()) {
+            Address address = optionalAddress.get();
+            address.setBuildingNumber(request.buildingNumber());
+            address.setStreet(request.street());
+            address.setCity(request.city());
+            address.setCountry(request.country());
+            address.setPostcode(request.postcode());
+
+            return addressRepository.save(address);
+        } else {
+            throw new IllegalArgumentException("Address not found with Customer ID: " + CustomerId);
+        }
     }
 }
