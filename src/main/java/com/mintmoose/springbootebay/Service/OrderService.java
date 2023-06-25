@@ -32,4 +32,12 @@ public class OrderService {
     public void deleteOrder(Long id) {
         orderRepository.deleteById(id);
     }
+
+    public List<Order> getOrdersByCustomerId(Long customerId) {
+        return orderRepository.findByCustomerId(customerId);
+    }
+
+    public List<Order> getOrdersBySellerId(Long sellerId) {
+        return orderRepository.findBySellerId(sellerId);
+    }
 }
