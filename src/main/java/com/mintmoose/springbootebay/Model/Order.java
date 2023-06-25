@@ -27,9 +27,11 @@ public class Order {
     private double totalPrice;
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
+    private Long sellerId;
 
-    public Order(Long customerId, LocalDateTime orderDate, List<Product> products, double totalAmount, PaymentStatus paymentStatus) {
+    public Order(Long customerId, LocalDateTime orderDate, List<Product> products, double totalAmount, PaymentStatus paymentStatus, Long sellerId) {
         this.customerId = customerId;
+        this.sellerId = sellerId;
         this.orderDate = orderDate;
         this.products = products;
         this.totalPrice = totalAmount;
