@@ -19,13 +19,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Page<Product> findUnSoldByCustomerUsername(String customerUsername, Pageable pageable);
 
     @Query("SELECT p FROM Product p WHERE p.sold = false")
-    Page<Product> findAllProducts(Pageable pageable);
-
-    @Query("SELECT p FROM Product p")
     Page<Product> findUnsoldProducts(Pageable pageable);
 
-
-
-
-
+    @Query("SELECT p FROM Product p")
+    Page<Product> findAllProducts(Pageable pageable);
 }

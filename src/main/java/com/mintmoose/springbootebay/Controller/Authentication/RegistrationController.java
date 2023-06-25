@@ -1,4 +1,4 @@
-package com.mintmoose.springbootebay.Controller;
+package com.mintmoose.springbootebay.Controller.Authentication;
 
 import com.mintmoose.springbootebay.Config.AuthenticationResponse;
 import com.mintmoose.springbootebay.Config.RegisterRequest;
