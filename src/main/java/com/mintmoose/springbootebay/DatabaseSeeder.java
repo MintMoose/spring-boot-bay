@@ -1,9 +1,7 @@
 package com.mintmoose.springbootebay;
 
-import com.mintmoose.springbootebay.Model.Categories;
-import com.mintmoose.springbootebay.Model.Customer;
-import com.mintmoose.springbootebay.Model.Product;
-import com.mintmoose.springbootebay.Model.Role;
+import com.mintmoose.springbootebay.Model.*;
+import com.mintmoose.springbootebay.Repos.AddressRepository;
 import com.mintmoose.springbootebay.Repos.CustomerRepository;
 import com.mintmoose.springbootebay.Repos.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +14,14 @@ public class DatabaseSeeder implements CommandLineRunner {
 
     private final CustomerRepository customerRepository;
     private final ProductRepository productRepository;
+    private final AddressRepository addressRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public DatabaseSeeder(CustomerRepository customerRepository, ProductRepository productRepository, PasswordEncoder passwordEncoder) {
+    public DatabaseSeeder(CustomerRepository customerRepository, ProductRepository productRepository, AddressRepository addressRepository, PasswordEncoder passwordEncoder) {
         this.customerRepository = customerRepository;
         this.productRepository = productRepository;
+        this.addressRepository = addressRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -65,6 +65,13 @@ public class DatabaseSeeder implements CommandLineRunner {
         productRepository.save(product3);
         productRepository.save(product4);
         productRepository.save(product5);
+
+        Address address1 = new Address(1L, "96", "Euston Road", "London", "United Kingdom", "NW1 2DB");
+        Address address2 = new Address(2L, "710", "S Ocean Blvd", "Palm Beach, Florida", "United States of America", "33480");
+
+        addressRepository.save(address2);
+        addressRepository.save(address1);
+
 
     }
 }

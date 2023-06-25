@@ -1,6 +1,5 @@
 package com.mintmoose.springbootebay.Controller;
 
-import com.mintmoose.springbootebay.Model.CreateProductRequest;
 import com.mintmoose.springbootebay.Model.Customer;
 import com.mintmoose.springbootebay.Model.NewProductRequest;
 import com.mintmoose.springbootebay.Model.Product;
@@ -37,7 +36,7 @@ public class AdminProductController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createProduct(@RequestBody CreateProductRequest product, @RequestBody String username) {
+    public ResponseEntity<?> createProduct(@RequestBody NewProductRequest product, @RequestBody String username) {
         Product createdProduct = productService.createProduct(product, username);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
     }
