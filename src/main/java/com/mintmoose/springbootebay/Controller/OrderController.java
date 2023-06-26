@@ -37,14 +37,12 @@ public class OrderController {
     public ResponseEntity<?> getMyOrders(Authentication authentication) {
         Customer requestCustomer = getRequestCustomer(authentication);
         List<Order> myOrders = orderService.getOrdersByCustomerId(requestCustomer.getCustomerId());
-
+        if (myOrders.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No orders found for the customer.");
+        }
         // Check if the user is authorized to access the orders
         if (isCustomerOrderAccessible(myOrders, requestCustomer)) {
-            if (!myOrders.isEmpty()) {
                 return ResponseEntity.ok(myOrders);
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No orders found for the customer.");
-            }
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Invalid authorization.");
         }
@@ -53,9 +51,11 @@ public class OrderController {
 
     @GetMapping("/selling-orders")
     public ResponseEntity<?> getSellingOrders(Authentication authentication) {
-        Customer requestSeller= getRequestCustomer(authentication);
+        Customer requestSeller = getRequestCustomer(authentication);
         List<Order> sellingOrders = orderService.getOrdersBySellerId(requestSeller.getCustomerId());
-
+        if (sellingOrders.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("You have not sold anything yet.");
+        }
         // Check if the user is authorized to access the orders
         if (isSellerOrderAccessible(sellingOrders, requestSeller)) {
             return ResponseEntity.ok(sellingOrders);

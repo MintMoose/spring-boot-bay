@@ -62,6 +62,10 @@ public class ProductService {
         return productRepository.findAllProducts(pageable);
     }
 
+    public Page<Product> getUnsoldProducts(Pageable pageable) {
+        return productRepository.findUnsoldProducts(pageable);
+    }
+
     public Product createProduct(NewProductRequest params, String username) {
 
         if (params.name() == null ||

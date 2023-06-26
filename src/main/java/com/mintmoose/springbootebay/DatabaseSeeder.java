@@ -3,11 +3,16 @@ package com.mintmoose.springbootebay;
 import com.mintmoose.springbootebay.Model.*;
 import com.mintmoose.springbootebay.Repos.AddressRepository;
 import com.mintmoose.springbootebay.Repos.CustomerRepository;
+import com.mintmoose.springbootebay.Repos.OrderRepository;
 import com.mintmoose.springbootebay.Repos.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Optional;
 
 @Component
 public class DatabaseSeeder implements CommandLineRunner {
@@ -15,13 +20,15 @@ public class DatabaseSeeder implements CommandLineRunner {
     private final CustomerRepository customerRepository;
     private final ProductRepository productRepository;
     private final AddressRepository addressRepository;
+    private final OrderRepository orderRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public DatabaseSeeder(CustomerRepository customerRepository, ProductRepository productRepository, AddressRepository addressRepository, PasswordEncoder passwordEncoder) {
+    public DatabaseSeeder(CustomerRepository customerRepository, ProductRepository productRepository, AddressRepository addressRepository, OrderRepository orderRepository, PasswordEncoder passwordEncoder) {
         this.customerRepository = customerRepository;
         this.productRepository = productRepository;
         this.addressRepository = addressRepository;
+        this.orderRepository = orderRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -72,6 +79,9 @@ public class DatabaseSeeder implements CommandLineRunner {
         addressRepository.save(address2);
         addressRepository.save(address1);
 
+        Order order1 = new Order(2L, new ArrayList<>(Collections.singletonList(product3)), product3.getPrice(), PaymentStatus.PENDING, 1L);
+
+        orderRepository.save(order1);
 
     }
 }
