@@ -1,7 +1,9 @@
 package com.mintmoose.springbootebay.Service;
 
+import com.mintmoose.springbootebay.Model.Customer;
 import com.mintmoose.springbootebay.Model.NewProductRequest;
 import com.mintmoose.springbootebay.Model.Product;
+import com.mintmoose.springbootebay.Repos.CustomerRepository;
 import com.mintmoose.springbootebay.Repos.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,9 +17,8 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-
     @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, CustomerRepository customerRepository) {
         this.productRepository = productRepository;
     }
 
@@ -26,8 +27,9 @@ public class ProductService {
     }
 
 
-    public Page<Product> getUserProducts(String customerUsername, Pageable pageable) {
-        return productRepository.findAllByCustomerUsername(customerUsername, pageable);
+    public Page<Product> getUserProducts(Long CustomerId, Pageable pageable) {
+
+        return productRepository.findAllByCustomerId(CustomerId, pageable);
     }
 
     public Product updateProduct(Long id, NewProductRequest request) {
@@ -66,7 +68,7 @@ public class ProductService {
         return productRepository.findUnsoldProducts(pageable);
     }
 
-    public Product createProduct(NewProductRequest params, String username) {
+    public Product createProduct(NewProductRequest params, Long customerId) {
 
         if (params.name() == null ||
                 params.description() == null ||
@@ -83,7 +85,7 @@ public class ProductService {
         product.setSold(false);
         product.setCategory(params.category());
         product.setImageUrl(params.imageUrl());
-        product.setCustomerUsername(username);
+        product.setCustomerId(customerId);
 
         return productRepository.save(product);
     }

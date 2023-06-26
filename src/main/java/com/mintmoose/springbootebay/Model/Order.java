@@ -13,7 +13,7 @@ import java.util.Objects;
 @ToString
 @Entity
 @NoArgsConstructor
-@Table(name = "customer_orders", uniqueConstraints = @UniqueConstraint(columnNames = {"customerId", "products"}))
+@Table(name = "customer_orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

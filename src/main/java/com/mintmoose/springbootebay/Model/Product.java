@@ -24,15 +24,17 @@ public class Product {
     private Categories category;
     private Boolean sold;
     private String imageUrl;
-    private String customerUsername; // Changed from Customer object
+    private Long customerId;
 
-    public Product(String name, String description, double price, Categories category, boolean sold, String imageUrl, String customerUsername) {
+
+
+    public Product(String name, String description, double price, Categories category, boolean sold, String imageUrl, Long customerId) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
         this.sold = sold;
         this.imageUrl = imageUrl;
-        this.customerUsername = customerUsername;
+        this.customerId = customerId;
     }
 }
