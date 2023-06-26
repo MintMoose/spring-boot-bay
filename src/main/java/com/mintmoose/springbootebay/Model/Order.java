@@ -13,7 +13,7 @@ import java.util.Objects;
 @ToString
 @Entity
 @NoArgsConstructor
-@Table(name = "customer_orders")
+@Table(name = "customer_orders", uniqueConstraints = @UniqueConstraint(columnNames = {"customerId", "products"}))
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -29,18 +29,23 @@ public class Order {
     private PaymentStatus paymentStatus;
     private Long sellerId;
 
-    public Order(Long customerId, List<Product> products, double totalAmount, PaymentStatus paymentStatus, Long sellerId) {
+    public Order(Long customerId, List<Product> products, double totalAmount, Long sellerId) {
         this.customerId = customerId;
         this.sellerId = sellerId;
         this.products = products;
         this.totalPrice = totalAmount;
-        this.paymentStatus = paymentStatus;
+        this.paymentStatus = PaymentStatus.PENDING;
     }
 
     @PrePersist
     protected void onCreate() {
         orderDate = LocalDateTime.now();
     }
+
+    public boolean isProductAlreadyTaken(Product product) {
+        return products.stream().anyMatch(p -> p.getId().equals(product.getId()) || p.getSold());
+    }
+
 
     @Override
     public boolean equals(Object o) {

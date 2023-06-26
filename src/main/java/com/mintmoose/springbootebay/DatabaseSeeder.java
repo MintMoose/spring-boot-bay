@@ -79,7 +79,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         addressRepository.save(address2);
         addressRepository.save(address1);
 
-        Order order1 = new Order(2L, new ArrayList<>(Collections.singletonList(product3)), product3.getPrice(), PaymentStatus.PENDING, 1L);
+        Order order1 = new Order(2L, new ArrayList<>(Collections.singletonList(product3)), product3.getPrice(), 1L);
 
         orderRepository.save(order1);
 
