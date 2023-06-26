@@ -89,5 +89,7 @@ public class ProductService {
     }
 
 
-
+    public void updateProductDirectly(Product product) {
+        productRepository.save(product);
+    }
 }
