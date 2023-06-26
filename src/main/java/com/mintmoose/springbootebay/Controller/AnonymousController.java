@@ -47,7 +47,7 @@ public class AnonymousController {
     public ResponseEntity<?> getUnsoldProducts(@RequestParam(defaultValue = "0") int pageNumber) {
         int pageSize = 10; // Number of products per page
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        Page<Product> productsPage = productService.getAllProducts(pageable);
+        Page<Product> productsPage = productService.getUnsoldProducts(pageable);
 
         if (productsPage.hasContent()) {
             List<Product> products = productsPage.getContent();
