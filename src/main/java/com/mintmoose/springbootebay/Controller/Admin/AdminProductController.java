@@ -37,7 +37,9 @@ public class AdminProductController {
 
     @PostMapping
     public ResponseEntity<?> createProduct(@RequestBody NewProductRequest product, @RequestBody String username) {
-        Product createdProduct = productService.createProduct(product, username);
+        Customer requestCustomer = customerService.getCustomerByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found."));
+        Product createdProduct = productService.createProduct(product, requestCustomer.getUsername());
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
     }
 

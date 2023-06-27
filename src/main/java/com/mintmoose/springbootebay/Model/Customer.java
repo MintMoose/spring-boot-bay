@@ -37,11 +37,7 @@ public class Customer implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
-    @OneToMany
-    @ToString.Exclude
-    private List<Product> products;
-    @OneToOne
-    private Address address;
+
 
     public Customer(String username, String name, String email, String password) {
         this.username = username;
@@ -49,7 +45,6 @@ public class Customer implements UserDetails {
         this.email = email;
         this.password = password;
         this.role = Role.USER;
-        this.products = new ArrayList<>(); // Initialize the products list
     }
 
     public void setRole(Role role) {

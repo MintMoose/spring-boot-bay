@@ -81,6 +81,5 @@ public class DatabaseSeeder implements CommandLineRunner {
         Order order1 = new Order(2L, product3, product3.getPrice(), 1L);
 
         orderRepository.save(order1);
-
     }
 }
