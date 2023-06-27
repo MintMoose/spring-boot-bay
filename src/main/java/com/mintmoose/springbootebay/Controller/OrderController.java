@@ -1,6 +1,7 @@
 package com.mintmoose.springbootebay.Controller;
 import com.mintmoose.springbootebay.Model.Address;
 import com.mintmoose.springbootebay.Model.Customer;
+import com.mintmoose.springbootebay.Model.NewOrderRequest;
 import com.mintmoose.springbootebay.Model.Order;
 import com.mintmoose.springbootebay.Service.CustomerService;
 import com.mintmoose.springbootebay.Service.OrderService;
@@ -65,19 +66,14 @@ public class OrderController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createOrder(@RequestBody Order order, Authentication authentication) {
+    public ResponseEntity<?> createOrder(@RequestBody NewOrderRequest order, Authentication authentication) {
         Customer requestCustomer = getRequestCustomer(authentication);
 
         // TODO: test this...
 
-        // Check if the user is authorized to create the order
-        if (!isCustomerOrderAccessible(Collections.singletonList(order), requestCustomer)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Invalid authorization.");
-        }
-
         try {
             // Save the order
-            Order createdOrder = orderService.createOrder(order);
+            Order createdOrder = orderService.createOrder(order, requestCustomer);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdOrder);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

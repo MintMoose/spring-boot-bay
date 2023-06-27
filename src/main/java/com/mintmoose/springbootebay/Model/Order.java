@@ -21,18 +21,18 @@ public class Order {
     private Long customerId;
     private LocalDateTime orderDate;
 
-    @OneToMany
+    @OneToOne
     @ToString.Exclude
-    private List<Product> products;
+    private Product product;
     private double totalPrice;
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
     private Long sellerId;
 
-    public Order(Long customerId, List<Product> products, double totalAmount, Long sellerId) {
+    public Order(Long customerId, Product product, double totalAmount, Long sellerId) {
         this.customerId = customerId;
         this.sellerId = sellerId;
-        this.products = products;
+        this.product = product;
         this.totalPrice = totalAmount;
         this.paymentStatus = PaymentStatus.PENDING;
     }
@@ -41,11 +41,6 @@ public class Order {
     protected void onCreate() {
         orderDate = LocalDateTime.now();
     }
-
-    public boolean isProductAlreadyTaken(Product product) {
-        return products.stream().anyMatch(p -> p.getId().equals(product.getId()) || p.getSold());
-    }
-
 
     @Override
     public boolean equals(Object o) {
