@@ -39,7 +39,7 @@ public class AdminProductController {
     public ResponseEntity<?> createProduct(@RequestBody NewProductRequest product, @RequestBody String username) {
         Customer requestCustomer = customerService.getCustomerByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found."));
-        Product createdProduct = productService.createProduct(product, requestCustomer.getCustomerId());
+        Product createdProduct = productService.createProduct(product, requestCustomer.getUsername());
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
     }
 
@@ -86,7 +86,7 @@ public class AdminProductController {
         Customer requestCustomer = customerService.getCustomerByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found."));
 
-        Page<Product> productsPage = productService.getUserProducts(requestCustomer.getCustomerId(), pageable);
+        Page<Product> productsPage = productService.getUserProducts(requestCustomer.getUsername(), pageable);
         if (productsPage.hasContent()) {
             List<Product> products = productsPage.getContent();
             long totalProducts = productsPage.getTotalElements();

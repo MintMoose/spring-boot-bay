@@ -27,9 +27,9 @@ public class ProductService {
     }
 
 
-    public Page<Product> getUserProducts(Long CustomerId, Pageable pageable) {
+    public Page<Product> getUserProducts(String customerUsername, Pageable pageable) {
 
-        return productRepository.findAllByCustomerId(CustomerId, pageable);
+        return productRepository.findAllByCustomerUsername(customerUsername, pageable);
     }
 
     public Product updateProduct(Long id, NewProductRequest request) {
@@ -68,7 +68,7 @@ public class ProductService {
         return productRepository.findUnsoldProducts(pageable);
     }
 
-    public Product createProduct(NewProductRequest params, Long customerId) {
+    public Product createProduct(NewProductRequest params, String customerUsername) {
 
         if (params.name() == null ||
                 params.description() == null ||
@@ -85,7 +85,7 @@ public class ProductService {
         product.setSold(false);
         product.setCategory(params.category());
         product.setImageUrl(params.imageUrl());
-        product.setCustomerId(customerId);
+        product.setCustomerUsername(customerUsername);
 
         return productRepository.save(product);
     }

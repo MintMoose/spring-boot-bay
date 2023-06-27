@@ -50,23 +50,23 @@ public class DatabaseSeeder implements CommandLineRunner {
         customerRepository.save(admin1);
 
         Product product1 = new Product("Xbox (New)", "For sale: Xbox, never used", 429.99,
-                Categories.ELECTRONICS, false, "https://source.unsplash.com/WMMh6BtmTMo", 1L);
+                Categories.ELECTRONICS, false, "https://source.unsplash.com/WMMh6BtmTMo", "justshasans55");
 
         Product product2 = new Product("Java Teak Garden Bench", "120cm 4ft 2 Seat Chunky Garden Furniture," +
                 " They are manufactured form FLEGT certified teak sourced from sustainable sources. Dog not included. stop asking!!!",
-                199.99, Categories.HOUSEHOLD, false, "https://source.unsplash.com/lX-9IaYCals", 1L);
+                199.99, Categories.HOUSEHOLD, false, "https://source.unsplash.com/lX-9IaYCals", "justshasans55");
 
         Product product3 = new Product("Left Hand Taylormade Stealth 2 Driver", "Selling since i thought i was left handed golfer " +
                 "( mini golf lefty... ). 10.5 Degree / Stiff Flex Hzrdus Black Gen 4 (camera broke, stock image)",
-                215, Categories.HOBBY_DIY, true, "https://source.unsplash.com/NczT3PIpZBw", 1L);
+                215, Categories.HOBBY_DIY, true, "https://source.unsplash.com/NczT3PIpZBw", "justshasans55");
 
         Product product4 = new Product("Playstation 1", "Playstation 1 (Unopened), never found the time to use it.", 119.99,
-                Categories.ELECTRONICS, false, "https://source.unsplash.com/b-bnM85Z35o", 2L);
+                Categories.ELECTRONICS, false, "https://source.unsplash.com/b-bnM85Z35o", "jamesspyder93");
 
         Product product5 = new Product("Space Rock (rarely used)", "(Disclaimer: Not actually from space) French metallurgists discovered that molybdenum," +
                 " when alloyed, creates a substance that is remarkably tougher than steel alone and is highly resistant to heat." +
                 " Ideal for making tools and armor plate. Happy Crafting!", 17899.99,
-                Categories.HEALTH_BEAUTY, false, "https://source.unsplash.com/9kRjMMLSPqw", 2L);
+                Categories.HEALTH_BEAUTY, false, "https://source.unsplash.com/9kRjMMLSPqw", "jamesspyder93");
 
         productRepository.save(product1);
         productRepository.save(product2);

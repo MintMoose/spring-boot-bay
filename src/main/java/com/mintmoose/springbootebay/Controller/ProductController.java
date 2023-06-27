@@ -57,7 +57,7 @@ public class ProductController {
         Customer requestCustomer = customerService.getCustomerByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found."));
 
-        Page<Product> productsPage = productService.getUserProducts(requestCustomer.getCustomerId(), pageable);
+        Page<Product> productsPage = productService.getUserProducts(requestCustomer.getUsername(), pageable);
         if (productsPage.hasContent()) {
             List<Product> products = productsPage.getContent();
             long totalProducts = productsPage.getTotalElements();
@@ -89,7 +89,7 @@ public class ProductController {
             Customer requestCustomer = customerService.getCustomerByUsername(username)
                     .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
             try {
-                Product createdProduct = productService.createProduct(request, requestCustomer.getCustomerId());
+                Product createdProduct = productService.createProduct(request, requestCustomer.getUsername());
                 return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
             } catch (IllegalArgumentException e) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -105,7 +105,7 @@ public class ProductController {
             String username = authentication.getName();
             Customer requestCustomer = customerService.getCustomerByUsername(username)
                     .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
-            if (Objects.equals(productService.getProductById(id).getCustomerId(), requestCustomer.getCustomerId())) {
+            if (Objects.equals(productService.getProductById(id).getCustomerUsername(), requestCustomer.getUsername())) {
                 Product updatedProduct = productService.updateProduct(id, request);
                 if (updatedProduct != null) {
                     return ResponseEntity.ok(updatedProduct);
@@ -122,7 +122,7 @@ public class ProductController {
             String username = authentication.getName();
             Customer requestCustomer = customerService.getCustomerByUsername(username)
                     .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
-            if (Objects.equals(productService.getProductById(id).getCustomerId(), requestCustomer.getCustomerId())) {
+            if (Objects.equals(productService.getProductById(id).getCustomerUsername(), requestCustomer.getUsername())) {
                 productService.deleteProduct(id);
                 return ResponseEntity.status(HttpStatus.OK).body("Product deleted successfully.");
             }

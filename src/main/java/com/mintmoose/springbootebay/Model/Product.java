@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @NoArgsConstructor
-@Table(name = "products")
+@Table(name = "customer_products")
 public class Product {
 
     @Id
@@ -24,17 +24,17 @@ public class Product {
     private Categories category;
     private Boolean sold;
     private String imageUrl;
-    private Long customerId;
+    private String customerUsername;
 
 
 
-    public Product(String name, String description, double price, Categories category, boolean sold, String imageUrl, Long customerId) {
+    public Product(String name, String description, double price, Categories category, boolean sold, String imageUrl, String customerUsername) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
         this.sold = sold;
         this.imageUrl = imageUrl;
-        this.customerId = customerId;
+        this.customerUsername = customerUsername;
     }
 }
