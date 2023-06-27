@@ -64,6 +64,31 @@ public class OrderController {
         }
     }
 
+    @PostMapping("/create")
+    public ResponseEntity<?> createOrder(@RequestBody Order order, Authentication authentication) {
+        Customer requestCustomer = getRequestCustomer(authentication);
+
+        // TODO: test this...
+
+        // Check if the user is authorized to create the order
+        if (!isCustomerOrderAccessible(Collections.singletonList(order), requestCustomer)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Invalid authorization.");
+        }
+
+        try {
+            // Save the order
+            Order createdOrder = orderService.createOrder(order);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdOrder);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create the order. Please try again.");
+        }
+    }
+
+
+
+
     @GetMapping("/{orderId}")
     public ResponseEntity<?> getOrderById(@PathVariable("orderId") Long orderId, Authentication authentication) {
         Customer requestCustomer = getRequestCustomer(authentication);

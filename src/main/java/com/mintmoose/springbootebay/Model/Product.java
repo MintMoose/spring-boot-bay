@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @NoArgsConstructor
-@Table(name = "products")
+@Table(name = "customer_products")
 public class Product {
 
     @Id
@@ -24,7 +24,9 @@ public class Product {
     private Categories category;
     private Boolean sold;
     private String imageUrl;
-    private String customerUsername; // Changed from Customer object
+    private String customerUsername;
+
+
 
     public Product(String name, String description, double price, Categories category, boolean sold, String imageUrl, String customerUsername) {
         this.name = name;

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -79,7 +80,12 @@ public class DatabaseSeeder implements CommandLineRunner {
         addressRepository.save(address2);
         addressRepository.save(address1);
 
-        Order order1 = new Order(2L, new ArrayList<>(Collections.singletonList(product3)), product3.getPrice(), PaymentStatus.PENDING, 1L);
+        List<Product> productList = new ArrayList<>();
+        productList.add(product1);
+        productList.add(product3);
+
+        Order order1 = new Order(2L, productList, product3.getPrice() + product1.getPrice(), 1L);
+
 
         orderRepository.save(order1);
 
