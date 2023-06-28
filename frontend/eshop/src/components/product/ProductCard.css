@@ -21,9 +21,9 @@
 }
 */
 
-/* .product-card.small {
+.product-card.small {
   padding: 1rem;
-} */
+}
 
 .product-title {
   margin-top: 1rem;
@@ -52,7 +52,7 @@
 }
 
 .product-info.small > p {
-  font-size: 1.75rem;
+  font-size: 1.6rem;
 }
 
 .product-info.large > button {
