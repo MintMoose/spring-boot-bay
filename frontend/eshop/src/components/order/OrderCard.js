@@ -1,5 +1,6 @@
 import React from "react";
 import "./OrderCard.css";
+import rob from "../product/rob-potter.jpg";
 
 const OrderCard = ({ order }) => {
   const {
@@ -16,12 +17,12 @@ const OrderCard = ({ order }) => {
     <div className="order-card">
       <div className="order-header">
         <div>
-          <p>Order Placed:</p>
+          <p className="grey-thin">Order Placed:</p>
           <p>{new Date(orderDate).toLocaleString()}</p>
         </div>
         <div className="price-div">
-          <p>Total:</p>
-          <p className="price">£{totalPrice}</p>
+          <p className="grey-thin">Total:</p>
+          <p className="price-order">£{totalPrice}</p>
         </div>
         <div className="name-div">
           <p>{product.name}</p>
@@ -32,15 +33,17 @@ const OrderCard = ({ order }) => {
         <p>{product.name}</p> */}
       </div>
       <hr className="small-hr " />
-      <div className="product-details">
-        <img src={product.imageUrl} alt={product.name} />
+      <div className="order-details">
+        <img src={rob} alt={product.name} />
         <div>
-          <p>{product.category}</p>
+          <p className="grey-thin">{product.category}</p>
           <p>Seller: {product.customerUsername}</p>
         </div>
       </div>
       <hr />
-      <p className="payment-status">Payment Status: {paymentStatus}</p>
+      <p className="payment-status">
+        <span className="grey-thin">Payment Status:</span> {paymentStatus}
+      </p>
     </div>
   );
 };
