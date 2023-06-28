@@ -198,12 +198,13 @@ function Profile({ authData, userProducts }) {
           <Row>
             <Col>
               <h1>My Orders</h1>
-              {myOrders && myOrders.length > 0 ? (
-                myOrders.map((order) => <OrderCard order={order} />)
-              ) : (
-                <p>No orders found.</p>
-              )}
-              <div className="order-list"></div>
+              <div className="order-list">
+                {myOrders && myOrders.length > 0 ? (
+                  myOrders.map((order) => <OrderCard order={order} />)
+                ) : (
+                  <p>No orders found.</p>
+                )}
+              </div>
             </Col>
           </Row>
         </Container>

@@ -33,6 +33,8 @@
 .profile-container {
   margin-left: 160px; /* Same as the width of the sidebar */
   padding: 0px 5vw;
+  color: rgb(24, 83, 134);
+  min-width: 30rem;
 }
 
 .second-nav {
@@ -83,10 +85,11 @@
 }
 
 .content {
+  margin-right: clamp(0.1rem, 1vw, 10rem);
   margin-block: 2rem;
   padding-block: 1.5rem;
-  border-radius: 20px;
-  background-color: #fff8f2;
+  border-radius: 10px;
+  border: 1px solid rgb(200, 199, 199);
 }
 
 .product-list {
