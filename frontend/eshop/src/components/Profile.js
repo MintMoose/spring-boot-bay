@@ -9,9 +9,11 @@ import {
   faUser,
   faShoppingCart,
   faShop,
+  faAnchorLock,
 } from "@fortawesome/free-solid-svg-icons";
 import api from "../api/axiosConfig";
 import OrderCard from "./order/OrderCard";
+import SellerCard from "./order/SellerCard";
 
 function Profile({ authData, userProducts }) {
   const [name, setName] = useState("");
@@ -85,7 +87,7 @@ function Profile({ authData, userProducts }) {
       }
     } else if (tab === "my-products") {
       // Fetch userProducts
-    } else if (tab === "my-sold") {
+    } else if (tab === "selling") {
       try {
         const response = await api.get("/orders/selling-orders");
         if (response.status === 200) {
@@ -209,6 +211,25 @@ function Profile({ authData, userProducts }) {
           </Row>
         </Container>
       );
+    } else if (selectedTab === "selling") {
+      return (
+        <Container>
+          <Row>
+            <Col>
+              <h1>Sold</h1>
+              <div className="selling-list">
+                {mySold && mySold.length > 0 ? (
+                  mySold.map((sold) => <SellerCard sold={sold} />)
+                ) : (
+                  <p>
+                    You have something to sell? We have 1.35 million buyers!
+                  </p>
+                )}
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      );
     } else if (selectedTab === "change-name") {
       return (
         <Container className="second-back">
@@ -268,6 +289,18 @@ function Profile({ authData, userProducts }) {
                 className="my-orders-icon"
               />{" "}
               <span>My Orders</span>
+            </NavLink>
+          </li>
+          <li className="nav-li">
+            <NavLink
+              className={`nav-button  ${
+                selectedTab === "selling" ? "active" : ""
+              }`}
+              to="#"
+              onClick={() => handleTabClick("selling")}
+            >
+              <FontAwesomeIcon icon={faAnchorLock} className="my-orders-icon" />{" "}
+              <span>Sold</span>
             </NavLink>
           </li>
           <li className="nav-li">

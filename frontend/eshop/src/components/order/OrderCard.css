@@ -40,7 +40,7 @@
   object-fit: cover;
   width: 50%;
   height: 10rem;
-  border: 5px solid black;
+  border: 5px solid rgb(101, 101, 101);
 }
 
 .payment-status {
@@ -53,8 +53,8 @@
 }
 
 @media (max-width: 35em) {
-  .price-div {
-  }
+  /* .price-div {
+  } */
 }
 
 .name-div {

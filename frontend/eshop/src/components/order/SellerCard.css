@@ -1,0 +1,61 @@
+.sold-card {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(249, 243, 255);
+  border: 2px solid #424150;
+  box-shadow: 2px 4px 6px #888888;
+  padding: 1rem 1rem 0rem 1rem;
+  margin: 1rem;
+  max-width: 30rem;
+  color: black;
+}
+
+.sold-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-gap: 40px;
+}
+
+.sold-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.payment-status-seller {
+  text-align: end;
+}
+
+.total-price-seller {
+  text-align: center;
+  font-size: 1.25rem;
+}
+
+.total-price-seller strong {
+  font-size: 1rem;
+  color: #25234b;
+}
+
+.seller-img {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.seller-img img {
+  object-fit: cover;
+  width: 60%;
+  height: 10rem;
+  border: 2px solid rgb(135, 135, 135);
+}
+
+.sold-name {
+  max-width: 11rem;
+}
+
+.sold-text {
+  font-style: italic;
+  color: #26a132;
+  font-weight: 700;
+}
