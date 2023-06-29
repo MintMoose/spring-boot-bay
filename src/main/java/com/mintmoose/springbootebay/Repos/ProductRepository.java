@@ -23,4 +23,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("SELECT p FROM Product p")
     Page<Product> findAllProducts(Pageable pageable);
+
+    @Query("SELECT p FROM Product p WHERE p.customerUsername = ?1 AND p.sold = false")
+    Page<Product> findAllByCustomerUsernameUnSold(String username, Pageable pageable);
 }

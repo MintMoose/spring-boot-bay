@@ -15,7 +15,8 @@ const ProductCard = ({ product, size, username }) => {
   const priceClassName =
     size === "large" ? "product-info large" : "product-info small";
 
-  const isProductOwnedByUser = product.customerUsername === username;
+  const isProductOwnedByUser =
+    product.customerUsername === username && product.sold === false;
 
   const handleDelete = () => {
     setShowConfirmation(true);
@@ -75,6 +76,8 @@ const ProductCard = ({ product, size, username }) => {
                 </Modal.Footer>
               </Modal>
             </>
+          ) : product.sold ? (
+            <p className="sold-icon">SOLD</p>
           ) : (
             <button className="add-to-cart">Add to Cart</button>
           )}

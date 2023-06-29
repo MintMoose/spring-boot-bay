@@ -107,7 +107,7 @@ function Profile({ authData, userProducts }) {
         <Container className="second-back">
           <Row>
             <Col>
-              <h1>Change Address</h1>
+              <h1>Update Address</h1>
               <div className="container">
                 <Form onSubmit={handleSubmit}>
                   <Form.Group controlId="buildingNumber" className="mb-3 mt-3">

@@ -94,4 +94,8 @@ public class ProductService {
     public void updateProductDirectly(Product product) {
         productRepository.save(product);
     }
+
+    public Page<Product> getUnsoldUserProducts(String username, Pageable pageable) {
+        return productRepository.findAllByCustomerUsernameUnSold(username, pageable);
+    }
 }

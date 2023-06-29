@@ -73,6 +73,29 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No products found.");
     }
 
+    @GetMapping("/{username}/unsold")
+    public ResponseEntity<?> getUnSoldUserProducts(@PathVariable("username") String username, @RequestParam(defaultValue = "0") int pageNumber) {
+        int pageSize = 10; // Number of products per page
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Customer requestCustomer = customerService.getCustomerByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found."));
+
+        Page<Product> productsPage = productService.getUnsoldUserProducts(requestCustomer.getUsername(), pageable);
+        if (productsPage.hasContent()) {
+            List<Product> products = productsPage.getContent();
+            long totalProducts = productsPage.getTotalElements();
+            int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("content", products);
+            response.put("totalPages", totalPages);
+
+            return ResponseEntity.ok(response);
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No products found.");
+    }
+
     @GetMapping("/details/{id}")
     public ResponseEntity<?> getProductById(@PathVariable("id") Long id) {
         Product requestProduct = productService.getProductById(id);
