@@ -13,11 +13,11 @@
   font-weight: bold;
   text-decoration: none;
   border-radius: 5px;
-  color: rgb(88, 93, 180);
+  color: rgb(0, 44, 205);
 }
 
 .nav-button:hover {
-  color: rgb(23, 23, 125);
+  color: rgb(0, 0, 0);
 }
 
 /*
@@ -98,6 +98,16 @@
 
 .order-list {
   margin-top: 2rem;
+  margin-left: 0.75rem;
+}
+
+.selling-list {
+  margin-top: 2rem;
+  margin-left: 0.75rem;
+}
+
+.product-title {
+  color: black;
 }
 
 .nav-li {
