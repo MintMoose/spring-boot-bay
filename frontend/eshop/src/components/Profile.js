@@ -10,7 +10,8 @@ import {
   faShoppingCart,
   faShop,
 } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
+import api from "../api/axiosConfig";
+import OrderCard from "./order/OrderCard";
 
 function Profile({ authData, userProducts }) {
   const [name, setName] = useState("");
@@ -20,6 +21,8 @@ function Profile({ authData, userProducts }) {
   const [country, setCountry] = useState("");
   const [zipcode, setZipcode] = useState("");
   const [selectedTab, setSelectedTab] = useState("my-products");
+  const [myOrders, setMyOrders] = useState("");
+  const [mySold, setMySold] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,7 +37,7 @@ function Profile({ authData, userProducts }) {
       },
     };
 
-    axios
+    api
       .put("/api/profile", data)
       .then((response) => {
         console.log("Address update successful:", response.data);
@@ -52,8 +55,8 @@ function Profile({ authData, userProducts }) {
       name,
     };
 
-    axios
-      .put("/api/profile/name", data)
+    api
+      .put("/customers", data)
       .then((response) => {
         // Handle success
         console.log("Name change successful:", response.data);
@@ -66,8 +69,34 @@ function Profile({ authData, userProducts }) {
       });
   };
 
-  const handleTabClick = (tab) => {
+  const handleTabClick = async (tab) => {
     setSelectedTab(tab);
+    if (tab === "my-orders") {
+      try {
+        const response = await api.get("/orders/my-orders");
+        if (response.status === 200) {
+          setMyOrders(response.data);
+          console.log(response.data);
+        } else {
+          console.log("Request failed with status code:", response.status);
+        }
+      } catch (error) {
+        console.error("Failed to fetch my orders:", error);
+      }
+    } else if (tab === "my-products") {
+      // Fetch userProducts
+    } else if (tab === "my-sold") {
+      try {
+        const response = await api.get("/orders/selling-orders");
+        if (response.status === 200) {
+          setMySold(response.data);
+        } else {
+          console.log("Request failed with status code:", response.status);
+        }
+      } catch (error) {
+        console.error("Failed to fetch my sold products:", error);
+      }
+    }
   };
 
   const renderContent = () => {
@@ -169,8 +198,13 @@ function Profile({ authData, userProducts }) {
           <Row>
             <Col>
               <h1>My Orders</h1>
-
-              <div className="order-list"></div>
+              <div className="order-list">
+                {myOrders && myOrders.length > 0 ? (
+                  myOrders.map((order) => <OrderCard order={order} />)
+                ) : (
+                  <p>No orders found.</p>
+                )}
+              </div>
             </Col>
           </Row>
         </Container>
