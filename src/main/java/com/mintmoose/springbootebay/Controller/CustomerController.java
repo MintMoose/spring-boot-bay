@@ -58,7 +58,7 @@ public class CustomerController {
             Customer requestCustomer = customerService.getCustomerByUsername(username)
                     .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
             Customer updatedCustomer = customerService.updateCustomer(requestCustomer.getCustomerId(), request);
-            return ResponseEntity.ok(updatedCustomer);
+            return ResponseEntity.ok(updatedCustomer.toDTO());
 //          return ResponseEntity.status(HttpStatus.OK).body("Customer updated successfully.");
         }
         return ResponseEntity.notFound().build();

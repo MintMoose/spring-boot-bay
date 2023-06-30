@@ -54,20 +54,18 @@ public class CustomerService {
                 .orElseThrow(() -> new IllegalArgumentException("No such customer exists"));
 
 
-        if (!request.username().isEmpty()) {
-            oldCustomer.setUsername(request.username());
-        }
         if (!request.name().isEmpty()) {
             oldCustomer.setName(request.name());
+            return customerRepository.save(oldCustomer);
         }
-        if (!request.email().isEmpty()) {
-            oldCustomer.setEmail(request.email());
-        }
-        if (!request.password().isEmpty()) {
-            oldCustomer.setPassword(request.password());
-        }
-        return customerRepository.save(oldCustomer);
+//        if (!request.email().isEmpty()) {
+//            oldCustomer.setEmail(request.email());
+//        }
+//        if (!request.password().isEmpty()) {
+//            oldCustomer.setPassword(request.password());
+//        }
 
+        throw new IllegalArgumentException("No change made.");
     }
 
     public Optional<Customer> getCustomerById(Long customerId) {
