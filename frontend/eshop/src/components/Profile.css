@@ -138,3 +138,23 @@
     margin-right: 0.1rem;
   }
 }
+
+.name-change-success {
+  font-size: 1rem;
+  text-align: center;
+  color: rgb(19, 151, 2);
+  font-family: "Kumbh Sans";
+}
+
+.name-change-success {
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+}
+
+.name-change-success.visible {
+  opacity: 1;
+}
+
+.name-change-success.hidden {
+  opacity: 0;
+}
