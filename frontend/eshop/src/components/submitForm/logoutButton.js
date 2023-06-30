@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import "./logoutButton.css";
 
-const LogoutButton = ({ setAuthData }) => {
+const LogoutButton = ({ setAuthData, setuserProducts }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -13,6 +13,7 @@ const LogoutButton = ({ setAuthData }) => {
     // Remove JWT token from cookies
     Cookies.remove("jwt");
     Cookies.remove("username");
+    setUserProducts();
 
     // Redirect to the login page
     navigate("/login");

@@ -4,7 +4,7 @@ import "./Navbar.css";
 import Logout from "../submitForm/logoutButton";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
-function Navbar({ isLoggedIn, setAuthData }) {
+function Navbar({ isLoggedIn, setAuthData, setUserProducts }) {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark ">
       <button
@@ -38,7 +38,10 @@ function Navbar({ isLoggedIn, setAuthData }) {
                 </Link>
               </li>
               <div className="logout-container">
-                <Logout setAuthData={setAuthData} />
+                <Logout
+                  setAuthData={setAuthData}
+                  setUserProducts={setUserProducts}
+                />
               </div>
             </>
           )}
