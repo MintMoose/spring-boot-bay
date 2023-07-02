@@ -24,7 +24,7 @@ public class AddressController {
     private final CustomerService customerService;
 
 
-    @GetMapping("/{Id}")
+    @GetMapping("id/{Id}")
     public ResponseEntity<?> getAddressById(@PathVariable("Id") Long id, Authentication authentication) {
         Long customerId = addressService.getAddressById(id).getCustomerId();
         if (authentication.isAuthenticated()) {
@@ -61,13 +61,30 @@ public class AddressController {
 
     }
 
-    @PostMapping("/{customerId}")
+    @GetMapping("/user/{customerUsername}")
+    public ResponseEntity<?> getAddressByCustomerId(@PathVariable("customerUsername") String customerUsername, Authentication authentication) {
+        if (authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            Customer variableCustomer = customerService.getCustomerByUsername(customerUsername).orElseThrow(() -> new IllegalArgumentException("Id doesn't match!"));
+            try {
+                if (Objects.equals(variableCustomer.getUsername(), username)) {
+                    return ResponseEntity.ok(addressService.getAddressByCustomerId(variableCustomer.getCustomerId()));
+                }
+            } catch (IllegalArgumentException e) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Invalid authorization.");
+
+    }
+
+    @PostMapping("/{customerUsername}")
     public ResponseEntity<?> createAddress(@RequestBody NewAddressRequest request, Authentication authentication) {
         if (authentication.isAuthenticated()) {
             String username = authentication.getName();
             Customer variableCustomer = customerService.getCustomerByUsername(username).orElseThrow(() -> new IllegalArgumentException("Id doesn't match!"));
             try {
-                    Address createdAddress = addressService.createAddress(request);
+                    Address createdAddress = addressService.createAddress(request, variableCustomer.getCustomerId());
                     return ResponseEntity.status(HttpStatus.CREATED).body(createdAddress);
             } catch (IllegalArgumentException e) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -76,17 +93,17 @@ public class AddressController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Invalid authorization.");
     }
 
-    @PutMapping("/{customerId}")
-    public ResponseEntity<?> updateAddress(@PathVariable("customerId") Long customerId, @RequestBody NewAddressRequest request, Authentication authentication) {
+    @PutMapping("/{customerUsername}")
+    public ResponseEntity<?> updateAddress(@PathVariable("customerUsername") String customerUsername, @RequestBody NewAddressRequest request, Authentication authentication) {
         if (authentication.isAuthenticated()) {
             String username = authentication.getName();
-            Address address = addressService.getAddressByCustomerId(customerId);
+            Customer requestCustomer = customerService.getCustomerByUsername(username)
+                    .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
+            Address address = addressService.getAddressByCustomerId(requestCustomer.getCustomerId());
             if (address != null) {
-                Customer requestCustomer = customerService.getCustomerByUsername(username)
-                        .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
                 try {
                     if (Objects.equals(requestCustomer.getUsername(), username)) {
-                        Address updatedAddress = addressService.updateAddress(customerId, request);
+                        Address updatedAddress = addressService.updateAddress(requestCustomer.getCustomerId(), request);
                         return ResponseEntity.ok(updatedAddress);
                     }
                 } catch (IllegalArgumentException e) {

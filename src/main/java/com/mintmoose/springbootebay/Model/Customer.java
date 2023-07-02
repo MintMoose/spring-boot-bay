@@ -1,6 +1,7 @@
 package com.mintmoose.springbootebay.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Hibernate;
@@ -32,6 +33,7 @@ public class Customer implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long customerId;
     private String username;
+    @NotBlank
     private String name;
     private String email;
     private String password;

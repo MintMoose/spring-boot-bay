@@ -75,7 +75,13 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<Layout authData={authData} setAuthData={setAuthData} />}
+          element={
+            <Layout
+              authData={authData}
+              setAuthData={setAuthData}
+              setUserProducts={setUserProducts}
+            />
+          }
         >
           <Route
             path="/"

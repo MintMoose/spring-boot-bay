@@ -62,7 +62,7 @@
   display: flex;
   text-align: end;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
   font-size: 1.2rem;
   color: rgb(5, 5, 154);
   font-style: italic;

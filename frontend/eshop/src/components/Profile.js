@@ -14,6 +14,8 @@ import {
 import api from "../api/axiosConfig";
 import OrderCard from "./order/OrderCard";
 import SellerCard from "./order/SellerCard";
+import Select from "react-select";
+import countryOptions from "./countryOptions";
 
 function Profile({ authData, userProducts }) {
   const [name, setName] = useState("");
@@ -21,32 +23,69 @@ function Profile({ authData, userProducts }) {
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
-  const [zipcode, setZipcode] = useState("");
+  const [postcode, setPostcode] = useState("");
   const [selectedTab, setSelectedTab] = useState("my-products");
   const [myOrders, setMyOrders] = useState("");
   const [mySold, setMySold] = useState("");
+  const [nameChange, setNameChange] = useState("");
+  const [addressChange, setAddressChange] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [addressError, setAddressError] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const data = {
-      address: {
-        buildingNumber,
-        street,
-        city,
-        country,
-        zipcode,
-      },
+      buildingNumber,
+      street,
+      city,
+      country,
+      postcode,
     };
 
+    try {
+      const response = await api.get(`/address/user/${authData.username}`);
+      if (response.data.id) {
+        // Address exists, make an update request
+        updateAddressRequest(data);
+      } else {
+        // Address does not exist, make a create request
+        console.log(data);
+        createAddressRequest(data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch profile:", error);
+      // Handle error
+    }
+    setTimeout(() => {
+      setAddressChange();
+      setAddressError();
+    }, 6000);
+  };
+
+  const createAddressRequest = (data) => {
     api
-      .put("/api/profile", data)
+      .post(`/address/${authData.username}`, data)
       .then((response) => {
-        console.log("Address update successful:", response.data);
-        // Show success message or redirect the user
+        console.log("Address create successful:", response.data);
+        setAddressChange("Successfully created an Address");
       })
       .catch((error) => {
-        console.error("Profile update failed:", error);
+        console.error("Address create failed:", error);
+        setAddressError("Address creation failed, fill address information.");
+      });
+  };
+
+  const updateAddressRequest = (data) => {
+    api
+      .put(`/address/${authData.username}`, data)
+      .then((response) => {
+        console.log("Address update successful:", response.data);
+        setAddressChange("Sucessfully updated the Address");
+      })
+      .catch((error) => {
+        console.error("Address update failed:", error);
+        setAddressError("Updating address failed!");
       });
   };
 
@@ -58,17 +97,19 @@ function Profile({ authData, userProducts }) {
     };
 
     api
-      .put("/customers", data)
+      .put(`/customers/${authData.username}`, data)
       .then((response) => {
-        // Handle success
         console.log("Name change successful:", response.data);
-        // Show success message or redirect the user
+        setNameChange(response.data.name);
       })
       .catch((error) => {
-        // Handle error
         console.error("Name change failed:", error);
-        // Show error message or handle the error
+        setNameError("Invalid: name changed failed!");
       });
+    setTimeout(() => {
+      setNameChange(false);
+      setNameError(false);
+    }, 6000);
   };
 
   const handleTabClick = async (tab) => {
@@ -140,7 +181,7 @@ function Profile({ authData, userProducts }) {
                     />
                   </Form.Group>
 
-                  <Form.Group controlId="country" className="mb-3">
+                  {/* <Form.Group controlId="country" className="mb-3">
                     <Form.Label>Country</Form.Label>
                     <Form.Control
                       type="text"
@@ -148,14 +189,26 @@ function Profile({ authData, userProducts }) {
                       onChange={(e) => setCountry(e.target.value)}
                       placeholder="Enter your country"
                     />
+                  </Form.Group> */}
+
+                  <Form.Group controlId="country" className="mb-3">
+                    <Form.Label>Country</Form.Label>
+                    <Select
+                      options={countryOptions} // An array of country options
+                      value={{ value: country, label: country }} // The selected country value
+                      onChange={(selectedOption) =>
+                        setCountry(selectedOption.label)
+                      } // Update the selected country
+                      placeholder="Select your country"
+                    />
                   </Form.Group>
 
                   <Form.Group controlId="zipcode" className="mb-3">
-                    <Form.Label>ZIP Code</Form.Label>
+                    <Form.Label>Post Code</Form.Label>
                     <Form.Control
                       type="text"
-                      value={zipcode}
-                      onChange={(e) => setZipcode(e.target.value)}
+                      value={postcode}
+                      onChange={(e) => setPostcode(e.target.value)}
                       placeholder="Enter your ZIP code"
                     />
                   </Form.Group>
@@ -164,6 +217,16 @@ function Profile({ authData, userProducts }) {
                     Update Profile
                   </Button>
                 </Form>
+                {addressChange && (
+                  <p className="address-feedback">
+                    Address Success Change: {addressChange}
+                  </p>
+                )}
+                {addressError && (
+                  <p className="address-feedback">
+                    Address Failed: {addressError}
+                  </p>
+                )}
               </div>
             </Col>
           </Row>
@@ -236,7 +299,15 @@ function Profile({ authData, userProducts }) {
           <Row>
             <Col>
               <h1>Change Name</h1>
-
+              {
+                <h3
+                  className={`name-change-success ${
+                    nameChange ? "visible" : "hidden"
+                  }`}
+                >
+                  Name successfully changed to: {nameChange.name}
+                </h3>
+              }
               <div className="container">
                 <Form onSubmit={handleChangeNameSubmit}>
                   <Form.Group controlId="name" className="mb-3 mt-3">
@@ -252,6 +323,16 @@ function Profile({ authData, userProducts }) {
                     Change Name
                   </Button>
                 </Form>
+                {nameChange && (
+                  <p className="name-feedback">
+                    Name Success Change: {nameChange}
+                  </p>
+                )}
+                {nameError && (
+                  <p className="name-feedback">
+                    Name Change Failed: {nameError}
+                  </p>
+                )}
               </div>
             </Col>
           </Row>

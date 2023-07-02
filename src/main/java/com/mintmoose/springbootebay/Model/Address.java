@@ -1,6 +1,8 @@
 package com.mintmoose.springbootebay.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -18,10 +20,15 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
     private Long customerId;
+    @NotBlank
     private String buildingNumber;
+    @NotBlank
     private String street;
+    @NotBlank
     private String city;
+    @NotBlank
     private String country;
+    @NotBlank
     private String postcode;
 
 
