@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import "./logoutButton.css";
 
-const LogoutButton = ({ setAuthData, setuserProducts }) => {
+const LogoutButton = ({ setAuthData, setUserProducts }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
