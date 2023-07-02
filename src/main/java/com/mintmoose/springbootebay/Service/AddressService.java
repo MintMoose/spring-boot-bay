@@ -63,23 +63,35 @@ public class AddressService {
 
     public Address updateAddress(Long customerId, NewAddressRequest request) {
         Optional<Address> optionalAddress = addressRepository.findByCustomerId(customerId);
+
+        boolean noUpdate = true;
+
         if (optionalAddress.isPresent()) {
             Address address = optionalAddress.get();
 
             if (request.buildingNumber() != null && !request.buildingNumber().isEmpty()) {
                 address.setBuildingNumber(request.buildingNumber());
+                noUpdate = false;
             }
             if (request.street() != null && !request.street().isEmpty()) {
                 address.setStreet(request.street());
+                noUpdate = false;
             }
             if (request.city() != null && !request.city().isEmpty()) {
                 address.setCity(request.city());
+                noUpdate = false;
             }
             if (request.country() != null && !request.country().isEmpty()) {
                 address.setCountry(request.country());
+                noUpdate = false;
             }
             if (request.postcode() != null && !request.postcode().isEmpty()) {
                 address.setPostcode(request.postcode());
+                noUpdate = false;
+            }
+
+            if (noUpdate) {
+                throw new IllegalArgumentException("Nothing to update (no user input)");
             }
 
 
@@ -88,5 +100,7 @@ public class AddressService {
             throw new IllegalArgumentException("Address not found with Customer ID: " + customerId);
         }
     }
+
+
 
 }
