@@ -14,6 +14,8 @@ import {
 import api from "../api/axiosConfig";
 import OrderCard from "./order/OrderCard";
 import SellerCard from "./order/SellerCard";
+import Select from "react-select";
+import countryOptions from "./countryOptions";
 
 function Profile({ authData, userProducts }) {
   const [name, setName] = useState("");
@@ -55,6 +57,10 @@ function Profile({ authData, userProducts }) {
       console.error("Failed to fetch profile:", error);
       // Handle error
     }
+    setTimeout(() => {
+      setAddressChange();
+      setAddressError();
+    }, 6000);
   };
 
   const createAddressRequest = (data) => {
@@ -62,7 +68,7 @@ function Profile({ authData, userProducts }) {
       .post(`/address/${authData.username}`, data)
       .then((response) => {
         console.log("Address create successful:", response.data);
-        addressChange("Successfully created an Address");
+        setAddressChange("Successfully created an Address");
       })
       .catch((error) => {
         console.error("Address create failed:", error);
@@ -75,7 +81,7 @@ function Profile({ authData, userProducts }) {
       .put(`/address/${authData.username}`, data)
       .then((response) => {
         console.log("Address update successful:", response.data);
-        addressChange("Sucessfully updated the Address");
+        setAddressChange("Sucessfully updated the Address");
       })
       .catch((error) => {
         console.error("Address update failed:", error);
@@ -94,7 +100,7 @@ function Profile({ authData, userProducts }) {
       .put(`/customers/${authData.username}`, data)
       .then((response) => {
         console.log("Name change successful:", response.data);
-        setNameChange(response.data);
+        setNameChange(response.data.name);
       })
       .catch((error) => {
         console.error("Name change failed:", error);
@@ -102,6 +108,7 @@ function Profile({ authData, userProducts }) {
       });
     setTimeout(() => {
       setNameChange(false);
+      setNameError(false);
     }, 6000);
   };
 
@@ -174,13 +181,25 @@ function Profile({ authData, userProducts }) {
                     />
                   </Form.Group>
 
-                  <Form.Group controlId="country" className="mb-3">
+                  {/* <Form.Group controlId="country" className="mb-3">
                     <Form.Label>Country</Form.Label>
                     <Form.Control
                       type="text"
                       value={country}
                       onChange={(e) => setCountry(e.target.value)}
                       placeholder="Enter your country"
+                    />
+                  </Form.Group> */}
+
+                  <Form.Group controlId="country" className="mb-3">
+                    <Form.Label>Country</Form.Label>
+                    <Select
+                      options={countryOptions} // An array of country options
+                      value={{ value: country, label: country }} // The selected country value
+                      onChange={(selectedOption) =>
+                        setCountry(selectedOption.label)
+                      } // Update the selected country
+                      placeholder="Select your country"
                     />
                   </Form.Group>
 
@@ -198,6 +217,16 @@ function Profile({ authData, userProducts }) {
                     Update Profile
                   </Button>
                 </Form>
+                {addressChange && (
+                  <p className="address-feedback">
+                    Address Success Change: {addressChange}
+                  </p>
+                )}
+                {addressError && (
+                  <p className="address-feedback">
+                    Address Failed: {addressError}
+                  </p>
+                )}
               </div>
             </Col>
           </Row>
@@ -294,6 +323,16 @@ function Profile({ authData, userProducts }) {
                     Change Name
                   </Button>
                 </Form>
+                {nameChange && (
+                  <p className="name-feedback">
+                    Name Success Change: {nameChange}
+                  </p>
+                )}
+                {nameError && (
+                  <p className="name-feedback">
+                    Name Change Failed: {nameError}
+                  </p>
+                )}
               </div>
             </Col>
           </Row>
