@@ -11,8 +11,11 @@ function Products({ username }) {
 
   const fetchProducts = async () => {
     try {
-      const response = await api.get(`open/products/sale?page=${pageNumber}`);
+      const response = await api.get(
+        `open/products/sale?pageNumber=${pageNumber}`
+      );
       setProducts(response.data.content);
+      console.log(response.data.content);
       setTotalPages(response.data.totalPages);
       setError(null); // Clear any previous errors
     } catch (error) {
@@ -26,12 +29,18 @@ function Products({ username }) {
   }, [pageNumber]);
 
   const goToPreviousPage = () => {
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to the top of the page
+    }, 80);
     setPageNumber(pageNumber - 1);
   };
 
   const goToNextPage = () => {
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to the top of the page
+    }, 120);
+
     setPageNumber(pageNumber + 1);
-    window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to the top of the page
   };
 
   return (
