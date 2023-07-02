@@ -7,5 +7,7 @@ public enum Categories {
     BOOKS_MOVIES_MUSIC,
     HOBBY_DIY,
     HOUSEHOLD,
-    HEALTH_BEAUTY
+    HEALTH_BEAUTY,
+    SPORTS_OUTDOORS,
+    FOOD_GROCERY
 }
