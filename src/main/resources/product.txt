@@ -1,14 +1,14 @@
 Xbox (New)|For sale: Xbox, never used|429.99|ELECTRONICS|https://source.unsplash.com/WMMh6BtmTMo|justshasans55
 Java Teak Garden Bench|120cm 4ft 2 Seat Chunky Garden Furniture, They are manufactured form FLEGT certified teak sourced from sustainable sources. Dog not included. stop asking!!!|199.99|HOUSEHOLD|https://source.unsplash.com/lX-9IaYCals|justshasans55
 Playstation 1|Playstation 1 (Unopened), never found the time to use it.|119.99|ELECTRONICS|https://source.unsplash.com/b-bnM85Z35o|jamesspyder93
-Space Rock (rarely used)|(Disclaimer: Not actually from space) French metallurgists discovered that molybdenum, when alloyed, creates a substance that is remarkably tougher than steel alone and is highly resistant to heat. Ideal for making tools and armor plate. Happy Crafting!|17899.99|HEALTH_BEAUTY|https://source.unsplash.com/9kRjMMLSPqw|jamesspyder93
-iPhone 12 Pro Max|The latest iPhone model with a stunning display and powerful performance.|1099.99|ELECTRONICS|https://example.com/iphone-12-pro-max.jpg|justshasans55
+Space Rock (rarely used)|(Disclaimer: Not actually from space) French metallurgists discovered that molybdenum, when alloyed, creates a substance that is remarkably tougher than steel alone and is highly resistant to heat. Ideal for making tools and armor plate. Happy Crafting!|17876|HEALTH_BEAUTY|https://source.unsplash.com/9kRjMMLSPqw|jamesspyder93
+iPhone 12 Pro Max|The latest iPhone model with a stunning display and powerful performance.|1099|ELECTRONICS|https://example.com/iphone-12-pro-max.jpg|justshasans55
 Vintage Leather Sofa|Classic vintage design with premium leather upholstery.|899.99|HOUSEHOLD|https://example.com/vintage-leather-sofa.jpg|ElectricJellyfish88
-Nikon D850 DSLR Camera|Professional-grade DSLR camera with high-resolution imaging capabilities.|2799.99|ELECTRONICS|https://example.com/nikon-d850-dslr-camera.jpg|tealover789
+Nikon D850 DSLR Camera|Professional-grade DSLR camera with high-resolution imaging capabilities.|2728|ELECTRONICS|https://example.com/nikon-d850-dslr-camera.jpg|tealover789
 Organic Coconut Oil|100% pure organic coconut oil for cooking, skincare, and haircare.|14.99|HEALTH_BEAUTY|https://example.com/organic-coconut-oil.jpg|ElectricJellyfish88
-Mountain Bike (Full Suspension)|High-performance mountain bike with full suspension for smooth off-road rides.|1899.99|SPORTS_OUTDOORS|https://example.com/mountain-bike.jpg|MysteryWalker
-Retro Vinyl Record Player|Vintage-style record player with built-in speakers for a nostalgic music experience.|199.99|ELECTRONICS|https://example.com/retro-vinyl-record-player.jpg|MysteryWalker
-Designer Leather Handbag|Luxurious leather handbag with elegant design and spacious interior.|499.99|HEALTH_BEAUTY|https://example.com/designer-leather-handbag.jpg|ElectricJellyfish88
+Mountain Bike (Full Suspension)|High-performance mountain bike with full suspension for smooth off-road rides.|1900|SPORTS_OUTDOORS|https://example.com/mountain-bike.jpg|MysteryWalker
+Retro Vinyl Record Player|Vintage-style record player with built-in speakers for a nostalgic music experience.|189|ELECTRONICS|https://example.com/retro-vinyl-record-player.jpg|MysteryWalker
+Designer Leather Handbag|Luxurious leather handbag with elegant design and spacious interior.|432.50|HEALTH_BEAUTY|https://example.com/designer-leather-handbag.jpg|ElectricJellyfish88
 Organic Matcha Green Tea|Premium ceremonial grade matcha green tea powder for a healthy and energizing drink.|29.99|FOOD_GROCERY|https://example.com/organic-matcha-green-tea.jpg|tealover789
-Smart Home Security System|Advanced smart home security system with surveillance cameras and motion sensors.|499.99|ELECTRONICS|https://example.com/smart-home-security-system.jpg|MysteryWalker
+Smart Home Security System|Advanced smart home security system with surveillance cameras and motion sensors.|512|ELECTRONICS|https://example.com/smart-home-security-system.jpg|MysteryWalker
 Fitness Tracker Watch|Multifunctional fitness tracker watch with heart rate monitor and activity tracking features.|79.99|SPORTS_OUTDOORS|https://example.com/fitness-tracker-watch.jpg|ElectricJellyfish88

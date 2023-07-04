@@ -1,4 +1,5 @@
 const countryOptions = [
+  { value: null, label: "Select your country" },
   { value: "AF", label: "Afghanistan" },
   { value: "AL", label: "Albania" },
   { value: "DZ", label: "Algeria" },
