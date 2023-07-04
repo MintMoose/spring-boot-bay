@@ -17,7 +17,7 @@ import SellerCard from "./order/SellerCard";
 import Select from "react-select";
 import countryOptions from "./countryOptions";
 
-function Profile({ authData, userProducts }) {
+function Profile({ authData, userProducts, setUserProducts, setProducts }) {
   const [name, setName] = useState("");
   const [buildingNumber, setBuildingNumber] = useState("");
   const [street, setStreet] = useState("");
@@ -75,7 +75,7 @@ function Profile({ authData, userProducts }) {
 
     let data = {};
 
-    if (country == "Select your country") {
+    if (country === "Select your country") {
       data = {
         buildingNumber,
         street,
@@ -130,7 +130,7 @@ function Profile({ authData, userProducts }) {
     api
       .put(`/address/${authData.username}`, data)
       .then((response) => {
-        console.log("Address update successful");
+        console.log("Address update successful: " + response);
         setAddressChange("Sucessfully updated the Address");
         fetchData(); // Fetch updated address after successful update
         // try {
@@ -331,6 +331,8 @@ function Profile({ authData, userProducts }) {
                       product={product}
                       username={authData.username}
                       size="small"
+                      setUserProducts={setUserProducts}
+                      setProducts={setProducts}
                     />
                   ))
                 ) : (

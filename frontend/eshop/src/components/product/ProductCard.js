@@ -2,8 +2,15 @@ import React, { useState } from "react";
 import "./ProductCard.css";
 import rob from "./rob-potter.jpg";
 import { Modal, Button } from "react-bootstrap";
+import api from "../../api/axiosConfig";
 
-const ProductCard = ({ product, size, username }) => {
+const ProductCard = ({
+  product,
+  size,
+  username,
+  setUserProducts,
+  setProducts,
+}) => {
   const [showConfirmation, setShowConfirmation] = useState(false);
 
   const cardClassName =
@@ -22,10 +29,27 @@ const ProductCard = ({ product, size, username }) => {
     setShowConfirmation(true);
   };
 
-  const handleConfirmation = () => {
+  const handleConfirmation = async () => {
     // Perform the delete operation here
     console.log("Deleting product", product.id);
+
     // You can add your delete logic or API call here
+    try {
+      const response = await api.delete(`/products/${product.id}`);
+      if (response.status === 200) {
+        console.log("Delete Successful.");
+        setUserProducts((prevProducts) =>
+          prevProducts.filter((p) => p.id !== product.id)
+        );
+        setProducts((prevProducts) =>
+          prevProducts.filter((p) => p.id !== product.id)
+        );
+      } else {
+        console.log("Request failed with status code:", response.status);
+      }
+    } catch (err) {
+      console.log(err);
+    }
 
     // Reset the confirmation state
     setShowConfirmation(false);
@@ -79,7 +103,7 @@ const ProductCard = ({ product, size, username }) => {
           ) : product.sold ? (
             <p className="sold-icon">SOLD</p>
           ) : (
-            <button className="add-to-cart">Add to Cart</button>
+            <button className="add-to-cart">Purchase</button>
           )}
         </div>
       </div>
