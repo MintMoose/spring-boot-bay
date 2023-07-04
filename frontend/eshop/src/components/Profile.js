@@ -1,6 +1,6 @@
 import ProductCard from "./product/ProductCard";
 import "./Profile.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,17 +31,67 @@ function Profile({ authData, userProducts }) {
   const [addressChange, setAddressChange] = useState("");
   const [nameError, setNameError] = useState("");
   const [addressError, setAddressError] = useState("");
+  const [dbAddress, setDbAddress] = useState("");
+  const [dbName, setDbName] = useState("");
+
+  const fetchName = async () => {
+    try {
+      // Fetch the name from the API
+      const response = await api.get(`/customers/${authData.username}`);
+      if (response.status === 200) {
+        setDbName(response.data.name);
+      } else {
+        console.log("Request failed with status code:", response.status);
+      }
+    } catch (error) {
+      console.error("Failed to fetch name:", error);
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      const response = await api.get(`/address/user/${authData.username}`);
+      if (response.status === 200) {
+        setDbAddress(response.data);
+      } else {
+        console.log("Request failed with status code:", response.status);
+      }
+    } catch (error) {
+      console.error("Failed to fetch address:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedTab === "update-profile") {
+      fetchData();
+    } else if (selectedTab === "change-name") {
+      fetchName();
+    }
+    // ...other conditions
+  }, [selectedTab, authData.username]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = {
-      buildingNumber,
-      street,
-      city,
-      country,
-      postcode,
-    };
+    let data = {};
+
+    if (country == "Select your country") {
+      data = {
+        buildingNumber,
+        street,
+        city,
+        country: "",
+        postcode,
+      };
+    } else {
+      data = {
+        buildingNumber,
+        street,
+        city,
+        country,
+        postcode,
+      };
+    }
 
     try {
       const response = await api.get(`/address/user/${authData.username}`);
@@ -67,7 +117,7 @@ function Profile({ authData, userProducts }) {
     api
       .post(`/address/${authData.username}`, data)
       .then((response) => {
-        console.log("Address create successful:", response.data);
+        console.log("Address create successful");
         setAddressChange("Successfully created an Address");
       })
       .catch((error) => {
@@ -80,8 +130,19 @@ function Profile({ authData, userProducts }) {
     api
       .put(`/address/${authData.username}`, data)
       .then((response) => {
-        console.log("Address update successful:", response.data);
+        console.log("Address update successful");
         setAddressChange("Sucessfully updated the Address");
+        fetchData(); // Fetch updated address after successful update
+        // try {
+        //   const response = api.get(`/address/user/${authData.username}`);
+        //   if (response.status === 200) {
+        //     setDbAddress(response.data);
+        //   } else {
+        //     console.log("Request failed with status code:", response.status);
+        //   }
+        // } catch (error) {
+        //   console.error("Failed to fetch my sold products:", error);
+        // }
       })
       .catch((error) => {
         console.error("Address update failed:", error);
@@ -99,8 +160,8 @@ function Profile({ authData, userProducts }) {
     api
       .put(`/customers/${authData.username}`, data)
       .then((response) => {
-        console.log("Name change successful:", response.data);
         setNameChange(response.data.name);
+        fetchName();
       })
       .catch((error) => {
         console.error("Name change failed:", error);
@@ -139,6 +200,17 @@ function Profile({ authData, userProducts }) {
       } catch (error) {
         console.error("Failed to fetch my sold products:", error);
       }
+    } else if (tab === "update-profile") {
+      try {
+        const response = await api.get(`/address/user/${authData.username}`);
+        if (response.status === 200) {
+          setDbAddress(response.data);
+        } else {
+          console.log("Request failed with status code:", response.status);
+        }
+      } catch (error) {
+        console.error("Failed to fetch my sold products:", error);
+      }
     }
   };
 
@@ -148,6 +220,18 @@ function Profile({ authData, userProducts }) {
         <Container className="second-back">
           <Row>
             <Col>
+              {dbAddress && (
+                <div className="current-address-name">
+                  <h3>Current Address:</h3>
+                  <p>
+                    {dbAddress.buildingNumber}, {dbAddress.street}
+                  </p>
+                  <p>
+                    {dbAddress.city}, {dbAddress.country}
+                  </p>
+                  <p>{dbAddress.postcode}</p>
+                </div>
+              )}
               <h1>Update Address</h1>
               <div className="container">
                 <Form onSubmit={handleSubmit}>
@@ -219,7 +303,7 @@ function Profile({ authData, userProducts }) {
                 </Form>
                 {addressChange && (
                   <p className="address-feedback">
-                    Address Success Change: {addressChange}
+                    Address Successfully Changed
                   </p>
                 )}
                 {addressError && (
@@ -298,6 +382,12 @@ function Profile({ authData, userProducts }) {
         <Container className="second-back">
           <Row>
             <Col>
+              {dbName && (
+                <div className="current-address-name">
+                  <h3>Current Name:</h3>
+                  <p>{dbName}</p>
+                </div>
+              )}
               <h1>Change Name</h1>
               {
                 <h3
@@ -305,7 +395,7 @@ function Profile({ authData, userProducts }) {
                     nameChange ? "visible" : "hidden"
                   }`}
                 >
-                  Name successfully changed to: {nameChange.name}
+                  Name successfully changed
                 </h3>
               }
               <div className="container">
@@ -324,9 +414,7 @@ function Profile({ authData, userProducts }) {
                   </Button>
                 </Form>
                 {nameChange && (
-                  <p className="name-feedback">
-                    Name Success Change: {nameChange}
-                  </p>
+                  <p className="name-feedback">Name Successfully Changed</p>
                 )}
                 {nameError && (
                   <p className="name-feedback">
