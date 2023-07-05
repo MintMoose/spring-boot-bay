@@ -80,6 +80,7 @@ function App() {
               authData={authData}
               setAuthData={setAuthData}
               setUserProducts={setUserProducts}
+              setProducts={setProducts}
             />
           }
         >
@@ -90,6 +91,8 @@ function App() {
                 products={products}
                 userProducts={userProducts}
                 authData={authData}
+                setUserProducts={setUserProducts}
+                setProducts={setProducts}
               />
             }
           ></Route>
@@ -105,12 +108,23 @@ function App() {
           />
           <Route
             path="/products"
-            element={<Products username={authData.username} />}
+            element={
+              <Products
+                username={authData.username}
+                setUserProducts={setUserProducts}
+                setProducts={setProducts}
+              />
+            }
           />
           <Route
             path="/profile"
             element={
-              <Profile userProducts={userProducts} authData={authData} />
+              <Profile
+                userProducts={userProducts}
+                authData={authData}
+                setUserProducts={setUserProducts}
+                setProducts={setProducts}
+              />
             }
           />
           <Route path="/*" element={<NotFoundPage />} />

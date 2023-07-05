@@ -5,7 +5,13 @@ import { useEffect } from "react";
 import ProductCard from "../product/ProductCard";
 import { useNavigate } from "react-router-dom";
 
-const Home = ({ authData, products, userProducts }) => {
+const Home = ({
+  authData,
+  products,
+  userProducts,
+  setUserProducts,
+  setProducts,
+}) => {
   const { isLoggedIn, username } = authData;
 
   const navigate = useNavigate();
@@ -22,7 +28,12 @@ const Home = ({ authData, products, userProducts }) => {
     <div className="home-container">
       <p>Welcome, {username}</p>
       <h2>Products</h2>
-      <Hero products={products} username={username} />
+      <Hero
+        products={products}
+        username={username}
+        setUserProducts={setUserProducts}
+        setProducts={setProducts}
+      />
       {isLoggedIn ? (
         <div className="user-products">
           <h2>My Products</h2>
@@ -34,6 +45,8 @@ const Home = ({ authData, products, userProducts }) => {
                   product={product}
                   username={username}
                   size="small"
+                  setUserProducts={setUserProducts}
+                  setProducts={setProducts}
                 />
               ))
             ) : (
