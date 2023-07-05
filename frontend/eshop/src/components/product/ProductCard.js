@@ -3,6 +3,7 @@ import "./ProductCard.css";
 import rob from "./rob-potter.jpg";
 import { Modal, Button } from "react-bootstrap";
 import api from "../../api/axiosConfig";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({
   product,
@@ -33,7 +34,7 @@ const ProductCard = ({
     // Perform the delete operation here
     console.log("Deleting product", product.id);
 
-    // You can add your delete logic or API call here
+    //API delete call here
     try {
       const response = await api.delete(`/products/${product.id}`);
       if (response.status === 200) {
@@ -51,7 +52,6 @@ const ProductCard = ({
       console.log(err);
     }
 
-    // Reset the confirmation state
     setShowConfirmation(false);
   };
 
@@ -61,16 +61,21 @@ const ProductCard = ({
 
   return (
     <div className={cardClassName}>
-      <img
-        // src={product.imageUrl}
-        src={rob}
-        alt={product.name}
-        className="product-image"
-      />
-      <div className="product-details">
-        <div>
-          <h2 className={titleClassName}>{product.name}</h2>
+      <Link to={`/product/${product.id}`}>
+        <img
+          // src={product.imageUrl}
+          src={rob}
+          alt={product.name}
+          className="product-image"
+        />
+
+        <div className="product-details">
+          <div>
+            <h2 className={titleClassName}>{product.name}</h2>
+          </div>
         </div>
+      </Link>
+      <div className="product-details">
         <div className={priceClassName}>
           <p className={"product-price"}>£{product.price}</p>
           {isProductOwnedByUser ? (

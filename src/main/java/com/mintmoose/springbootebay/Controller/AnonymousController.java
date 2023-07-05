@@ -43,6 +43,15 @@ public class AnonymousController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No products found.");
     }
 
+    @GetMapping("/details/{id}")
+    public ResponseEntity<?> getProductById(@PathVariable("id") Long id) {
+        Product requestProduct = productService.getProductById(id);
+        if (requestProduct != null) {
+            return ResponseEntity.ok(requestProduct);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product does not exist.");
+    }
+
     @GetMapping("/products/sale")
     public ResponseEntity<?> getUnsoldProducts(@RequestParam(defaultValue = "0") int pageNumber) {
         int pageSize = 10; // Number of products per page

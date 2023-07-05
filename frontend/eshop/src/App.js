@@ -9,7 +9,8 @@ import NotFoundPage from "./components/notFoundPage";
 import LoginForm from "./components/submitForm/loginForm";
 import Products from "./components/product/Products";
 import Cookies from "js-cookie";
-import Profile from "./components/Profile";
+import Profile from "./profilePage/Profile";
+import ProductDetails from "./components/product/ProductDetails";
 
 function App() {
   const [products, setProducts] = useState();
@@ -127,6 +128,7 @@ function App() {
               />
             }
           />
+          <Route path="/product/:product_id" element={<ProductDetails />} />
           <Route path="/*" element={<NotFoundPage />} />
         </Route>
       </Routes>
