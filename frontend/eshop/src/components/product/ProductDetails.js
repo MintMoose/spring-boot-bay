@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import api from "../../api/axiosConfig";
 import rob from "../product/rob-potter.jpg";
+import "./ProductDetails.css";
 
 const ProductDetails = () => {
   const { product_id } = useParams();
@@ -25,21 +26,34 @@ const ProductDetails = () => {
   }, []);
 
   return (
-    <div>
+    <div className="div-center">
       {productDetails ? (
-        <div>
-          <h1>{productDetails.name}</h1>
+        <div className="product-detail-container">
           <img
             // src={productDetails.imageUrl}
             src={rob}
             alt={productDetails.name}
             style={{ maxWidth: "300px" }}
           />
-          <p>{productDetails.description}</p>
-          <p>Price: ${productDetails.price.toFixed(2)}</p>
-          <p>Category: {productDetails.category}</p>
-          <p>Sold: {productDetails.sold ? "Yes" : "No"}</p>
-          <p>Customer Username: {productDetails.customerUsername}</p>
+          <div className="product-middle">
+            <h1>{productDetails.name}</h1>
+
+            <p className="product-description">{productDetails.description}</p>
+            <p>
+              Category {">"} {productDetails.category}
+            </p>
+          </div>
+          <div className="product-end">
+            <div>
+              <p className="product-detail-price">
+                ${productDetails.price.toFixed(2)}
+              </p>
+            </div>
+            <button className="add-to-cart">Buy</button>
+            <p className="seller-name">
+              Seller: {productDetails.customerUsername}
+            </p>
+          </div>
         </div>
       ) : (
         <p>Product with {product_id} doest not exist</p>
