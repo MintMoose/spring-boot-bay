@@ -77,7 +77,7 @@ const ProductCard = ({
       </Link>
       <div className="product-details">
         <div className={priceClassName}>
-          <p className={"product-price"}>£{product.price}</p>
+          <p className={"product-price"}>£{product.price.toFixed(0)}</p>
           {isProductOwnedByUser ? (
             <>
               <button className="delete-button" onClick={handleDelete}>
