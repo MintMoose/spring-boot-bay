@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import api from "../../api/axiosConfig";
 import rob from "../product/rob-potter.jpg";
 import "./ProductDetails.css";
+import DeleteButton from "../DeleteButton";
 
 const ProductDetails = ({ authData }) => {
   const { product_id } = useParams();
@@ -131,14 +132,20 @@ const ProductDetails = ({ authData }) => {
                 ${productDetails.price.toFixed(2)}
               </p>
             </div>
-            <button className="add-to-cart">Buy it now</button>
+            {authData.username == productDetails.customerUsername ? (
+              <DeleteButton product={productDetails} />
+            ) : (
+              <button className="add-to-cart">Buy it now</button>
+            )}
             <p className="seller-name">
               Seller: {productDetails.customerUsername}
             </p>
           </div>
         </div>
       ) : (
-        <p>Product with {product_id} doest not exist</p>
+        <p className="no-product-detail">
+          Product with id '{product_id}' does not exist
+        </p>
       )}
     </div>
   );
