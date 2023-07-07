@@ -15,7 +15,7 @@ function UpdateAddress({ fetchData, authData, dbAddress }) {
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
