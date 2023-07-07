@@ -33,7 +33,7 @@ const settings = {
   ],
 };
 
-const Hero = ({ products, username, setUserProducts, setProducts }) => {
+const Hero = ({ products, username }) => {
   return (
     <div className="product-carousel-container">
       <Slider {...settings}>
@@ -45,8 +45,6 @@ const Hero = ({ products, username, setUserProducts, setProducts }) => {
                 product={product}
                 username={username}
                 size="large"
-                setUserProducts={setUserProducts}
-                setProducts={setProducts}
               />
             );
           })}

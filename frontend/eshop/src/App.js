@@ -93,8 +93,6 @@ function App() {
                 products={products}
                 userProducts={userProducts}
                 authData={authData}
-                setUserProducts={setUserProducts}
-                setProducts={setProducts}
               />
             }
           ></Route>
@@ -110,13 +108,7 @@ function App() {
           />
           <Route
             path="/products"
-            element={
-              <Products
-                username={authData.username}
-                setUserProducts={setUserProducts}
-                setProducts={setProducts}
-              />
-            }
+            element={<Products username={authData.username} />}
           />
           <Route
             path="/profile"
