@@ -151,3 +151,10 @@
 .arrow.up {
   transform: rotate(-135deg);
 }
+
+.no-product-detail {
+  text-align: center;
+  margin: 5rem auto;
+  font-size: 2rem;
+  font-family: "Nunito Sans";
+}
