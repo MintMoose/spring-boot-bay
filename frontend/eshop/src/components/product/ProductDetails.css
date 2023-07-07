@@ -28,6 +28,7 @@
 .product-description {
   padding-right: 1vw;
   max-width: 40rem;
+  font-style: italic;
   font-family: "Kumbh Sans";
 }
 
@@ -86,8 +87,10 @@
   }
 
   .product-middle {
+    gap: 1rem;
     padding-inline: 1rem;
     text-align: center;
+    order: 3; /* Updated */
   }
 
   .product-end {
@@ -100,4 +103,51 @@
   .seller-name {
     margin-top: 1rem;
   }
+}
+
+.postCode-link {
+  color: black;
+}
+
+.button-text {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.additional-details {
+  /* ...existing styles... */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out;
+}
+
+.additional-details.open {
+  max-height: 500px; /* Adjust the height as needed */
+  transition: max-height 0.9s ease-in;
+}
+
+.button-text.open .arrow {
+  transform: rotate(225deg);
+}
+
+.arrow {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-width: 0 2px 2px 0;
+  border-style: solid;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease-in-out;
+  margin-left: 10px;
+  margin-bottom: 3px;
+}
+
+.arrow.up {
+  transform: rotate(-135deg);
 }
