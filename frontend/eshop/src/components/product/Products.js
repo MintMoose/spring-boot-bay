@@ -3,7 +3,7 @@ import api from "../../api/axiosConfig";
 import ProductCard from "./ProductCard";
 import "./Product.css";
 
-function Products({ username, setUserProducts }) {
+function Products({ username }) {
   const [products, setProducts] = useState();
   const [pageNumber, setPageNumber] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -53,8 +53,6 @@ function Products({ username, setUserProducts }) {
               product={product}
               username={username}
               size="large"
-              setUserProducts={setUserProducts}
-              setProducts={setProducts}
             />
           ))
         ) : (

@@ -1,7 +1,5 @@
 import React from "react";
 import "./Hero.css";
-import Carousel from "react-material-ui-carousel";
-import { Paper } from "@mui/material";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -35,7 +33,7 @@ const settings = {
   ],
 };
 
-const Hero = ({ products, username, setUserProducts, setProducts }) => {
+const Hero = ({ products, username }) => {
   return (
     <div className="product-carousel-container">
       <Slider {...settings}>
@@ -47,8 +45,6 @@ const Hero = ({ products, username, setUserProducts, setProducts }) => {
                 product={product}
                 username={username}
                 size="large"
-                setUserProducts={setUserProducts}
-                setProducts={setProducts}
               />
             );
           })}

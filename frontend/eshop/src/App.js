@@ -9,7 +9,9 @@ import NotFoundPage from "./components/notFoundPage";
 import LoginForm from "./components/submitForm/loginForm";
 import Products from "./components/product/Products";
 import Cookies from "js-cookie";
-import Profile from "./components/Profile";
+import Profile from "./profilePage/Profile";
+import ProductDetails from "./components/product/ProductDetails";
+import Legal from "./components/legal";
 
 function App() {
   const [products, setProducts] = useState();
@@ -91,8 +93,6 @@ function App() {
                 products={products}
                 userProducts={userProducts}
                 authData={authData}
-                setUserProducts={setUserProducts}
-                setProducts={setProducts}
               />
             }
           ></Route>
@@ -108,13 +108,7 @@ function App() {
           />
           <Route
             path="/products"
-            element={
-              <Products
-                username={authData.username}
-                setUserProducts={setUserProducts}
-                setProducts={setProducts}
-              />
-            }
+            element={<Products username={authData.username} />}
           />
           <Route
             path="/profile"
@@ -127,6 +121,11 @@ function App() {
               />
             }
           />
+          <Route
+            path="/product/:product_id"
+            element={<ProductDetails authData={authData} />}
+          />
+          <Route path="/legal" element={<Legal />} />
           <Route path="/*" element={<NotFoundPage />} />
         </Route>
       </Routes>
