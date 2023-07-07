@@ -11,6 +11,7 @@ import Products from "./components/product/Products";
 import Cookies from "js-cookie";
 import Profile from "./profilePage/Profile";
 import ProductDetails from "./components/product/ProductDetails";
+import Legal from "./components/legal";
 
 function App() {
   const [products, setProducts] = useState();
@@ -128,7 +129,11 @@ function App() {
               />
             }
           />
-          <Route path="/product/:product_id" element={<ProductDetails />} />
+          <Route
+            path="/product/:product_id"
+            element={<ProductDetails authData={authData} />}
+          />
+          <Route path="/legal" element={<Legal />} />
           <Route path="/*" element={<NotFoundPage />} />
         </Route>
       </Routes>
