@@ -72,7 +72,7 @@ public class ProductService {
 
         if (params.name() == null ||
                 params.description() == null ||
-                params.price() == null ||
+                params.price() == null || params.price() < 0 ||
                 params.category() == null ||
                 params.imageUrl() == null) {
             throw new IllegalArgumentException("Missing required parameters for creating a product.");
