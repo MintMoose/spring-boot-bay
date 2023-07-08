@@ -158,3 +158,13 @@
   font-size: 2rem;
   font-family: "Nunito Sans";
 }
+
+.sold-icon-large {
+  font-size: 1.35rem;
+  border: none;
+  background-color: #4a00b8;
+  padding-block: 0.5rem;
+  border-radius: 5px;
+  margin-bottom: 0rem;
+  color: aliceblue;
+}
