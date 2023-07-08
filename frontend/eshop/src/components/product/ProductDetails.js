@@ -132,7 +132,9 @@ const ProductDetails = ({ authData }) => {
                 ${productDetails.price.toFixed(2)}
               </p>
             </div>
-            {authData.username == productDetails.customerUsername ? (
+            {productDetails.sold ? (
+              <p className="sold-icon-large">SOLD</p>
+            ) : authData.username == productDetails.customerUsername ? (
               <DeleteButton product={productDetails} />
             ) : (
               <button className="add-to-cart">Buy it now</button>
