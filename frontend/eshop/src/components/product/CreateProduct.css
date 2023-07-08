@@ -1,0 +1,40 @@
+.container-create-product {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.form-create-product {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 400px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.red-font {
+  color: red;
+  font-weight: 600;
+}
