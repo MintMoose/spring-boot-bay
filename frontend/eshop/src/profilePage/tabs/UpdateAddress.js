@@ -54,21 +54,6 @@ function UpdateAddress({ fetchData, authData, dbAddress }) {
       console.error("Failed to fetch profile:", error);
       // Handle error
     }
-
-    try {
-      const response = await api.get(`/address/user/${authData.username}`);
-      if (response.data.id) {
-        // Address exists, make an update request
-        updateAddressRequest(data);
-      } else {
-        // Address does not exist, make a create request
-        console.log(data);
-        createAddressRequest(data);
-      }
-    } catch (error) {
-      console.error("Failed to fetch profile:", error);
-      // Handle error
-    }
     setTimeout(() => {
       setAddressChange();
       setAddressError();

@@ -19,6 +19,7 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
+    @Column(unique = true)
     private Long customerId;
     @NotBlank
     private String buildingNumber;
