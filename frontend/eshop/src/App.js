@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 import Profile from "./profilePage/Profile";
 import ProductDetails from "./components/product/ProductDetails";
 import Legal from "./components/legal";
+import CreateProduct from "./components/product/CreateProduct";
 
 function App() {
   const [products, setProducts] = useState();
@@ -126,6 +127,7 @@ function App() {
             element={<ProductDetails authData={authData} />}
           />
           <Route path="/legal" element={<Legal />} />
+          <Route path="/product/create" element={<CreateProduct />} />
           <Route path="/*" element={<NotFoundPage />} />
         </Route>
       </Routes>

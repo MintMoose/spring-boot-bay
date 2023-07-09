@@ -33,7 +33,13 @@ public class AddressService {
         return addressRepository.findByCustomerId(customerId).orElse(null);
     }
 
-    public Address createAddress(NewAddressRequest request, Long customerId) {
+    public synchronized Address createAddress(NewAddressRequest request, Long customerId) {
+        System.out.println("Is Present " + addressRepository.findByCustomerId(customerId).isPresent());
+        if (addressRepository.findByCustomerId(customerId).isPresent()) {
+            throw new IllegalArgumentException("Address already exists for Customer ID: " + customerId);
+        }
+
+
         System.out.println(request);
         if (request.buildingNumber() == null || request.buildingNumber().isEmpty() ||
                 request.street() == null || request.street().isEmpty() ||

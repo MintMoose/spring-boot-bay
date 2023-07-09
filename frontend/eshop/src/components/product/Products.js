@@ -45,6 +45,9 @@ function Products({ username }) {
 
   return (
     <div className="product-main">
+      <p className="page-count">
+        {pageNumber + 1} / {totalPages}
+      </p>
       <div className="product-list">
         {products && products.length > 0 ? (
           products.map((product) => (
