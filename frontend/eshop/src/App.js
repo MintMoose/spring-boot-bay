@@ -13,6 +13,7 @@ import Profile from "./profilePage/Profile";
 import ProductDetails from "./components/product/ProductDetails";
 import Legal from "./components/legal";
 import CreateProduct from "./components/product/CreateProduct";
+import UpdateProduct from "./components/product/UpdateProduct";
 
 function App() {
   const [products, setProducts] = useState();
@@ -128,6 +129,10 @@ function App() {
           />
           <Route path="/legal" element={<Legal />} />
           <Route path="/product/create" element={<CreateProduct />} />
+          <Route
+            path="/product/update/:product_id"
+            element={<UpdateProduct />}
+          />
           <Route path="/*" element={<NotFoundPage />} />
         </Route>
       </Routes>
