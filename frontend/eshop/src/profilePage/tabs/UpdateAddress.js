@@ -136,16 +136,6 @@ function UpdateAddress({ fetchData, authData, dbAddress }) {
                 />
               </Form.Group>
 
-              {/* <Form.Group controlId="country" className="mb-3">
-                    <Form.Label>Country</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={country}
-                      onChange={(e) => setCountry(e.target.value)}
-                      placeholder="Enter your country"
-                    />
-                  </Form.Group> */}
-
               <Form.Group controlId="country" className="mb-3">
                 <Form.Label>Country</Form.Label>
                 <Select
