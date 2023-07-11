@@ -168,3 +168,14 @@
   margin-bottom: 0rem;
   color: aliceblue;
 }
+
+.update-button {
+  margin-left: 0.5rem;
+  border: none;
+  font-weight: 700;
+  color: aliceblue;
+  background-color: #512eff;
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  border-radius: 5px;
+}

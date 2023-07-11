@@ -4,15 +4,21 @@ import api from "../../api/axiosConfig";
 import rob from "../product/rob-potter.jpg";
 import "./ProductDetails.css";
 import DeleteButton from "../DeleteButton";
+import { useNavigate } from "react-router-dom";
 
 const ProductDetails = ({ authData }) => {
   const { product_id } = useParams();
   const [productDetails, setProductDetails] = useState("");
   const [postCode, setPostCode] = useState("");
   const [showDetails, setShowDetails] = useState(false);
+  const navigate = useNavigate();
 
   const toggleDetails = () => {
     setShowDetails(!showDetails);
+  };
+
+  const redirectUpdate = () => {
+    navigate(`/product/update/${product_id}`);
   };
 
   useEffect(() => {
@@ -135,7 +141,12 @@ const ProductDetails = ({ authData }) => {
             {productDetails.sold ? (
               <p className="sold-icon-large">SOLD</p>
             ) : authData.username == productDetails.customerUsername ? (
-              <DeleteButton product={productDetails} />
+              <>
+                <DeleteButton product={productDetails} />
+                <button className="update-button" onClick={redirectUpdate}>
+                  Update
+                </button>
+              </>
             ) : (
               <button className="add-to-cart">Buy it now</button>
             )}
