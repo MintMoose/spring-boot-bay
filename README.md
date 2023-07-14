@@ -5,8 +5,6 @@ This project is a full-stack application built with Spring Boot and React. It fe
 
 The frontend, developed with React, provides a user-friendly interface for browsing and purchasing products. It leverages the Stripe API to handle secure payment transactions. The backend, powered by Spring Boot, integrates with the Stripe API and manages the creation of checkout sessions.
 
-The application ensures proper CORS (Cross-Origin Resource Sharing) configuration to allow requests from specified origins, providing a secure and seamless user experience.
-
 Please note that this project utilizes HTTP instead of HTTPS for simplicity in a local development environment.
 
 The current implementation also stores sensitive configuration keys, such as API keys and database credentials, directly in the application's configuration files, such as application.yaml and application.properties. While this approach is suitable for local development and learning purposes, it is not recommended for production environments.
@@ -44,7 +42,7 @@ The page will automatically reload when you make changes. Any lint errors will b
 
 ## What I Learnt
 
-Developing my first CRUD Spring Boot application has been a valuable learning experience. Through this project, I gained a deeper understanding of the Spring Boot framework, RESTful API development, and the fundamentals of database management. It allowed me to grasp the concepts of user authentication, JWT tokens, and integrating third-party APIs.
+Developing my first CRUD Spring Boot application has been a valuable learning experience. Through this project, I gained a deeper understanding of the Spring Boot framework, RESTful API development, CORS, and the fundamentals of database management. It allowed me to grasp the concepts of user authentication, JWT tokens, and integrating third-party APIs.
 
 There were instances where the focus was on getting things working rather than finding the optimal solutions. As a result, the codebase may not be as clean and organized as i would have desired.
 
