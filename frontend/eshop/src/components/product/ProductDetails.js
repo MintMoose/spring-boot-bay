@@ -21,6 +21,10 @@ const ProductDetails = ({ authData }) => {
     navigate(`/product/update/${product_id}`);
   };
 
+  const purchaseRedirect = () => {
+    navigate(`/payment/checkout/${product_id}`);
+  };
+
   useEffect(() => {
     const getDetails = async () => {
       try {
@@ -148,7 +152,9 @@ const ProductDetails = ({ authData }) => {
                 </button>
               </>
             ) : (
-              <button className="add-to-cart">Buy it now</button>
+              <button className="add-to-cart" onClick={purchaseRedirect}>
+                Buy it now
+              </button>
             )}
             <p className="seller-name">
               Seller: {productDetails.customerUsername}
