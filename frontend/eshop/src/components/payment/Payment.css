@@ -1,0 +1,37 @@
+.center-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.checkout-image {
+  max-height: 70vh;
+}
+
+.description-checkout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.checkout-price {
+  font-family: "Fraunces";
+  font-size: 2.75rem;
+}
+
+@media (max-width: 35rem) {
+  .center-div {
+    flex-direction: column;
+  }
+  .checkout-image {
+    max-height: 30vh;
+    object-fit: cover;
+    width: 80%;
+  }
+  .description-checkout {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
