@@ -36,7 +36,7 @@ const ProductCard = ({ product, size, username }) => {
           ) : product.sold ? (
             <p className="sold-icon">SOLD</p>
           ) : (
-            <button className="add-to-cart">Purchase</button>
+            username && <button className="add-to-cart">Purchase</button>
           )}
         </div>
       </div>
