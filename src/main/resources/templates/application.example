@@ -1,1 +1,3 @@
 spring.application.encryptionKey=${EncryptionKey}
+stripe.apiKey=${ApiKey}
+stripe.endpointSecret=${EndpointSecret}
