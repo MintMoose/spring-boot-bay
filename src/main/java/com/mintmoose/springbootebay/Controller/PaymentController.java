@@ -9,7 +9,6 @@ import com.stripe.param.checkout.SessionCreateParams;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
-import java.io.IOException;
 
 @RestController
 @RequestMapping("/payment")
@@ -65,6 +64,8 @@ public class PaymentController {
                     .build();
 
             Session session = Session.create(params);
+            product.setPaymentId(session.getPaymentIntent());
+            productService.updateProductDirectly(product);
 
             return new RedirectView(session.getUrl());
         } catch (StripeException e) {
