@@ -98,4 +98,8 @@ public class ProductService {
     public Page<Product> getUnsoldUserProducts(String username, Pageable pageable) {
         return productRepository.findAllByCustomerUsernameUnSold(username, pageable);
     }
+
+    public Product getProductByPaymentIntentId(String paymentIntentId) {
+        return productRepository.findAllByPaymentId(paymentIntentId);
+    }
 }
