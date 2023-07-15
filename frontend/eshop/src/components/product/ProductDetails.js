@@ -25,6 +25,10 @@ const ProductDetails = ({ authData }) => {
     navigate(`/payment/checkout/${product_id}`);
   };
 
+  const redirectSignIn = () => {
+    navigate("/login");
+  };
+
   useEffect(() => {
     const getDetails = async () => {
       try {
@@ -151,9 +155,13 @@ const ProductDetails = ({ authData }) => {
                   Update
                 </button>
               </>
-            ) : (
+            ) : authData.username ? (
               <button className="add-to-cart" onClick={purchaseRedirect}>
                 Buy it now
+              </button>
+            ) : (
+              <button className="update-button" onClick={redirectSignIn}>
+                Sign In
               </button>
             )}
             <p className="seller-name">
