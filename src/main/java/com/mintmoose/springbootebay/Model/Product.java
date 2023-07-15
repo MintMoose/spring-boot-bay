@@ -25,6 +25,7 @@ public class Product {
     private Boolean sold;
     private String imageUrl;
     private String customerUsername;
+    private String paymentId;
 
 
 
