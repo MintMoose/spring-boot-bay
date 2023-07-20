@@ -19,7 +19,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     Optional<Customer> findByUsername(String username);
 
     @Query("SELECT c FROM Customer c")
-    Page<Product> findAllCustomers(Pageable pageable);
+    Page<Customer> findAllCustomers(Pageable pageable);
 
     Optional<Customer> findByEmail(String email);
 }
