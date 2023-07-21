@@ -26,9 +26,9 @@ public class AdminCustomerController {
     public ResponseEntity<?> getAllCustomers(@RequestParam(defaultValue = "0") int pageNumber) {
         int pageSize = 100; // Number of customers per page
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        Page<Product> productsPage = customerService.getAllCustomers(pageable);
-        if (productsPage.hasContent()) {
-            return ResponseEntity.ok(productsPage.getContent());
+        Page<Customer> customerPage = customerService.getAllCustomers(pageable);
+        if (customerPage.hasContent()) {
+            return ResponseEntity.ok(customerPage.getContent());
         }
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No customers found. How?");

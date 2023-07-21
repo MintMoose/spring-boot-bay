@@ -24,7 +24,7 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public Page<Product> getAllCustomers(Pageable pageable) {
+    public Page<Customer> getAllCustomers(Pageable pageable) {
         return customerRepository.findAllCustomers(pageable);
     }
 
@@ -53,18 +53,24 @@ public class CustomerService {
         Customer oldCustomer = getCustomer(customerId)
                 .orElseThrow(() -> new IllegalArgumentException("No such customer exists"));
 
+        boolean updated = false;
 
         if (!request.name().isEmpty()) {
             oldCustomer.setName(request.name());
+            updated = true;
+
+        }
+        if (!request.email().isEmpty()) {
+            oldCustomer.setEmail(request.email());
+            updated = true;
+        }
+        if (!request.password().isEmpty()) {
+            oldCustomer.setPassword(request.password());
+            updated = true;
+        }
+        if (updated) {
             return customerRepository.save(oldCustomer);
         }
-//        if (!request.email().isEmpty()) {
-//            oldCustomer.setEmail(request.email());
-//        }
-//        if (!request.password().isEmpty()) {
-//            oldCustomer.setPassword(request.password());
-//        }
-
         throw new IllegalArgumentException("No change made.");
     }
 

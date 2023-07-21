@@ -23,7 +23,8 @@ public class RegistrationService {
 
         if (request.getUsername() == null || request.getUsername().isEmpty()
                 || request.getName() == null || request.getName().isEmpty()
-                || request.getEmail() == null || request.getEmail().isEmpty()) {
+                || request.getEmail() == null || request.getEmail().isEmpty()
+                || request.getPassword() == null || request.getPassword().isEmpty()) {
             throw new IllegalArgumentException("All request parameters are required.");
         }
 
