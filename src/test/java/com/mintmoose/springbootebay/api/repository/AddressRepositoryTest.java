@@ -2,7 +2,6 @@ package com.mintmoose.springbootebay.api.repository;
 
 import com.mintmoose.springbootebay.Model.Address;
 import com.mintmoose.springbootebay.Repos.AddressRepository;
-import jakarta.transaction.Transactional;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,13 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.Optional;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
-public class AddressRepositoryTests {
+public class AddressRepositoryTest {
 
     @Autowired
     private AddressRepository addressRepository;

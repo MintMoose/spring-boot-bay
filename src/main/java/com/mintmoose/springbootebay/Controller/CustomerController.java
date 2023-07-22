@@ -3,7 +3,6 @@ package com.mintmoose.springbootebay.Controller;
 import com.mintmoose.springbootebay.Config.JwtService;
 import com.mintmoose.springbootebay.Model.Customer;
 import com.mintmoose.springbootebay.Model.NewCustomerRequest;
-import com.mintmoose.springbootebay.Model.Product;
 import com.mintmoose.springbootebay.Service.CustomerService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,7 +37,10 @@ public class CustomerController {
         if (authentication.isAuthenticated()) {
             String username = authentication.getName();
             Customer requestCustomer = customerService.getCustomerByUsername(username)
-                    .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
+                    .orElse(null); // Use null instead of throwing an exception
+            if (requestCustomer == null || !requestCustomer.getUsername().equals(customerUsername)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Invalid authorization.");
+            }
             try {
                 if (Objects.equals(customerUsername, username)) {
                     customerService.deleteCustomer(requestCustomer.getCustomerId());
@@ -55,9 +57,15 @@ public class CustomerController {
     public ResponseEntity<?> updateCustomer(@PathVariable String customerUsername, @RequestBody NewCustomerRequest request, Authentication authentication) {
         if (authentication.isAuthenticated()) {
             String username = authentication.getName();
+            System.out.println(username);
             Customer requestCustomer = customerService.getCustomerByUsername(username)
-                    .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
+                    .orElse(null); // Use null instead of throwing an exception
+            if (requestCustomer == null || !requestCustomer.getUsername().equals(customerUsername)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Invalid authorization.");
+            }
+            System.out.println(requestCustomer);
             Customer updatedCustomer = customerService.updateCustomer(requestCustomer.getCustomerId(), request);
+            System.out.println(updatedCustomer);
             return ResponseEntity.ok(updatedCustomer.toDTO());
 //          return ResponseEntity.status(HttpStatus.OK).body("Customer updated successfully.");
         }

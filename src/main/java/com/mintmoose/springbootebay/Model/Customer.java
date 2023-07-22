@@ -49,6 +49,15 @@ public class Customer implements UserDetails {
         this.role = Role.USER;
     }
 
+    public Customer(Long customerId, String username, String name, String email, String password) {
+        this.customerId = customerId;
+        this.username = username;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = Role.USER;
+    }
+
     public void setRole(Role role) {
         this.role = role;
     }

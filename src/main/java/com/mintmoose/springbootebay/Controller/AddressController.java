@@ -41,7 +41,7 @@ public class AddressController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
             }
         }
-        return ResponseEntity.ok(addressService.getAddressById(id));
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Access denied. Invalid authorization.");
     }
 
     @GetMapping("/{customerId}")

@@ -16,7 +16,7 @@ import org.springframework.data.domain.Pageable;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
-public class ProductRepositoryTests {
+public class ProductRepositoryTest {
 
     @Autowired
     private ProductRepository productRepository;
