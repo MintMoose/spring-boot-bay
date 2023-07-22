@@ -16,7 +16,7 @@ import java.util.List;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
-public class OrderRepositoryTests {
+public class OrderRepositoryTest {
 
     @Autowired
     private OrderRepository orderRepository;

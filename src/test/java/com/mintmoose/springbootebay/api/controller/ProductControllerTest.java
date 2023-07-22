@@ -41,7 +41,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(ProductController.class)
 @AutoConfigureMockMvc(addFilters = false)
-public class ProductControllerTests {
+public class ProductControllerTest {
 
     @MockBean
     private ProductService productService;

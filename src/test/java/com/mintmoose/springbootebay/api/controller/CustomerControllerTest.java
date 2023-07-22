@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @AutoConfigureMockMvc(addFilters = false)
-class CustomerControllerTests {
+class CustomerControllerTest {
 
     @Mock
     private CustomerService customerService;

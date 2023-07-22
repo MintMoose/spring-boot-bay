@@ -15,7 +15,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PaymentControllerTests {
+public class PaymentControllerTest {
 
     @InjectMocks
     private PaymentController paymentController;

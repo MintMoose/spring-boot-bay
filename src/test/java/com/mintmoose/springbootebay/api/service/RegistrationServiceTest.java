@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.lang.reflect.Field;
 import static org.junit.jupiter.api.Assertions.*;
 
-class RegistrationServiceTests {
+class RegistrationServiceTest {
 
     @Mock
     private CustomerRepository customerRepository;

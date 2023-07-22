@@ -25,7 +25,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AnonymousControllerTests {
+public class AnonymousControllerTest {
 
     @InjectMocks
     private AnonymousController anonymousController;

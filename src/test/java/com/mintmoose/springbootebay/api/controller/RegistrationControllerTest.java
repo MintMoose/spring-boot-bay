@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class RegistrationControllerTests {
+public class RegistrationControllerTest {
 
     @Mock
     private RegistrationService registrationService;

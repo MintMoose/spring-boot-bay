@@ -19,7 +19,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AuthenticationControllerTests {
+public class AuthenticationControllerTest {
 
     @Mock
     private AuthenticationService authenticationService;

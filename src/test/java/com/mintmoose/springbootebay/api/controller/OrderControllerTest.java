@@ -24,7 +24,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class OrderControllerTests {
+public class OrderControllerTest {
 
     @InjectMocks
     private OrderController orderController;
