@@ -30,10 +30,10 @@ The frontend, developed with React, provides a user-friendly interface for brows
 
 Developing my first CRUD Spring Boot application has been a valuable learning experience. Through this project, I gained a deeper understanding of the Spring Boot framework, RESTful API development, CORS, and the fundamentals of database management. It allowed me to grasp the concepts of user authentication, JWT tokens, and integrating third-party APIs.
 
-There were instances where the focus was on getting things working rather than finding the optimal solutions. As a result, the codebase may not be as clean and organized as i would have desired (especially in the frontend code).
+There were instances where the focus was on getting things working rather than finding the optimal solutions. As a result, the codebase may not be as clean and organised as i would have desired (especially in the frontend code).
 
-This experience has underscored the significance of upholding clean and well-organized code.
-The importance of prioritizing writing clean, modular, and maintainable code. I understand that investing time and effort in creating an organized codebase pays off in the long run, benefiting not only myself but also for the entire development cycle/team.
+This experience has underscored the significance of upholding clean and well-organised code.
+The importance of prioritising writing clean, modular, and maintainable code. I understand that investing time and effort in creating an organised codebase pays off in the long run, benefiting not only myself but also for the entire development cycle/team.
 
 Despite these challenges, the current project showcases the ability to deliver functional solutions within given constraints. It serves as a valuable learning experience and a foundation for future improvements, demonstrating the determination and adaptability required in software development.
 
@@ -43,13 +43,13 @@ Moving forward, the need to address weak input validation is apparent in order t
 
 In addition to strengthening validation logic, a focus on implementing continuous integration and continuous delivery (CI/CD) practices will be pursued. This approach will streamline testing and deployment processes, allowing for more efficient and reliable software development.
 
-Optimizing the user experience and design will also be a key priority. By refining the user interface (UI), improving navigation, and enhancing the overall user flow, the application will deliver an intuitive and visually appealing experience.
+Optimising the user experience and design will also be a key priority. By refining the user interface (UI), improving navigation, and enhancing the overall user flow, the application will deliver an intuitive and visually appealing experience.
 
-Security concerns will remain at the forefront, with the implementation of secure authentication and authorization mechanisms, as well as measures to protect sensitive information and address potential vulnerabilities.
+Security concerns will remain at the forefront, with the implementation of secure authentication and authorisation mechanisms, as well as measures to protect sensitive information and address potential vulnerabilities.
 
 Considering the future direction of the application, exploring microservices architecture may be considered to leverage the benefits of scalability and maintainability.
 
-Please note that this project utilizes HTTP instead of HTTPS for simplicity in a local development environment.
+Please note that this project utilises HTTP instead of HTTPS for simplicity in a local development environment.
 
 The current implementation also stores sensitive configuration keys, such as API keys and database credentials, directly in the application's configuration files, such as application.yaml and application.properties. While this approach is suitable for local development and learning purposes, it is not recommended for production environments.
 
