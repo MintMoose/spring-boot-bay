@@ -9,6 +9,7 @@ const ProductDisplay = ({ product_id, productDetails }) => (
     <div className="center-div">
       <img
         className="checkout-image"
+        // src={productDetails.imageUrl}
         src={rob}
         alt="The cover of Stubborn Attachments"
       />
