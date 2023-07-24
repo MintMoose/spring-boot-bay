@@ -9,8 +9,8 @@ The frontend, developed with React, provides a user-friendly interface for brows
 ## Table of contents
 
   - [Screenshot](#screenshots)
-  - [Planning and Testing](#planning-and-testing)
   - [Technologies Used](#technologies-used)
+  - [Planning and Testing](#planning-and-testing)
   - [Challenges Faced](#challenges-faced)
   - [Key Learnings](#key-learnings)
   - [Continued development](#continued-development)
@@ -21,19 +21,14 @@ The frontend, developed with React, provides a user-friendly interface for brows
   <img src=images/product-page-mobile.jpg height=400/>
     <img src=images/CheckoutPageAll.jpg height=300/>
   <img src=images/my-products.jpg height=300/>
-<img src=images/erd_psql_db.png height=300/>
-<img src=images/productPageBoth.jpg height=300/>
+<img src=images/productPageBoth.jpg height=330/>
+  <img src=images/create-product.png height=330/>
   <img src=images/products-list.jpg height=300/>
-  <img src=images/spring-event-combined.png height=300/>
-  <img src=images/create-product.png height=300/>
+  
   <img src=images/my-orders.png height=300/>
   <img src=images/address.png height=300/>
-  <img src=images/test-coverage.png height=200/>
-  <img src=images/tests-ran.png height=200/>
 </span>
 
-
-## Planning and Testing
 
 ## Technologies Used
 
@@ -66,7 +61,14 @@ The frontend, developed with React, provides a user-friendly interface for brows
 - Development Tools:
   - IDE (IntelliJ, Visual Studio Code)
   - Package Managers (npm, Maven)
-
+ 
+## Planning and Testing
+<span>
+    <img src=images/spring-event-combined.png height=300/>
+<img src=images/erd_psql_db.png height=330/>
+  <img src=images/test-coverage.png height=300/>
+  <img src=images/tests-ran.png height=300/>
+</span>
 
 ## Challenges Faced
 
