@@ -28,6 +28,8 @@ The frontend, developed with React, provides a user-friendly interface for brows
   <img src=images/create-product.png height=300/>
   <img src=images/my-orders.png height=300/>
   <img src=images/address.png height=300/>
+  <img src=images/test-coverage.png height=200/>
+  <img src=images/tests-ran.png height=200/>
 </span>
 
 
