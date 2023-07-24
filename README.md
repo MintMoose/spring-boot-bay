@@ -17,6 +17,16 @@ The frontend, developed with React, provides a user-friendly interface for brows
 
 ## Screenshots
 <span>
+  <img src=images/homepage-loggedIn.png height=400/>
+  <img src=images/product-page-mobile.jpg height=400/>
+    <img src=images/CheckoutPageAll.jpg height=300/>
+  <img src=images/my-products.jpg height=300/>
+<img src=images/erd_psql_db.png height=300/>
+<img src=images/productPageBoth.jpg height=300/>
+  <img src=images/products-list.jpg height=300/>
+  <img src=images/spring-event-combined.png height=300/>
+  <img src=images/create-product.png height=300/>
+  <img src=images/my-orders.png height=300/>
 </span>
 
 
