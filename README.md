@@ -63,9 +63,12 @@ The frontend, developed with React, provides a user-friendly interface for brows
   - Package Managers (npm, Maven)
  
 ## Planning and Testing
+
 <span>
+  <p>Stripe Dev Mode<p/>
     <img src=images/spring-event-combined.png height=300/>
 <img src=images/erd_psql_db.png height=330/>
+  <p>Test Coverage<p/>
   <img src=images/test-coverage.png height=300/>
   <img src=images/tests-ran.png height=300/>
 </span>
