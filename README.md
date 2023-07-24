@@ -52,7 +52,7 @@ The frontend, developed with React, provides a user-friendly interface for brows
   - Mockito
 
 - Deployment and Environment:
-  - Docker (for containerisation)
+  - Docker (for containerization)
 
 - Version Control:
   - Git
