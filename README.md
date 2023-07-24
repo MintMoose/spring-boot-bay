@@ -52,7 +52,7 @@ The frontend, developed with React, provides a user-friendly interface for brows
   - Mockito
 
 - Deployment and Environment:
-  - Docker (for containerization)
+  - Docker (for containerisation)
 
 - Version Control:
   - Git
@@ -80,7 +80,7 @@ The complexity of defining access rules, roles, and permissions, as well as hand
 
 ### Security Vulnerabilities
 
-Addressing security vulnerabilities was a top priority throughout the development of the application. Identifying potential security risks, such as SQL injection, Cross-Site Scripting (XSS), and Cross-Site Request Forgery (CSRF), was an ongoing challenge. While Spring Security helps protect against common threats, it was essential to implement proper input validation, parameterised queries, and data sanitization to prevent security breaches.
+Addressing security vulnerabilities was a top priority throughout the development of the application. Identifying potential security risks, such as SQL injection, Cross-Site Scripting (XSS), and Cross-Site Request Forgery (CSRF), was an ongoing challenge. While Spring Security helps protect against common threats, it was essential to implement proper input validation, parameterised queries, and data sanitisation to prevent security breaches.
 
 Furthermore, staying updated on the latest security best practices and patches for third-party dependencies was crucial to maintain a secure codebase. Regular security audits and vulnerability assessments were performed to identify and mitigate any potential weaknesses in the application's defenses.
 
