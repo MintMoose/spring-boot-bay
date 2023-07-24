@@ -27,6 +27,7 @@ The frontend, developed with React, provides a user-friendly interface for brows
   <img src=images/spring-event-combined.png height=300/>
   <img src=images/create-product.png height=300/>
   <img src=images/my-orders.png height=300/>
+  <img src=images/address.png height=300/>
 </span>
 
 
