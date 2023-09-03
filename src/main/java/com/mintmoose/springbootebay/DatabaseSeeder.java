@@ -54,8 +54,8 @@ public class DatabaseSeeder implements CommandLineRunner {
         customerRepository.save(admin1);
 
         // EXTRA
-        Customer entity3 = new Customer("ElectricJellyfish88", "Emily Thompson",
-                "ziggy.thunderstrike@example.com", passwordEncoder.encode("Lightning789$"));
+        Customer entity3 = new Customer("electric", "Emily Thompson",
+                "ziggy.thunderstrike@example.com", passwordEncoder.encode("pass"));
 
         Customer entity4 = new Customer("MysteryWalker", "Oliver Mitchell",
                 "oliver.mitchell@example.com", passwordEncoder.encode("Galaxy456#"));
