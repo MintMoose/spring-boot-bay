@@ -20,8 +20,6 @@ target/
 *.ipr
 
 ## setup files ##
-*.yml
-*.yaml
 *.properties
 src/main/resources/.env
 
