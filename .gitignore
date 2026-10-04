@@ -1,5 +1,6 @@
 HELP.md
 target/
+/temp/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -18,9 +19,11 @@ target/
 *.iws
 *.iml
 *.ipr
+/.env
 
 ## setup files ##
 *.properties
+!src/main/resources/application.properties
 src/main/resources/.env
 
 ### NetBeans ###
