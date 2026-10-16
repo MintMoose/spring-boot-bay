@@ -1,3 +1,4 @@
+name: spring-boot-bay-local
 services:
   db:
     container_name: Spring-boot-db

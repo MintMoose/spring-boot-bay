@@ -40,14 +40,12 @@ function App() {
     const jwtCookie = Cookies.get("jwt");
     const usernameCookie = Cookies.get("username");
     if (jwtCookie) {
-      console.log(jwtCookie);
       setAuthData((prevAuthData) => ({
         ...prevAuthData,
         isLoggedIn: true,
       }));
     }
     if (usernameCookie) {
-      console.log(usernameCookie);
       setAuthData((prevAuthData) => ({
         ...prevAuthData,
         username: usernameCookie,

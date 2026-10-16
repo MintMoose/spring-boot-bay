@@ -143,9 +143,9 @@ public class ProductController {
     public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id, Authentication authentication) {
         if (authentication.isAuthenticated()) {
             String username = authentication.getName();
-//            Customer requestCustomer = customerService.getCustomerByUsername(username)
-//                    .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
-            if (Objects.equals(productService.getProductById(id).getCustomerUsername(), "john_doe")) {
+           Customer requestCustomer = customerService.getCustomerByUsername(username)
+                   .orElseThrow(() -> new IllegalArgumentException("Access denied. Invalid authorization."));
+            if (Objects.equals(productService.getProductById(id).getCustomerUsername(), requestCustomer.getUsername())) {
                 productService.deleteProduct(id);
                 return ResponseEntity.status(HttpStatus.OK).body("Product deleted successfully.");
             }
